@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import '@/stylesheets/commonClasses.css';
+
 import LayoutProvider from '@/components/LayoutProvider';
 
 export const metadata: Metadata = {
