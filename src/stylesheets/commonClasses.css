@@ -1,7 +1,13 @@
 :root {
-  --primary: #213555 !important;
+  --primary: #1ab69e !important;
 }
 
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+.text-primary {
+  color: var(--primary) !important;
+}
 /* spacing classes */
 .m-auto {
   margin: 0 auto;
