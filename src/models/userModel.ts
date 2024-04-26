@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema(
   {
+    userType: {
+      type: String,
+      required: true,
+      default: 'jobSeeker',
+    },
     name: {
       type: String,
       required: true,
@@ -14,6 +19,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
     isAdmin: {
       type: Boolean,
       required: true,
@@ -24,8 +30,10 @@ const userSchema = new mongoose.Schema(
 );
 
 // delete old model if exists
-const userModel = mongoose.model('user');
-mongoose.deleteModel(userModel.modelName);
+if (mongoose.models.users) {
+  const userModel = mongoose.model('user');
+  mongoose.deleteModel(userModel.modelName);
+}
 
 // create new model
 const User = mongoose.model('users', userSchema);

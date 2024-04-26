@@ -1,10 +1,20 @@
 'use client';
-import React from 'react';
-import { Button, Form, Input, Radio } from 'antd';
+import React, { useState } from 'react';
+import { Button, Form, Input, Radio, message } from 'antd';
 import Link from 'next/link';
-const Login = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+import axios from 'axios';
+const Register = () => {
+  const [userType, setUserType] = useState('');
+  const handleUserTypeChange = (e: any) => {
+    setUserType(e.target.value);
+  };
+  const onFinish = async (values: any) => {
+    try {
+      const response = await axios.post('/api/users/register', values);
+      message.success(response.data.message);
+    } catch (error: any) {
+      message.error(error.response.data.message || 'Something went wrong!');
+    }
   };
   return (
     <div className='flex justify-center h-screen items-center '>
@@ -20,15 +30,18 @@ const Login = () => {
           layout='vertical'
           className=' flex item-center flex-col'
         >
-          <Form.Item label='Register as' name='userTypes'>
-            <Radio.Group>
+          <Form.Item label='Register as' name='userType'>
+            <Radio.Group onChange={handleUserTypeChange} value={userType}>
               <Radio value='employer' className=''>
                 Employer
               </Radio>
               <Radio value='jobSeeker'>Job Seeker</Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item label=' Name' name='name'>
+          <Form.Item
+            label={userType == 'employer' ? 'Company Name' : 'User Name'}
+            name='name'
+          >
             <input type='text' className='input' />
           </Form.Item>
           <Form.Item label='Email' name='email'>
@@ -49,4 +62,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
