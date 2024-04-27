@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       userId: user._id,
       email: user.email,
     };
-    const token = jwt.sign(dataTobeSigned, process.env.jwt_secret, {
+    const token = jwt.sign(dataTobeSigned, process.env.JWT_SECRET!, {
       expiresIn: '1d',
     });
 
@@ -45,6 +45,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 1000, // 1 day
     });
+    return response;
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }

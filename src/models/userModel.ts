@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
 
 // delete old model if exists
 if (mongoose.models.users) {
-  const userModel = mongoose.model('user');
+  const userModel = mongoose.model('users');
   mongoose.deleteModel(userModel.modelName);
 }
 
