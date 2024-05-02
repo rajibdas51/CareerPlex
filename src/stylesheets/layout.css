@@ -1,0 +1,89 @@
+.layout-parent {
+  display: flex;
+  padding: 10px;
+  gap: 10px;
+  height: 100vh;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background-color: #1e2028;
+  border-radius: 4px;
+  padding: 5px 15px;
+  color: #c7cbd8;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.logo i {
+  font-size: 1.5rem;
+  color: white;
+  margin-top: -2px;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-left: 0px 15px;
+}
+.menu-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: #c7cbd8;
+  padding: 10px 0px 10px 10px;
+}
+.menu-item i {
+  font-size: 1.3rem;
+}
+.menu-item span {
+  font-size: 1rem;
+}
+.active-menu-item {
+  background-color: var(--primary);
+  color: white;
+  padding: 10px 0px 10px 10px;
+  border-radius: 5px;
+}
+.menu-item-collapsed {
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px;
+}
+.user-info-wraper {
+  display: flex;
+  align-items: flex-start;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profile-img img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.ri-logout-circle-line {
+  font-size: 1.5rem;
+  padding-left: 10px;
+}
+
+.logout-icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}

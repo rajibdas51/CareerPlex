@@ -5,8 +5,8 @@ import { Next } from 'react-bootstrap/esm/PageItem';
 
 export async function GET(request: NextRequest) {
   try {
+    // get the user id from the token
     const userId = await validateJWT(request);
-    console.log('token', request.cookies.get('token'));
     const user = await User.findById(userId).select('-password');
     if (!user) {
       throw new Error('User not found!!');
