@@ -25,6 +25,49 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    // additional fields for jobSeeker
+    skills: {
+      type: [],
+      required: false,
+    },
+    educaiton: {
+      type: [],
+      required: false,
+    },
+    experience: {
+      type: [],
+      required: false,
+    },
+    careerObjective: {
+      type: String,
+      required: false,
+    },
+
+    // additional fields for employer
+    companyName: {
+      type: String,
+      required: false,
+    },
+    establishmentYear: {
+      type: String,
+      required: false,
+    },
+    companySize: {
+      type: String,
+      required: false,
+    },
+    website: {
+      type: String,
+      required: false,
+    },
+    about: {
+      type: String,
+      required: false,
+    },
+    address: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );
