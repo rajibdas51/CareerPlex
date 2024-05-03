@@ -2,7 +2,9 @@ import User from '@/models/userModel';
 import { validateJWT } from './../../../../helpers/validateJWT';
 import { NextRequest, NextResponse } from 'next/server';
 import { Next } from 'react-bootstrap/esm/PageItem';
+import { connectDb } from '@/config/dbConfig';
 
+connectDb();
 export async function GET(request: NextRequest) {
   try {
     // get the user id from the token
