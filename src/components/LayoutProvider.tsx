@@ -108,8 +108,8 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
                 {menusItems.map((item, index) => {
                   const isActive: boolean = pathname === item.path;
                   return (
-                    <Link
-                      href={item.path}
+                    <div
+                      onClick={() => router.push(item.path)}
                       key={index}
                       className={`menu-item ${
                         isActive ? 'active-menu-item' : ''
@@ -117,7 +117,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
                     >
                       <i className={item.icon}></i>
                       {isSidebarOpen && <span>{item.name}</span>}
-                    </Link>
+                    </div>
                   );
                 })}
               </div>

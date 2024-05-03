@@ -3,6 +3,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 * {
@@ -10,13 +11,18 @@ body {
   box-sizing: border-box;
 }
 
-.input {
+input,
+textarea {
   height: 45px;
   width: 100%;
   border: 1px solid #616161;
   border-radius: 4px;
 }
-.input:focus {
+textarea {
+  min-height: 45px;
+}
+input:focus,
+textarea:focus {
   outline: none;
   border: 2px solid #121212;
 }
@@ -48,4 +54,15 @@ button {
 }
 
 .border-primary {
+}
+
+.pageTitle-wrapper {
+  width: fit-content;
+  border-bottom: 2px solid var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+.ri-delete-bin-5-line {
+  font-size: 25px;
+  padding-left: 1rem;
 }
