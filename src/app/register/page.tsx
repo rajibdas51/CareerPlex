@@ -3,17 +3,23 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Radio, message } from 'antd';
 import Link from 'next/link';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '@/redux/loadersSlice';
 const Register = () => {
+  const dispatch = useDispatch();
   const [userType, setUserType] = useState('');
   const handleUserTypeChange = (e: any) => {
     setUserType(e.target.value);
   };
   const onFinish = async (values: any) => {
     try {
+      dispatch(setLoading(true));
       const response = await axios.post('/api/users/register', values);
       message.success(response.data.message);
     } catch (error: any) {
       message.error(error.response.data.message || 'Something went wrong!');
+    } finally {
+      dispatch(setLoading(false));
     }
   };
   return (

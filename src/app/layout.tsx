@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import '@/stylesheets/commonClasses.css';
 import '@/stylesheets/layout.css';
+import '@/stylesheets/loader.css';
 import dynamic from 'next/dynamic';
 
 import LayoutProvider from '@/components/LayoutProvider';

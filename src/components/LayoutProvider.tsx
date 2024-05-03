@@ -9,11 +9,14 @@ import { setCurrentUser } from '@/redux/usersSlice';
 
 import dynamic from 'next/dynamic';
 import ReduxProvider from './ReduxProvider';
+import Loader from './Loader';
+import { setLoading } from '@/redux/loadersSlice';
 
 function LayoutProvider({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.users);
+  const { isLoading } = useSelector((state: any) => state.loaders);
   const menusItems = [
     { name: 'Home', path: '/', icon: 'ri-home-4-fill' },
     { name: 'Profile', path: '/profile', icon: 'ri-shield-user-fill' },
@@ -25,10 +28,13 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
   // get the current user
   const getCurrentUser = async () => {
     try {
+      dispatch(setLoading(true));
       const response = await axios.get('/api/users/currentuser');
       dispatch(setCurrentUser(response.data.data));
     } catch (error: any) {
       message.error(error.response.data.message || 'Something went wrong!');
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -58,6 +64,8 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
         },
       }}
     >
+      {/*loader component*/}
+      {isLoading && <Loader />}
       {pathname === '/login' || pathname === '/register' ? (
         <div>{children}</div>
       ) : (
