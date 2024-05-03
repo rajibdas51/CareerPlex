@@ -11,9 +11,11 @@ import dynamic from 'next/dynamic';
 import ReduxProvider from './ReduxProvider';
 import Loader from './Loader';
 import { setLoading } from '@/redux/loadersSlice';
+import { useRouter } from 'next/navigation';
 
 function LayoutProvider({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
+  const router = useRouter();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.users);
   const { isLoading } = useSelector((state: any) => state.loaders);
@@ -47,6 +49,21 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
       getCurrentUser();
     }
   }, [pathname]);
+
+  // Logout function
+  const logOut = async () => {
+    try {
+      dispatch(setLoading(true));
+      await axios.post('/api/users/logout');
+      message.success('Logged out successfully!');
+      dispatch(setCurrentUser(null));
+      router.push('/login');
+    } catch (error: any) {
+      message.error(error.response.data.message || 'Logout failed!');
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
   return (
     <ConfigProvider
       theme={{
@@ -110,16 +127,22 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
                     <div className='user-info'>
                       <span>{currentUser?.name}</span>
                       <span>
-                        <i className='ri-logout-circle-line'></i>
+                        <i
+                          onClick={logOut}
+                          className='ri-logout-circle-line'
+                        ></i>
                       </span>
                     </div>
                   </div>
                 )}
                 {!isSidebarOpen && (
-                  <div className='logout-icon'>
+                  <button className='logout-icon'>
                     {' '}
-                    <i className='ri-logout-circle-line'></i>{' '}
-                  </div>
+                    <i
+                      onClick={logOut}
+                      className='ri-logout-circle-line'
+                    ></i>{' '}
+                  </button>
                 )}
               </div>
             </div>

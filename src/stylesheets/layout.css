@@ -34,7 +34,7 @@
 .menu-items {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   padding-left: 0px 15px;
 }
 .menu-item {
@@ -80,10 +80,15 @@
 .ri-logout-circle-line {
   font-size: 1.5rem;
   padding-left: 10px;
+  cursor: pointer;
 }
 
 .logout-icon {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  cursor: pointer;
+}
+.logout-icon:hover {
+  color: var(--primary);
 }
