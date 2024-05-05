@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, ConfigProvider, Space, message } from 'antd';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -19,19 +19,27 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.users);
   const { isLoading } = useSelector((state: any) => state.loaders);
-  const menusItems = [
+  const [menuItems, setMenuItems] = useState([
     { name: 'Home', path: '/', icon: 'ri-home-4-fill' },
     { name: 'Profile', path: '/profile', icon: 'ri-shield-user-fill' },
     { name: 'Application', path: '/application', icon: 'ri-file-list-3-line' },
     { name: 'Settings', path: '/settings', icon: 'ri-settings-5-line' },
     { name: 'Saved', path: '/saved', icon: 'ri-save-3-fill' },
-  ];
+  ]);
 
   // get the current user
   const getCurrentUser = async () => {
     try {
       dispatch(setLoading(true));
       const response = await axios.get('/api/users/currentuser');
+
+      const isEmployer = response.data.data.userType === 'employer';
+      if (isEmployer) {
+        let tempMenus = menuItems;
+        tempMenus[2].name = 'Posted Jobs';
+        tempMenus[2].path = '/jobs';
+        setMenuItems(tempMenus);
+      }
       dispatch(setCurrentUser(response.data.data));
     } catch (error: any) {
       message.error(error.response.data.message || 'Something went wrong!');
@@ -105,7 +113,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
                 )}
               </div>
               <div className='menu-items'>
-                {menusItems.map((item, index) => {
+                {menuItems.map((item, index) => {
                   const isActive: boolean = pathname === item.path;
                   return (
                     <div

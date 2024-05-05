@@ -4,7 +4,7 @@
   gap: 10px;
   height: 100vh;
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .body {
   width: 100%;
@@ -54,7 +54,7 @@
   cursor: pointer;
   text-decoration: none;
   color: #c7cbd8;
-  padding: 10px 0px 10px 10px;
+  padding: 10px 0px 10px 8px;
 }
 .menu-item i {
   font-size: 1.3rem;
@@ -65,7 +65,7 @@
 .active-menu-item {
   background-color: var(--primary);
   color: white;
-  padding: 10px 0px 10px 10px;
+  padding: 10px 0px 10px 8px;
   border-radius: 5px;
 }
 .menu-item-collapsed {
