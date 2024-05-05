@@ -79,12 +79,21 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
           // Seed Token
           colorPrimary: '#1ab69e ',
           borderRadius: 2,
+          colorPrimaryHover: '#1ab69e',
 
+          // form Input
           // radio button
         },
         components: {
           Radio: {
             buttonSolidCheckedActiveBg: '#1ab69e',
+          },
+          Input: {
+            activeBorderColor: '#1ab69e',
+            hoverBorderColor: '#1ab69e',
+          },
+          Select: {
+            optionSelectedColor: '#1ab69e',
           },
         },
       }}
