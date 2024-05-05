@@ -11,6 +11,11 @@ body {
   box-sizing: border-box;
 }
 
+.ri-file-edit-fill,
+.ri-delete-bin-line {
+  font-size: 20px !important;
+  cursor: pointer;
+}
 input,
 textarea,
 select,
@@ -47,6 +52,11 @@ select option:hover {
   background-color: white !important;
   color: #1ab69e;
 }
+
+table {
+  border: 1px solid #dbdbdb;
+}
+
 button {
   border: none;
   outline: none;
