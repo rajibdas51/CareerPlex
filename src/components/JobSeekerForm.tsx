@@ -4,7 +4,7 @@ import React from 'react';
 function JobSeekerForm() {
   return (
     <>
-      <Row gutter={[16, 0]}>
+      <Row gutter={[10, 0]}>
         <Col span={8}>
           <Form.Item
             label='Name'
@@ -35,7 +35,7 @@ function JobSeekerForm() {
         </Col>
       </Row>
       {/* ---------Education------*/}
-      <div className='my-4'>
+      <div className=''>
         <h1 className='text-md'>Education</h1>
         <Form.List name='education'>
           {(fields, { add, remove }) => (

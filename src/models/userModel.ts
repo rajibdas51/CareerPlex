@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    phone: {
+      required: false,
+      type: String,
+    },
     // additional fields for jobSeeker
     skills: {
       type: [],

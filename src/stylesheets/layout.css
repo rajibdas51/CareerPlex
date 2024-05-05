@@ -4,13 +4,16 @@
   gap: 10px;
   height: 100vh;
   width: 100%;
+  overflow: scroll;
 }
 .body {
   width: 100%;
+  height: auto;
   padding: 0px 10px;
   border: 1px solid grey;
   color: #232323;
   border-radius: 5px;
+  overflow-y: scroll;
 }
 .sidebar {
   display: flex;
