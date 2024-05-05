@@ -1,4 +1,4 @@
-import { Col, Form, Input, Row, Select } from 'antd';
+import { Col, DatePicker, Form, Input, Row, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import React from 'react';
 
@@ -27,7 +27,7 @@ function CreateJobForm() {
         <Form.Item
           label='Job Type'
           rules={[{ required: true, message: 'Please Select a Job Type!' }]}
-          name='type'
+          name='jobType'
         >
           <Select className='input' defaultValue='full-time'>
             <option value='full-time'>Full Time</option>
@@ -79,6 +79,20 @@ function CreateJobForm() {
       <Col span={8}>
         <Form.Item label=' Vacancies' name='vacancies'>
           <input type='number' />
+        </Form.Item>
+      </Col>
+      <Col span={8}>
+        <Form.Item label='DeadLine' name='deadline'>
+          <DatePicker
+            className='input'
+            format='YYYY-MM-DD'
+            placeholder='Select Date'
+          />
+        </Form.Item>
+      </Col>
+      <Col span={8}>
+        <Form.Item label='Skills required' name='skills'>
+          <input type='text' placeholder='Ex:React,js,Node,mysql' />
         </Form.Item>
       </Col>
     </Row>
