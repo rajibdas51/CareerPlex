@@ -6,7 +6,7 @@ import { message } from 'antd';
 connectDb();
 export async function POST(request: NextRequest) {
   try {
-    const userId = validateJWT(request);
+    const userId = await validateJWT(request);
 
     if (!userId) {
       return NextResponse.json(
@@ -21,9 +21,7 @@ export async function POST(request: NextRequest) {
       data: job,
     });
   } catch (error: any) {
-    return NextResponse.json(
-      { message: error.message, data: null },
-      { status: 500 }
-    );
+    console.log(error);
+    return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }

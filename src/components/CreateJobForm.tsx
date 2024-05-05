@@ -29,7 +29,7 @@ function CreateJobForm() {
           rules={[{ required: true, message: 'Please Select a Job Type!' }]}
           name='jobType'
         >
-          <Select className='input' defaultValue='full-time'>
+          <Select className='input'>
             <option value='full-time'>Full Time</option>
             <option value='part-time'>Part Time</option>
             <option value='contract'>Contractual</option>
@@ -60,7 +60,7 @@ function CreateJobForm() {
           rules={[{ required: true, message: 'Please Select Word Mode!' }]}
           name='workMode'
         >
-          <Select className='input' defaultValue='onSite'>
+          <Select className='input'>
             <option value='remote'>Remote</option>
             <option value='onSite'>on Site</option>
           </Select>
@@ -68,12 +68,12 @@ function CreateJobForm() {
       </Col>
       <Col span={8}>
         <Form.Item label='Salary From Range' name='salaryFromRange'>
-          <input />
+          <input type='number' />
         </Form.Item>
       </Col>
       <Col span={8}>
         <Form.Item label='Salary To Range' name='salaryToRange'>
-          <input />
+          <input type='number' />
         </Form.Item>
       </Col>
       <Col span={8}>
@@ -87,6 +87,7 @@ function CreateJobForm() {
             className='input'
             format='YYYY-MM-DD'
             placeholder='Select Date'
+            type='date'
           />
         </Form.Item>
       </Col>

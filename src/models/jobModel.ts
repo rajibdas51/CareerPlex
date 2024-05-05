@@ -3,9 +3,9 @@ import mongoose from 'mongoose';
 
 const JobSchema = new mongoose.Schema(
   {
-    User: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'users',
       required: true,
     },
     title: {
@@ -37,7 +37,7 @@ const JobSchema = new mongoose.Schema(
       required: true,
     },
     skills: {
-      type: [],
+      type: [String],
       required: true,
     },
     experience: {
