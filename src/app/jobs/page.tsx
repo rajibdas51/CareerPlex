@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { text } from 'stream/consumers';
-
+import moment from 'moment';
 function Jobs() {
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
@@ -31,7 +31,11 @@ function Jobs() {
 
   const columns = [
     { title: 'Title', dataIndex: 'title', key: 'title' },
-    { title: 'Posted On', dataIndex: 'createdAt' },
+    {
+      title: 'Posted On',
+      dataIndex: 'createdAt',
+      render: (text: any) => moment(text).format('DD-MM-YYYY hh:mm A'),
+    },
     { title: 'Location', dataIndex: 'location' },
     { title: 'Job Type', dataIndex: 'jobType' },
     { title: 'Work Mode', dataIndex: 'workMode' },
@@ -42,7 +46,7 @@ function Jobs() {
       render: (text: any, record: any) => (
         <div className='flex gap-3'>
           <i
-            onClick={() => router.push('jobs/edit/${record._id}')}
+            onClick={() => router.push(`jobs/edit/${record._id}`)}
             className='ri-file-edit-fill'
           ></i>
           <i className='ri-delete-bin-line'></i>
