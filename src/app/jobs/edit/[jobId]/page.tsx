@@ -5,10 +5,12 @@ import { Button, Form, message } from 'antd';
 import { setLoading } from '@/redux/loadersSlice';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 function EditJob() {
+  const [job, setJob] = useState({} as any);
+
   const router = useRouter();
   const { jobId } = useParams();
   const dispatch = useDispatch();
@@ -19,6 +21,18 @@ function EditJob() {
       const res = await axios.post('/api/jobs', values);
       message.success(res.data.message);
       router.push('/jobs');
+    } catch (error: any) {
+      message.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
+  const fetchJob = async () => {
+    try {
+      dispatch(setLoading(true));
+      const res = await axios.get(`/api/jobs/${jobId}`);
+      setJob(res.data.data);
     } catch (error: any) {
       message.error(error.message);
     } finally {
