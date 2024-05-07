@@ -30,7 +30,7 @@ export default function RootLayout({
           rel='stylesheet'
         />
       </head>
-      <body>
+      <body suppressHydrationWarning={true}>
         <ReduxProvider>
           <LayoutProvider>{children}</LayoutProvider>;
         </ReduxProvider>

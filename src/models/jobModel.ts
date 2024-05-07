@@ -50,7 +50,8 @@ const JobSchema = new mongoose.Schema(
     },
     deadline: {
       type: Date,
-      default: Date.now,
+      required: false,
+      // Set timezone to UTC to preserve user selection
     },
   },
   { timestamps: true }

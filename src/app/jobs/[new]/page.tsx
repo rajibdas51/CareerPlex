@@ -14,6 +14,7 @@ function NewJob() {
   const onFinish = async (values: any) => {
     try {
       dispatch(setLoading(true));
+
       const res = await axios.post('/api/jobs', values);
       message.success(res.data.message);
       router.push('/jobs');

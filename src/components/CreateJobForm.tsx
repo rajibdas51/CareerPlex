@@ -1,8 +1,19 @@
-import { Col, DatePicker, Form, Input, Row, Select } from 'antd';
+'use client';
+import { Col, DatePicker, Space, Form, Input, Row, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import React from 'react';
+import moment from 'moment';
+import React, { useState } from 'react';
+import type { DatePickerProps } from 'antd';
+import dayjs from 'dayjs';
 
-function CreateJobForm() {
+function CreateJobForm({ deadline }: any) {
+  const [selectedDate, setSelectedDate] = useState<String>('');
+  console.log(deadline);
+  // const onChange = (date: any) => {
+  //   const deadlineString = date?.toISOString(); // Convert to ISO 8601 with Z
+  //   // ... send deadlineString to your backend API for update operation
+  // };
+
   return (
     <Row gutter={16}>
       <Col span={24}>
@@ -81,16 +92,32 @@ function CreateJobForm() {
           <input type='number' />
         </Form.Item>
       </Col>
-      <Col span={8}>
-        <Form.Item label='DeadLine' name='deadline'>
-          <DatePicker
-            className='input'
-            format='YYYY-MM-DD'
-            placeholder='Select Date'
-            type='date'
-          />
-        </Form.Item>
-      </Col>
+
+      {deadline ? (
+        <Col span={8}>
+          <Form.Item label='DeadLine' name='Deadline'>
+            <DatePicker
+              className='input'
+              format='YYYY-MM-DD'
+              placeholder='Select Date'
+              type='date'
+              defaultValue={dayjs(`${deadline}`, 'YYYY-MM-DD')}
+            />
+          </Form.Item>
+        </Col>
+      ) : (
+        <Col span={8}>
+          <Form.Item label='DeadLine' name='deadline'>
+            <DatePicker
+              className='input'
+              format='YYYY-MM-DD'
+              placeholder='Select Date'
+              type='date'
+            />
+          </Form.Item>
+        </Col>
+      )}
+
       <Col span={8}>
         <Form.Item label='Skills required' name='skills'>
           <input type='text' placeholder='Ex:React,js,Node,mysql' />
