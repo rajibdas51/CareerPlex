@@ -6,10 +6,12 @@ import { Button, Table, message } from 'antd';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { text } from 'stream/consumers';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+
 function Jobs() {
+  const { currentUser } = useSelector((state: any) => state.users);
+  console.log(currentUser);
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -17,10 +19,10 @@ function Jobs() {
   const fetchJobs = async () => {
     try {
       dispatch(setLoading(true));
-      const res = await axios.get('/api/jobs');
+      const res = await axios.get(`/api/jobs?user=${currentUser._id}`);
       setJobs(res.data.data);
     } catch (error: any) {
-      message.error(error.response.data.message || error.message);
+      message.error(error?.response?.data?.message || error.message);
     } finally {
       dispatch(setLoading(false));
     }
@@ -42,6 +44,7 @@ function Jobs() {
       dispatch(setLoading(false));
     }
   };
+
   const columns = [
     { title: 'Title', dataIndex: 'title', key: 'title' },
     {
