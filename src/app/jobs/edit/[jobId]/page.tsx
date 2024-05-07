@@ -15,7 +15,6 @@ const dateFormat = 'YYYY-MM-DD';
 
 function EditJob() {
   const [job, setJob] = useState<any>(null);
-
   const router = useRouter();
   const { jobId } = useParams();
   const dispatch = useDispatch();

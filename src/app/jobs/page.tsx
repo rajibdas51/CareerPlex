@@ -13,6 +13,7 @@ function Jobs() {
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
   const dispatch = useDispatch();
+
   const fetchJobs = async () => {
     try {
       dispatch(setLoading(true));
@@ -29,6 +30,18 @@ function Jobs() {
     fetchJobs();
   }, []);
 
+  const deleteJob = async (id: string) => {
+    try {
+      dispatch(setLoading(true));
+      const res = await axios.delete(`/api/jobs/${id}`);
+      message.success(res.data.message);
+      fetchJobs();
+    } catch (error: any) {
+      message.error(error.response.data.message || error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
   const columns = [
     { title: 'Title', dataIndex: 'title', key: 'title' },
     {
@@ -49,7 +62,10 @@ function Jobs() {
             onClick={() => router.push(`jobs/edit/${record._id}`)}
             className='ri-file-edit-fill'
           ></i>
-          <i className='ri-delete-bin-line'></i>
+          <i
+            onClick={() => deleteJob(record._id)}
+            className='ri-delete-bin-line'
+          ></i>
         </div>
       ),
     },
