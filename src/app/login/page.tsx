@@ -35,14 +35,6 @@ const Login = () => {
           layout='vertical'
           className=' flex item-center flex-col'
         >
-          <Form.Item label='Login as' name='userType'>
-            <Radio.Group>
-              <Radio value='employer' className=''>
-                Employer
-              </Radio>
-              <Radio value='jobSeeker'>Job Seeker</Radio>
-            </Radio.Group>
-          </Form.Item>
           <Form.Item label='Email' name='email'>
             <input type='email' className='input' />
           </Form.Item>

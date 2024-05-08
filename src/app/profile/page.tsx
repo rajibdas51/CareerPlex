@@ -1,6 +1,7 @@
 'use client';
 import EmployerForm from '@/components/EmployerForm';
 import JobSeekerForm from '@/components/JobSeekerForm';
+import Image from 'next/image';
 import PageTitle from '@/components/PageTitle';
 import { setLoading } from '@/redux/loadersSlice';
 import { setCurrentUser } from '@/redux/usersSlice';
@@ -16,19 +17,27 @@ function Profile() {
     try {
       values._id = currentUser._id;
       values.userType = currentUser.userType;
-      // dispatch(setLoading(true));
+      dispatch(setLoading(true));
       const response = await axios.put('/api/users', values);
       dispatch(setCurrentUser(response.data.data));
       message.success('Profile updated successfully!');
     } catch (error: any) {
       message.error(error.response.data.message || 'Something went wrong!');
     } finally {
-      setLoading(false);
+      dispatch(setLoading(false));
     }
   };
   return (
     <div>
       <PageTitle title='Profile' />
+      <div className='flex justify-start'>
+        <Image
+          src={`company-default.svg`}
+          alt='avatar'
+          width={100}
+          height={100}
+        />
+      </div>
       <Form layout='vertical' onFinish={onFinish} initialValues={currentUser}>
         {currentUser.userType === 'employer' ? (
           <EmployerForm />
