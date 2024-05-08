@@ -22,7 +22,8 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
   const [menuItems, setMenuItems] = useState([
     { name: 'Home', path: '/', icon: 'ri-home-4-fill' },
     { name: 'Profile', path: '/profile', icon: 'ri-shield-user-fill' },
-    { name: 'Application', path: '/application', icon: 'ri-file-list-3-line' },
+    { name: 'Create Job', path: '/jobs/new', icon: 'ri-add-circle-fill' },
+    { name: 'Applications', path: '/application', icon: 'ri-file-list-3-line' },
     { name: 'Settings', path: '/settings', icon: 'ri-settings-5-line' },
     { name: 'Saved', path: '/saved', icon: 'ri-save-3-fill' },
   ]);
@@ -36,8 +37,8 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
       const isEmployer = response.data.data.userType === 'employer';
       if (isEmployer) {
         let tempMenus = menuItems;
-        tempMenus[2].name = 'Posted Jobs';
-        tempMenus[2].path = '/jobs';
+        tempMenus[3].name = 'Posted Jobs';
+        tempMenus[3].path = '/jobs';
         setMenuItems(tempMenus);
       }
       dispatch(setCurrentUser(response.data.data));

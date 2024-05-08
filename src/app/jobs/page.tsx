@@ -11,7 +11,7 @@ import moment from 'moment';
 
 function Jobs() {
   const { currentUser } = useSelector((state: any) => state.users);
-  console.log(currentUser);
+  //console.log(currentUser);
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
   const dispatch = useDispatch();
