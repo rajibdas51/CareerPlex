@@ -48,6 +48,14 @@
   margin-bottom: 12px;
 }
 
+.my-4 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.my-5 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .p-1 {
   padding: 4px;
 }

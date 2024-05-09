@@ -8,4 +8,7 @@ module.exports = {
   experimental: {
     serverComponentsExternalPackages: ['mongoose'],
   },
+  images: {
+    remotePatterns: [{ hostname: 'utfs.io' }],
+  },
 };

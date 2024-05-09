@@ -96,3 +96,46 @@ button {
   font-size: 25px;
   padding-left: 1rem;
 }
+
+/** Profile image upload button css */
+
+.upload-btn {
+  margin-left: 2rem;
+  margin-top: 20px;
+}
+.upload-btn > *[data-ut-element='button'] {
+  background-color: #1ab69e !important;
+  color: white !important;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.upload-btn > *[data-ut-element='button'][data-state='readying'] {
+  background-color: #5ed8c6 !important;
+  color: white !important;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.upload-btn > *[data-ut-element='button'][data-state='uploading'] {
+  background-color: #1ab69e !important;
+  color: white !important;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.upload-btn > *[data-ut-element='button'][data-state='uploading']::after {
+  background-color: #1ab69e !important;
+  color: white !important;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.rounded-full {
+  border-radius: 50%;
+}

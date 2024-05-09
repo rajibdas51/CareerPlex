@@ -3,6 +3,7 @@ import './globals.css';
 import '@/stylesheets/commonClasses.css';
 import '@/stylesheets/layout.css';
 import '@/stylesheets/loader.css';
+import '@uploadthing/react/styles.css';
 import dynamic from 'next/dynamic';
 
 import LayoutProvider from '@/components/LayoutProvider';
