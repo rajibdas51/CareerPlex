@@ -91,6 +91,8 @@
   font-size: 1.5rem;
   padding-left: 10px;
   cursor: pointer;
+  background-color: transparent;
+  color: #c7cbd8;
 }
 
 .logout-icon {
@@ -98,6 +100,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   cursor: pointer;
+  background-color: transparent;
 }
 .logout-icon:hover {
   color: var(--primary);
