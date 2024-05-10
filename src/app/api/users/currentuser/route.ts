@@ -1,7 +1,7 @@
 import User from '@/models/userModel';
 import { validateJWT } from './../../../../helpers/validateJWT';
 import { NextRequest, NextResponse } from 'next/server';
-import { Next } from 'react-bootstrap/esm/PageItem';
+
 import { connectDb } from '@/config/dbConfig';
 
 connectDb();
