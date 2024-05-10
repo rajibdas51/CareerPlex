@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server';
-import { Next } from 'react-bootstrap/esm/PageItem';
 import jwt from 'jsonwebtoken';
 
 export const validateJWT = async (request: NextRequest) => {
