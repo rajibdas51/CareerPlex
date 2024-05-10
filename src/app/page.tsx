@@ -1,3 +1,4 @@
+'use client'
 import { setLoading } from '@/redux/loadersSlice';
 import styles from './page.module.css';
 import axios from 'axios';
