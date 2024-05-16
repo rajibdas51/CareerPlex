@@ -31,8 +31,11 @@ export async function GET(request: NextRequest) {
     // fetch query string parameters from the request
     const searchParams = new URL(request.url);
     const user = searchParams.searchParams.get('user');
-
-    const jobs = await Job.find({ user });
+    const filterObj: any = {};
+    if (user) {
+      filterObj['user'] = user;
+    }
+    const jobs = await Job.find(filterObj).populate('user');
     return NextResponse.json({
       message: 'Job fetched successfully!',
       data: jobs,
