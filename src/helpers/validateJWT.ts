@@ -9,6 +9,8 @@ export const validateJWT = async (request: NextRequest) => {
     }
     // decode the token
     const decodedData: any = jwt.verify(token, process.env.JWT_SECRET!);
+    // delete the token if it is expired
+
     return decodedData.userId;
   } catch (error: any) {
     throw new Error(error.message);

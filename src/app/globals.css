@@ -139,3 +139,13 @@ button {
 .rounded-full {
   border-radius: 50%;
 }
+
+.job > div > span {
+  font-size: 16px;
+  line-height: 1.5rem;
+}
+
+.job-description {
+  font-size: 16px;
+  line-height: 1.5rem;
+}
