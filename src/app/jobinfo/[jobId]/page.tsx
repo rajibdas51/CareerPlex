@@ -5,13 +5,15 @@ import { Button, Col, Divider, Row, message } from 'antd';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function JobInfo() {
   const [jobInfo, setJobInfo] = useState<any>({});
+  const { currentUser } = useSelector((state: any) => state.users);
   const { jobId } = useParams();
   const dispatch = useDispatch();
   const router = useRouter();
+
   const fetchJob = async () => {
     try {
       dispatch(setLoading(true));
@@ -28,7 +30,18 @@ function JobInfo() {
     fetchJob();
   }, []);
 
-  const onApply = async () => {};
+  const onApply = async () => {
+    try {
+      dispatch(setLoading(true));
+      const res = await axios.post('/api/applications');
+      message.success(res.data.message);
+    } catch (error: any) {
+      message.error(error.message || 'Something went Wrong!');
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
   return (
     <div>
       <PageTitle title={jobInfo?.title} />

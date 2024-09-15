@@ -13,6 +13,7 @@ export default function Home() {
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
   const { currentUser } = useSelector((state: any) => state.users);
+
   const dispatch = useDispatch();
 
   const fetchJobs = async () => {

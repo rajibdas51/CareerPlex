@@ -1,23 +1,16 @@
-import Job from '@/models/jobModel';
+import Application from '@/models/applicationModel';
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
 connectDb();
 export async function POST(request: NextRequest) {
   try {
-    const userId = await validateJWT(request);
-
-    if (!userId) {
-      return NextResponse.json(
-        { message: 'Invalid token, please login again', data: null },
-        { status: 401 }
-      );
-    }
+    validateJWT(request);
     const reqBody = await request.json();
-    const job = await Job.create({ ...reqBody, user: userId });
+    const application = await Application.create(reqBody);
     return NextResponse.json({
-      message: 'Job created Successfully!',
-      data: job,
+      message: 'Job applicaiton Successfull!',
+      data: application,
     });
   } catch (error: any) {
     console.log(error);
@@ -27,7 +20,6 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    //validating the user request
     validateJWT(request);
     // fetch query string parameters from the request
     const searchParams = new URL(request.url);
@@ -36,10 +28,12 @@ export async function GET(request: NextRequest) {
     if (user) {
       filterObj['user'] = user;
     }
-    const jobs = await Job.find(filterObj).populate('user');
+    const applications = await Application.find(filterObj)
+      .populate('user')
+      .populate('job');
     return NextResponse.json({
-      message: 'Job fetched successfully!',
-      data: jobs,
+      message: 'Applications fetched successfully!',
+      data: applications,
     });
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
