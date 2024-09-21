@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
     const application = await Application.create(reqBody);
     return NextResponse.json({
-      message: 'Job applicaiton Successfull!',
+      message: 'You Successfully applied for this job!',
       data: application,
     });
   } catch (error: any) {

@@ -7,8 +7,8 @@ import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-function JobInfo() {
-  const [jobInfo, setJobInfo] = useState<any>({});
+function JobData() {
+  const [jobData, setJobData] = useState<any>({});
   const { currentUser } = useSelector((state: any) => state.users);
   const { jobId } = useParams();
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ function JobInfo() {
     try {
       dispatch(setLoading(true));
       const res = await axios.get(`/api/jobs/${jobId}`);
-      setJobInfo(res.data.data);
+      setJobData(res.data.data);
     } catch (error: any) {
       message.error(error.message);
     } finally {
@@ -33,7 +33,11 @@ function JobInfo() {
   const onApply = async () => {
     try {
       dispatch(setLoading(true));
-      const res = await axios.post('/api/applications');
+      const res = await axios.post('/api/applications', {
+        job: jobData._id,
+        user: currentUser._id,
+        status: 'pending',
+      });
       message.success(res.data.message);
     } catch (error: any) {
       message.error(error.message || 'Something went Wrong!');
@@ -44,41 +48,41 @@ function JobInfo() {
 
   return (
     <div>
-      <PageTitle title={jobInfo?.title} />
+      <PageTitle title={jobData?.title} />
       <Divider />
 
       <Row gutter={[16, 16]}>
         <Col span={12} className='flex flex-col gap-2 job'>
           <div className='flex justify-between'>
             <span>Company</span>
-            <span>{jobInfo?.user?.name}</span>
+            <span>{jobData?.user?.name}</span>
           </div>
           <div className='flex justify-between'>
             <span>Location</span>
-            <span>{jobInfo.location}</span>
+            <span>{jobData.location}</span>
           </div>
           <div className='flex justify-between'>
             <span>Salary</span>
             <span>
-              {jobInfo.salaryFromRange} LPA - {jobInfo.salaryToRange} LPA
+              {jobData.salaryFromRange} LPA - {jobData.salaryToRange} LPA
             </span>
           </div>
           <div className='flex justify-between'>
             <span>Work Mode</span>
-            <span>{jobInfo.workMode}</span>
+            <span>{jobData.workMode}</span>
           </div>
           <div className='flex justify-between'>
             <span>Job Type</span>
-            <span>{jobInfo.jobType}</span>
+            <span>{jobData.jobType}</span>
           </div>
           <div className='flex justify-between'>
             <span>Experience Required</span>
-            <span>{jobInfo.experience}</span>
+            <span>{jobData.experience}</span>
           </div>
         </Col>
         <Col span={24}>
           <h2>Job Description</h2>
-          <p className='job-description'>{jobInfo.description}</p>
+          <p className='job-description'>{jobData.description}</p>
         </Col>
 
         <Col span={24}>
@@ -86,7 +90,11 @@ function JobInfo() {
             <Button type='default' onClick={() => router.back()}>
               Cancel
             </Button>
-            <Button type='primary' onClick={() => {}}>
+            <Button
+              disabled={currentUser.userType === 'employer'}
+              type='primary'
+              onClick={onApply}
+            >
               Apply
             </Button>
           </div>
@@ -96,4 +104,4 @@ function JobInfo() {
   );
 }
 
-export default JobInfo;
+export default JobData;
