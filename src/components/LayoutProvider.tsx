@@ -22,7 +22,11 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
   const [menuItems, setMenuItems] = useState([
     { name: 'Home', path: '/', icon: 'ri-home-4-fill' },
     { name: 'Profile', path: '/profile', icon: 'ri-shield-user-fill' },
-    { name: 'Applications', path: '/application', icon: 'ri-file-list-3-line' },
+    {
+      name: 'Applications',
+      path: '/applications',
+      icon: 'ri-file-list-3-line',
+    },
     { name: 'Settings', path: '/settings', icon: 'ri-settings-5-line' },
     { name: 'Saved', path: '/saved', icon: 'ri-save-3-fill' },
   ]);
@@ -50,7 +54,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
       dispatch(setCurrentUser(response.data.data));
     } catch (error: any) {
       router.push('/login');
-      message.error(error.response.data.message || 'Something went wrong!');
+      message.error(error.response?.data?.message || 'Something went wrong!');
       message.error('Please clear your cookies and try again!');
     } finally {
       dispatch(setLoading(false));
