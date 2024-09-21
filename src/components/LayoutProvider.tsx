@@ -30,6 +30,18 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
     { name: 'Settings', path: '/settings', icon: 'ri-settings-5-line' },
     { name: 'Saved', path: '/saved', icon: 'ri-save-3-fill' },
   ]);
+  const [employerMenu, setEmployerMenu] = useState([
+    { name: 'Home', path: '/', icon: 'ri-home-4-fill' },
+    { name: 'Profile', path: '/profile', icon: 'ri-shield-user-fill' },
+    {
+      name: 'Create Job',
+      path: '/jobs/new',
+      icon: 'ri-add-circle-fill',
+    },
+    { name: 'Posted Jobs', path: '/jobs', icon: 'ri-file-list-3-line' },
+    { name: 'Settings', path: '/settings', icon: 'ri-settings-5-line' },
+    { name: 'Saved', path: '/saved', icon: 'ri-save-3-fill' },
+  ]);
 
   // get the current user
   const getCurrentUser = async () => {
@@ -39,7 +51,8 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
 
       const isEmployer = response.data.data.userType === 'employer';
       if (isEmployer) {
-        let tempMenus = menuItems;
+        let tempMenus = [...employerMenu];
+        /*
         const createJobItem = {
           name: 'Create Job',
           path: '/jobs/new',
@@ -47,7 +60,9 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
         };
         menuItems.splice(2, 0, createJobItem); // Add the createJobItem at the 3rd index
         tempMenus[3].name = 'Posted Jobs';
-        tempMenus[3].path = '/jobs';
+        tempMenus[3].path = '/jobs'; 
+         */
+
         setMenuItems(tempMenus);
       }
 
