@@ -2,16 +2,20 @@
 import PageTitle from '@/components/PageTitle';
 import { setLoading } from '@/redux/loadersSlice';
 
-import { Button, Table, message } from 'antd';
+import { Button, Table, Tooltip, message } from 'antd';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import moment from 'moment';
+import Applications from '@/components/Applications';
 
 function Jobs() {
   const { currentUser } = useSelector((state: any) => state.users);
   //console.log(currentUser);
+  const [selectedJob, setSelectedJob] = useState<any>({});
+  const [showApplications, setShowApplications] = useState<boolean>(false);
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -60,15 +64,28 @@ function Jobs() {
       title: 'Actions',
       dataIndex: 'actions',
       render: (text: any, record: any) => (
-        <div className='flex gap-3'>
-          <i
-            onClick={() => router.push(`jobs/edit/${record._id}`)}
-            className='ri-file-edit-fill'
-          ></i>
-          <i
-            onClick={() => deleteJob(record._id)}
-            className='ri-delete-bin-line'
-          ></i>
+        <div className='flex gap-5'>
+          <Tooltip title='Applications'>
+            <i
+              onClick={() => {
+                setSelectedJob(record);
+                setShowApplications(true);
+              }}
+              className='ri-file-list-3-line'
+            ></i>
+          </Tooltip>
+          <Tooltip title='Edit'>
+            <i
+              onClick={() => router.push(`jobs/edit/${record._id}`)}
+              className='ri-file-edit-fill'
+            ></i>
+          </Tooltip>
+          <Tooltip title='Delete'>
+            <i
+              onClick={() => deleteJob(record._id)}
+              className='ri-delete-bin-line'
+            ></i>{' '}
+          </Tooltip>
         </div>
       ),
     },
@@ -89,6 +106,14 @@ function Jobs() {
           rowKey={(record: any) => record._id}
         />
       </div>
+
+      {showApplications && (
+        <Applications
+          selectedJob={selectedJob}
+          setShowApplications={setShowApplications}
+          showApplications={showApplications}
+        />
+      )}
     </div>
   );
 }
