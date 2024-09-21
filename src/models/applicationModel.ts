@@ -21,7 +21,7 @@ const applicationSchema = new mongoose.Schema(
 
 // delete old model if exists
 if (mongoose.models.applications) {
-  const applicationModel = mongoose.model('applicaiton');
+  const applicationModel = mongoose.model('applications');
   mongoose.deleteModel(applicationModel.modelName);
 }
 

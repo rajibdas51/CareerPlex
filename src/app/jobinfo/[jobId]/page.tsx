@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function JobData() {
   const [jobData, setJobData] = useState<any>({});
+  const [applications, setApplications] = useState<any[]>([]);
   const { currentUser } = useSelector((state: any) => state.users);
   const { jobId } = useParams();
   const dispatch = useDispatch();
@@ -25,9 +26,23 @@ function JobData() {
       dispatch(setLoading(false));
     }
   };
+  const fetchApplications = async () => {
+    try {
+      dispatch(setLoading(true));
+      const res = await axios.get(
+        `/api/applications?job=${jobId}&user=${currentUser._id}`
+      );
+      setApplications(res.data.data);
+    } catch (error: any) {
+      message.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
 
   useEffect(() => {
     fetchJob();
+    fetchApplications();
   }, []);
 
   const onApply = async () => {
@@ -83,6 +98,15 @@ function JobData() {
         <Col span={24}>
           <h2>Job Description</h2>
           <p className='job-description'>{jobData.description}</p>
+          {applications.length > 0 && (
+            <span
+              className='my-5 p-3 card info'
+              style={{ display: 'inline-block' }}
+            >
+              You have already applied for this job! please wait the employer
+              respond!
+            </span>
+          )}
         </Col>
 
         <Col span={24}>
@@ -91,7 +115,9 @@ function JobData() {
               Cancel
             </Button>
             <Button
-              disabled={currentUser.userType === 'employer'}
+              disabled={
+                currentUser.userType === 'employer' || applications.length > 0
+              }
               type='primary'
               onClick={onApply}
             >
