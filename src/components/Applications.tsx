@@ -31,6 +31,11 @@ const Applications = ({
       dispatch(setLoading(false));
     }
   };
+
+  const onStatusUpdate = async (applicationId: string, status: string) => {};
+  useEffect(() => {
+    fetchApplications();
+  }, []);
   const columns = [
     { title: 'Application ID', dataIndex: '_id' },
     {
@@ -61,9 +66,7 @@ const Applications = ({
     },
   ];
 
-  useEffect(() => {
-    fetchApplications();
-  }, []);
+  // status update functionality
 
   return (
     <Modal
