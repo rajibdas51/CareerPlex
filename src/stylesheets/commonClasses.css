@@ -280,3 +280,7 @@
 .btn:hover {
   background-color: #05937e !important;
 }
+
+.underline {
+  text-decoration: underline;
+}
