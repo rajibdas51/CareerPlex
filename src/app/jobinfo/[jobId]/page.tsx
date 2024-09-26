@@ -115,6 +115,12 @@ function JobData() {
               Cancel
             </Button>
             <Button
+              type='default'
+              onClick={() => router.push(`/userinfo/${jobData.user._id}`)}
+            >
+              View Company Info
+            </Button>
+            <Button
               disabled={
                 currentUser.userType === 'employer' || applications.length > 0
               }
