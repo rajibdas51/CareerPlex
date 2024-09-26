@@ -1,4 +1,7 @@
 'use client';
+import EmployerForm from '@/components/EmployerForm';
+import EmployerInfo from '@/components/EmployerInfo';
+import JobSeekerInfo from '@/components/JobSeekerInfo';
 import PageTitle from '@/components/PageTitle';
 import { setLoading } from '@/redux/loadersSlice';
 import { message } from 'antd';
@@ -35,6 +38,11 @@ const UserInfo = () => {
             userInfo?.userType == 'jobSeeker' ? 'Jobseeker Info' : 'Employer'
           } Info`}
         />
+        {userInfo.userType === 'jobSeeker' ? (
+          <JobSeekerInfo />
+        ) : (
+          <EmployerInfo />
+        )}
       </div>
     )
   );
