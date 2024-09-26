@@ -2,7 +2,6 @@ import Job from '@/models/jobModel';
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
-import { message } from 'antd';
 connectDb();
 export async function GET(request: NextRequest, { params }: any) {
   try {

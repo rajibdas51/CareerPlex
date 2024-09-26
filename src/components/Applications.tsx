@@ -19,6 +19,7 @@ const Applications = ({
   selectedJob: any;
 }) => {
   const [applications, setApplications] = useState([]);
+  const router = useRouter();
   const dispatch = useDispatch();
   const fetchApplications = async () => {
     try {
@@ -32,7 +33,22 @@ const Applications = ({
     }
   };
 
-  const onStatusUpdate = async (applicationId: string, status: string) => {};
+  const onStatusUpdate = async (applicationId: string, status: string) => {
+    try {
+      //  console.log(applicationId, status);
+      dispatch(setLoading(true));
+      const res = await axios.put(`/api/applications/${applicationId}`, {
+        status,
+      });
+
+      message.success(res.data.message);
+      fetchApplications();
+    } catch (error: any) {
+      message.error(error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
   useEffect(() => {
     fetchApplications();
   }, []);
@@ -56,12 +72,26 @@ const Applications = ({
     {
       title: 'Status',
       dataIndex: 'status',
-      render: (status: string) => (
-        <select name='' id='' value={status}>
+      render: (status: string, record: any) => (
+        <select
+          value={status}
+          onChange={(e) => onStatusUpdate(record._id, e.target.value)}
+        >
           <option value='pending'>Pending</option>
           <option value='shortlisted'>Shortlisted</option>
           <option value='rejected'>Rejected</option>
         </select>
+      ),
+    },
+    {
+      title: 'Actions',
+      dataIndex: '_id',
+      render: (applicationId: string, application: any) => (
+        <Button
+          onClick={() => router.push(`/userinfo/${application.user._id}`)}
+        >
+          View
+        </Button>
       ),
     },
   ];
