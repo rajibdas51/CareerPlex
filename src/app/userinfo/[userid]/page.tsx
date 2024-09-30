@@ -41,7 +41,7 @@ const UserInfo = () => {
         {userInfo.userType === 'jobSeeker' ? (
           <JobSeekerInfo />
         ) : (
-          <EmployerInfo />
+          <EmployerInfo employerInfo={userInfo} />
         )}
       </div>
     )
