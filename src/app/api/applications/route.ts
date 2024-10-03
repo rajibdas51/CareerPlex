@@ -2,15 +2,38 @@ import Application from '@/models/applicationModel';
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
+import { sendEmail } from '@/helpers/sendEmail';
 connectDb();
 export async function POST(request: NextRequest) {
   try {
     validateJWT(request);
     const reqBody = await request.json();
-    const application = await Application.create(reqBody);
+    const application: any = await Application.create(reqBody);
+
+    const applicationData: any = await Application.findById(application._id)
+      .populate('user')
+      .populate({
+        path: 'job',
+        populate: {
+          path: 'user',
+        },
+      });
+
+    await sendEmail({
+      to: applicationData.job.user.email,
+      subject: 'New applicationdata received.',
+      text: `You have received a new applicationdata from ${applicationData.user.name}`,
+      html: `<div>
+        <p>You have received a new applicationdata from ${applicationData.user.name}</p>
+        <p>Applicant's name is: ${applicationData.user.name}</p>
+        <p>Applicant's email: ${applicationData.user.email}</p>
+        <p>Applican'ts phone number: ${applicationData.user.phone}</p>
+      </div>`,
+    });
+
     return NextResponse.json({
       message: 'You Successfully applied for this job!',
-      data: application,
+      data: applicationData,
     });
   } catch (error: any) {
     console.log(error);
@@ -32,7 +55,7 @@ export async function GET(request: NextRequest) {
     if (job) {
       filterObj['job'] = job;
     }
-    const applications = await Application.find(filterObj)
+    const applicationdatas = await ApplicationData.find(filterObj)
       .populate('user')
       .populate({
         path: 'job',
@@ -41,8 +64,8 @@ export async function GET(request: NextRequest) {
         },
       });
     return NextResponse.json({
-      message: 'Applications fetched successfully!',
-      data: applications,
+      message: 'ApplicationDatas fetched successfully!',
+      data: applicationdatas,
     });
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
