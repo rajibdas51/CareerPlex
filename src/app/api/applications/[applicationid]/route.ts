@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
 import { sendEmail } from '@/helpers/sendEmail';
+import moment from 'moment';
 connectDb();
 
 export async function PUT(request: NextRequest, { params }: any) {
@@ -32,10 +33,19 @@ export async function PUT(request: NextRequest, { params }: any) {
       text: `Your application status has been updated to ${application.status}`,
       html: `
       <div>
-      <p>Your application status has been updated to ${application.status} </p>
+      <p>Your application status has been updated to ${
+        application.status
+      } </p>   
+
+     <p>Company:${application.job.user.name}</p>  
+     <p>Job Title:${application.job.title}</p>  
+     <p>Applied On:${moment(application.createdAt).format('DD/MM/YYYY')}</p>
+
+        </br>
+     <p>Thanks for using CareerPlex!</p>
+
       </div>
-      </br>
-      <p>Thanks for using CareerPlex!</p>
+   
       `,
     });
     return NextResponse.json({
