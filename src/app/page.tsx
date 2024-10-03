@@ -8,9 +8,14 @@ import { useEffect, useState } from 'react';
 import { Col, Divider, Row, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import Filters from '@/components/Filters';
 
 export default function Home() {
   const [jobs, setJobs] = useState([]);
+  const [filters, setFilters] = useState({
+    searchText: '',
+    location: '',
+  });
   const router = useRouter();
   const { currentUser } = useSelector((state: any) => state.users);
 
@@ -19,7 +24,7 @@ export default function Home() {
   const fetchJobs = async () => {
     try {
       dispatch(setLoading(true));
-      const res = await axios.get(`/api/jobs`);
+      const res = await axios.get(`/api/jobs`, { params: filters });
       setJobs(res.data.data);
     } catch (error: any) {
       message.error(error?.response?.data?.message || error.message);
@@ -32,8 +37,8 @@ export default function Home() {
     fetchJobs();
   }, []);
   return (
-    <>
-      <h1>Jobs</h1>
+    <div>
+      <Filters filters={filters} setFilters={setFilters} getData={fetchJobs} />
       <Row gutter={[16, 16]} className='gap-3 ml-0'>
         {jobs.map((job: any) => (
           <Col
@@ -65,6 +70,6 @@ export default function Home() {
           </Col>
         ))}
       </Row>
-    </>
+    </div>
   );
 }

@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
     if (job) {
       filterObj['job'] = job;
     }
-    const applicationdatas = await ApplicationData.find(filterObj)
+    const applications = await Application.find(filterObj)
       .populate('user')
       .populate({
         path: 'job',
@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
       });
     return NextResponse.json({
       message: 'ApplicationDatas fetched successfully!',
-      data: applicationdatas,
+      data: applications,
     });
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
