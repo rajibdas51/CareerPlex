@@ -32,9 +32,18 @@ export async function GET(request: NextRequest) {
     // fetch query string parameters from the request
     const searchParams = new URL(request.url);
     const user = searchParams.searchParams.get('user');
+    const searchText = searchParams.searchParams.get('searchText');
+    const location = searchParams.searchParams.get('location');
     const filterObj: any = {};
     if (user) {
       filterObj['user'] = user;
+    }
+    if (searchText !== '') {
+      filterObj['title'] = { $regex: searchText, $options: 'i' };
+    }
+
+    if (location !== '') {
+      filterObj['location'] = { $regex: location, $options: 'i' };
     }
     const jobs = await Job.find(filterObj).populate('user');
     return NextResponse.json({
