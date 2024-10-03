@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
       type: [],
       required: false,
     },
-    educaiton: {
+    education: {
       type: [],
       required: false,
     },

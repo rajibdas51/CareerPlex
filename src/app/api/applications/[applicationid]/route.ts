@@ -2,6 +2,7 @@ import Application from '@/models/applicationModel';
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
+import { sendEmail } from '@/helpers/sendEmail';
 connectDb();
 
 export async function PUT(request: NextRequest, { params }: any) {
@@ -25,6 +26,18 @@ export async function PUT(request: NextRequest, { params }: any) {
         },
       });
 
+    await sendEmail({
+      to: application.user.email,
+      subject: 'Your application status has been updated!',
+      text: `Your application status has been updated to ${application.status}`,
+      html: `
+      <div>
+      <p>Your application status has been updated to ${application.status} </p>
+      </div>
+      </br>
+      <p>Thanks for using CareerPlex!</p>
+      `,
+    });
     return NextResponse.json({
       message: 'Job Status updated Successfully!',
       data: application,
