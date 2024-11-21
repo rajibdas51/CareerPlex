@@ -13,17 +13,19 @@ import Applications from '@/components/Applications';
 
 function Jobs() {
   const { currentUser } = useSelector((state: any) => state.users);
-  //console.log(currentUser);
+  console.log(currentUser);
   const [selectedJob, setSelectedJob] = useState<any>({});
   const [showApplications, setShowApplications] = useState<boolean>(false);
   const [jobs, setJobs] = useState([]);
   const router = useRouter();
   const dispatch = useDispatch();
 
+  console.log(jobs);
   const fetchJobs = async () => {
     try {
       dispatch(setLoading(true));
       const res = await axios.get(`/api/jobs?user=${currentUser._id}`);
+      console.log(currentUser);
       setJobs(res.data.data);
     } catch (error: any) {
       message.error(error?.response?.data?.message || error.message);
