@@ -50,7 +50,6 @@ function EmployerForm() {
           </Form.Item>
         </Col>
       </Row>
-      ;
     </>
   );
 }

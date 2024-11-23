@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { Col, Divider, Row, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import Filters from '@/components/Filters';
 
 export default function Home() {
   const [jobs, setJobs] = useState([]);
@@ -37,10 +38,7 @@ export default function Home() {
   }, []);
   return (
     <div>
-      {/*
-              <Filters filters={filters} setFilters={setFilters} getData={fetchJobs} />
-
-        */}
+      <Filters filters={filters} setFilters={setFilters} getData={fetchJobs} />
       <Row gutter={[16, 16]} className='gap-3 ml-0'>
         {jobs.map((job: any) => (
           <Col

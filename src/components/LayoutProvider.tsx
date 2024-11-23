@@ -21,26 +21,46 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
   const { isLoading } = useSelector((state: any) => state.loaders);
   const [menuItems, setMenuItems] = useState([
     { name: 'Home', path: '/', icon: 'ri-home-4-fill' },
-    { name: 'Profile', path: '/profile', icon: 'ri-shield-user-fill' },
+    {
+      name: 'Profile',
+      path: '/dashboard/profile',
+      icon: 'ri-shield-user-fill',
+    },
     {
       name: 'Applications',
-      path: '/applications',
+      path: '/dashboard/applications',
       icon: 'ri-file-list-3-line',
     },
-    { name: 'Settings', path: '/settings', icon: 'ri-settings-5-line' },
-    { name: 'Saved', path: '/saved', icon: 'ri-save-3-fill' },
+    {
+      name: 'Settings',
+      path: '/dashboard/settings',
+      icon: 'ri-settings-5-line',
+    },
+    { name: 'Saved', path: '/dashboard/saved', icon: 'ri-save-3-fill' },
   ]);
   const [employerMenu, setEmployerMenu] = useState([
     { name: 'Home', path: '/', icon: 'ri-home-4-fill' },
-    { name: 'Profile', path: '/profile', icon: 'ri-shield-user-fill' },
+    {
+      name: 'Profile',
+      path: '/dashboard/profile',
+      icon: 'ri-shield-user-fill',
+    },
     {
       name: 'Create Job',
-      path: '/jobs/new',
+      path: '/dashboard/jobs/new',
       icon: 'ri-add-circle-fill',
     },
-    { name: 'Posted Jobs', path: '/jobs', icon: 'ri-file-list-3-line' },
-    { name: 'Settings', path: '/settings', icon: 'ri-settings-5-line' },
-    { name: 'Saved', path: '/saved', icon: 'ri-save-3-fill' },
+    {
+      name: 'Posted Jobs',
+      path: '/dashboard/jobs',
+      icon: 'ri-file-list-3-line',
+    },
+    {
+      name: 'Settings',
+      path: '/dashboard/settings',
+      icon: 'ri-settings-5-line',
+    },
+    { name: 'Saved', path: '/dashboard/saved', icon: 'ri-save-3-fill' },
   ]);
 
   // get the current user
