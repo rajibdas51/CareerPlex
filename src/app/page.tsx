@@ -8,25 +8,22 @@ import { useEffect, useState } from 'react';
 import { Col, Divider, Row, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import Test from '@/components/Test';
 
 export default function Home() {
   const [jobs, setJobs] = useState([]);
-  const [filters, setFilters] = useState({
-    searchText: '',
-    location: '',
-  });
+
   const router = useRouter();
-  const { currentUser } = useSelector((state: any) => state.users);
 
   const dispatch = useDispatch();
 
   const fetchJobs = async () => {
     try {
       dispatch(setLoading(true));
-      const res = await axios.get(`/api/jobs`, { params: filters });
+      const res = await axios.get(`/api/jobs`);
       setJobs(res.data.data);
     } catch (error: any) {
-      message.error(error?.response?.data?.message || error.message);
+      message.error(error?.response?.data?.message || 'Failed to fetch jobs!');
     } finally {
       dispatch(setLoading(false));
     }
@@ -37,6 +34,8 @@ export default function Home() {
   }, []);
   return (
     <div>
+      <h1 className='!text-indigo-500 text-2xl !bg-green-500'>All jobs</h1>
+
       {/*
               <Filters filters={filters} setFilters={setFilters} getData={fetchJobs} />
 

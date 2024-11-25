@@ -151,3 +151,33 @@ table {
   border: 1px solid #c7c7c7;
   border-radius: 2px !important;
 }
+
+/*------- Header css ------------*/
+.nav {
+}
+
+@media (min-width: 768px) {
+  #mobile-menu {
+    display: none;
+  }
+}
+
+.mobile-menu-container {
+  display: none !important;
+}
+@media (min-width: 768px) {
+  .mobile-menu-container {
+    display: none;
+    position: absolute;
+    display: flex;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    alignitems: center;
+  }
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+}

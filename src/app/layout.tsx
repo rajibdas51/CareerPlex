@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import 'antd/dist/reset.css'; // Ant Design styles
-
 import './globals.css';
 
 import dynamic from 'next/dynamic';
