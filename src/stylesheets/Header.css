@@ -25,13 +25,14 @@
 .logo {
   display: flex;
   align-items: center;
+  gap: 0;
 }
 
 .logo-text {
-  color: #3b82f6;
+  color: #1ab69e;
   font-size: 1.5rem;
   font-weight: bold;
-  margin-left: 8px;
+  margin-left: -5px;
 }
 
 /* Hamburger Menu */
@@ -41,7 +42,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #3b82f6;
+  color: #1ab69e;
 }
 
 /* Navigation Menu */
@@ -53,14 +54,16 @@
 
 .menu-item {
   text-decoration: none;
-  color: black;
-  padding: 8px 16px;
+  color: rgb(13, 13, 13) !important;
+  padding: 8px 18px !important;
   border-radius: 4px;
+  text-align: center;
+  align-items: center;
   transition: background-color 0.3s ease;
 }
 
 .menu-item:hover {
-  background-color: #3b82f6; /* Lighter indigo for hover effect */
+  background-color: #1ab69e; /* Lighter indigo for hover effect */
 }
 
 /* Profile Menu */
@@ -69,8 +72,8 @@
 }
 
 .profile-button {
-  background: #3b82f6;
-  border: 1px solid #3b82f6;
+  background: #1ab69e;
+  border: 1px solid #1ab69e;
   color: white;
   padding: 8px 16px;
   border-radius: 4px;
@@ -78,12 +81,12 @@
 }
 
 .profile-button:hover {
-  background: #034dc4;
+  background: #009a83;
 }
 
 /* Login Button */
 .login-button {
-  background: #3b82f6;
+  background: #1ab69e;
   border: none;
   color: #fff;
   padding: 8px 16px;
@@ -98,14 +101,13 @@
   margin-top: -1px;
 }
 .login-button:hover {
-  background: #105edc;
+  background: #009a83;
 }
-
 /* Mobile Menu Styles */
 @media (max-width: 768px) {
   .hamburger-menu {
     display: block;
-    color: #105edc;
+    color: #1ab69e;
     font-size: 50px;
     width: 50px;
   }
@@ -129,7 +131,7 @@
     top: 80px; /* Below the header */
     right: 0;
     width: 100%;
-    background-color: #3b82f6; /* Same as header background */
+    background-color: #1ab69e; /* Same as header background */
     padding: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     color: white;
@@ -144,7 +146,7 @@
     text-align: center;
   }
   .menu-item:hover {
-    background-color: #074cbb;
+    background-color: #00aa90;
   }
 }
 

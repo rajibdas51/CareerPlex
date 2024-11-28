@@ -1,11 +1,10 @@
-import User from '@/models/userModel';
 import mongoose from 'mongoose';
 
 const JobSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'users',
+      ref: 'users', // Ensure this matches the User model name
       required: true,
     },
     title: {
@@ -50,20 +49,11 @@ const JobSchema = new mongoose.Schema(
     },
     deadline: {
       type: Date,
-      required: false,
-      // Set timezone to UTC to preserve user selection
+      required: false, // Optional deadline
     },
   },
   { timestamps: true }
 );
 
-// Delete old model if exists
-if (mongoose.models.jobs) {
-  const JobModel = mongoose.model('jobs');
-  mongoose.deleteModel(JobModel.modelName);
-}
-
-// create and export new model
-const Job = mongoose.model('jobs', JobSchema);
-
+const Job = mongoose.models.jobs || mongoose.model('jobs', JobSchema);
 export default Job;

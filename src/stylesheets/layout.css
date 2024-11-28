@@ -54,8 +54,12 @@
   align-items: center;
   cursor: pointer;
   text-decoration: none;
-  color: #c7cbd8;
+  color: #fcfdff;
   padding: 10px 0px 10px 8px;
+}
+
+.sidebar-menu-item {
+  color: #c7cbd8 !important;
 }
 .menu-item i {
   font-size: 1.3rem;
@@ -113,7 +117,7 @@ select,
 .input {
   height: 45px;
   width: 100%;
-  border: 1px solid #105edc;
+  border: 1px solid #1ab69e;
   border-radius: 4px;
   padding: 10px;
 }

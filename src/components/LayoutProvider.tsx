@@ -176,7 +176,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
                     <div
                       onClick={() => router.push(item.path)}
                       key={index}
-                      className={`menu-item ${
+                      className={`sidebar-menu-item ${
                         isActive ? 'active-menu-item' : ''
                       } ${!isSidebarOpen ? 'menu-item-collapsed' : ''}`}
                     >

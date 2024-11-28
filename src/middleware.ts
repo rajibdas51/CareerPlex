@@ -12,9 +12,10 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/login', request.nextUrl));
     }
     // if there is a token and the page is public, then rediret to home.
+    /*
     if (token && isPublicPage) {
-      return NextResponse.redirect(new URL('/', request.nextUrl));
-    }
+   return NextResponse.redirect(new URL('/dashboard', request.nextUrl));
+ } */
     return NextResponse.next();
   } catch (error) {
     return NextResponse.error();

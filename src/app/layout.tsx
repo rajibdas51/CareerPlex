@@ -7,7 +7,7 @@ import '@/stylesheets/layout.css';
 import dynamic from 'next/dynamic';
 
 import ReduxProvider from '@/components/ReduxProvider';
-import Header from '@/components/Header/Header';
+import Header from '@/components/Header';
 
 <link
   href='https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css'

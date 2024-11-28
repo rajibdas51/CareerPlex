@@ -1,20 +1,19 @@
 'use client';
+
 import { setLoading } from '@/redux/loadersSlice';
 import styles from './page.module.css';
 import axios from 'axios';
-//import { message } from 'antd';
-import { cookies } from 'next/headers';
 import { useEffect, useState } from 'react';
-import { Col, Divider, Row, message } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { Col, Row, message } from 'antd';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import Test from '@/components/Test';
+import JobCard from '@/components/JobCard';
+import { JobType } from '@/types/types'; // Import the Job type
 
 export default function Home() {
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState<JobType[]>([]); // Use the Job type for state
 
   const router = useRouter();
-
   const dispatch = useDispatch();
 
   const fetchJobs = async () => {
@@ -32,42 +31,38 @@ export default function Home() {
   useEffect(() => {
     fetchJobs();
   }, []);
+
+  console.log(jobs);
   return (
     <div>
       <h1 className='!text-indigo-500 text-2xl !bg-green-500'>All jobs</h1>
-
-      {/*
-              <Filters filters={filters} setFilters={setFilters} getData={fetchJobs} />
-
-        */}
-      <Row gutter={[16, 16]} className='gap-3 ml-0'>
-        {jobs.map((job: any) => (
+      <Row gutter={[16, 16]} className='container gap-3 ml-0'>
+        {jobs.map((job) => (
           <Col
-            span={8}
+            md={8}
+            sm={24}
+            xs={24}
+            lg={8}
+            xl={6}
+            xxl={6}
             key={job._id}
-            className='card flex flex-col py-3 gap-2 cursor-pointer '
+            className='m-auto card flex flex-col py-3 gap-2 cursor-pointer '
             onClick={() => router.push(`jobinfo/${job._id}`)}
           >
-            <h2 className='job-title'>{job.title}</h2>
-            <Divider />
-            <div className='flex justify-between'>
-              <span>Company</span>
-              <span>{job.user.name}</span>
-            </div>
-            <div className='flex justify-between'>
-              <span>Location</span>
-              <span>{job.location}</span>
-            </div>
-            <div className='flex justify-between'>
-              <span>Salary</span>
-              <span>
-                {job.salaryFromRange} LPA - {job.salaryToRange} LPA
-              </span>
-            </div>
-            <div className='flex justify-between'>
-              <span>Work Mode</span>
-              <span>{job.workMode}</span>
-            </div>
+            <JobCard
+              job={{
+                title: job.title,
+                location: job.location,
+                salaryFromRange: job.salaryFromRange,
+                salaryToRange: job.salaryToRange,
+                jobType: job.jobType,
+                workMode: job.workMode,
+                user: {
+                  name: job.user.name,
+                  avatar: job.user.avatar,
+                },
+              }}
+            />
           </Col>
         ))}
       </Row>

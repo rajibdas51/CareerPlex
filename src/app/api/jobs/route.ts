@@ -27,9 +27,6 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    // Validate the user's token (optional)
-    const userId = await validateJWT(request);
-
     // Fetch query string parameters
     const searchParams = new URL(request.url).searchParams;
     const user = searchParams.get('user');
@@ -48,25 +45,13 @@ export async function GET(request: NextRequest) {
       filterObj['location'] = { $regex: String(location), $options: 'i' }; // Filter by location
     }
 
-    // Fetch jobs from the database
-    if (user) {
-      const jobs = await Job.find(filterObj).populate('user');
-      return NextResponse.json({
-        message: 'Jobs fetched successfully!',
-        data: jobs,
-      });
-    } else {
-      const jobs = await Job.find(filterObj);
-      return NextResponse.json({
-        message: 'Jobs fetched successfully!',
-        data: jobs,
-      });
-    }
+    // Fetch jobs from the database and always populate the user field
+    const jobs = await Job.find(filterObj).populate('user', '-password -__v'); // Exclude sensitive fields like password
 
-    // Log user-specific behavior (optional)
-    if (userId) {
-      console.log(`Authenticated request by user: ${userId}`);
-    }
+    return NextResponse.json({
+      message: 'Jobs fetched successfully!',
+      data: jobs,
+    });
   } catch (error: any) {
     console.error('Error fetching jobs:', error.message);
     return NextResponse.json({ message: error.message }, { status: 500 });

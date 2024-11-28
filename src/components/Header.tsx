@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { FaGoogle } from 'react-icons/fa';
-import logo from '@/app/assets/images/logo.png'; // Replace with your logo path
+import Logo from '@/app/assets/images/logo.png'; // Replace with your logo path
 import '@/stylesheets/Header.css'; // Import the custom CSS file
 
 const Header = () => {
@@ -28,7 +28,7 @@ const Header = () => {
       <div className='nav-container'>
         {/* Logo Section */}
         <div className='logo'>
-          <Image src={logo} alt='Logo' width={40} height={40} />
+          <Image src={Logo} width={60} height={50} alt='' />
           <span className='logo-text'>CareerPlex</span>
         </div>
 

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 const userSchema = new mongoose.Schema(
   {
     userType: {
@@ -21,7 +22,6 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      required: false,
     },
     isAdmin: {
       type: Boolean,
@@ -29,63 +29,41 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
     phone: {
-      required: false,
       type: String,
     },
-    // additional fields for jobSeeker
     skills: {
-      type: [],
-      required: false,
+      type: [String],
     },
     education: {
-      type: [],
-      required: false,
+      type: [String],
     },
     experience: {
-      type: [],
-      required: false,
+      type: [String],
     },
     careerObjective: {
       type: String,
-      required: false,
     },
-
-    // additional fields for employer
     companyName: {
       type: String,
-      required: false,
     },
     establishmentYear: {
       type: String,
-      required: false,
     },
     companySize: {
       type: String,
-      required: false,
     },
     website: {
       type: String,
-      required: false,
     },
     about: {
       type: String,
-      required: false,
     },
     address: {
       type: String,
-      required: false,
     },
   },
   { timestamps: true }
 );
 
-// delete old model if exists
-if (mongoose.models.users) {
-  const userModel = mongoose.model('users');
-  mongoose.deleteModel(userModel.modelName);
-}
-
-// create new model
-const User = mongoose.model('users', userSchema);
-
+const User = mongoose.models.users || mongoose.model('users', userSchema);
 export default User;
