@@ -4,7 +4,6 @@
   top: 0; /* Sticks to the top of the viewport */
   z-index: 1000; /* Ensures it stays above other elements */
   background-color: #ffff; /* Indigo background */
-  border-bottom: 1px solid gray; /* Optional border */
   padding: 0 16px;
   height: 80px;
   display: flex;
@@ -29,7 +28,7 @@
 }
 
 .logo-text {
-  color: #1ab69e;
+  color: #1ab69fa5;
   font-size: 1.5rem;
   font-weight: bold;
   margin-left: -5px;

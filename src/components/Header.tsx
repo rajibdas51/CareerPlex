@@ -24,7 +24,7 @@ const Header = () => {
   const toggleProfileMenu = () => setIsProfileMenuOpen(!isProfileMenuOpen);
 
   return (
-    <nav className='nav'>
+    <nav className='nav border border-gray-300'>
       <div className='container md:container lg:container-lg flex flex-rwo justify-between '>
         {/* Logo Section */}
         <div className='logo' onClick={() => router.push('/')}>

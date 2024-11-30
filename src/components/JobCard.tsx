@@ -1,9 +1,18 @@
 import React from 'react';
-import { Card } from 'antd';
 import Image from 'next/image';
+import {
+  FaLocationDot,
+  FaLocationPin,
+  FaLocationPinLock,
+  FaMapLocation,
+} from 'react-icons/fa6';
+import { FaClock, FaLocationArrow } from 'react-icons/fa';
+import { SpanStatus } from 'next/dist/trace';
+import Link from 'next/link';
 
 interface JobCardProps {
   job: {
+    _id: string;
     title: string;
     location: string;
     salaryFromRange: number;
@@ -19,8 +28,8 @@ interface JobCardProps {
 
 const JobCard: React.FC<JobCardProps> = ({ job }) => {
   return (
-    <div style={{ padding: '16px' }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div className='bg-white shadow-md border border-gray-250 rounded-md p-3'>
+      <div className='flex flex-row justify-between py-3'>
         <Image
           src={job.user?.avatar}
           alt={job.user?.name}
@@ -28,15 +37,47 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
           width={50}
           height={50}
         />
-        {job.user?.name}
+
+        <div className='flex flex-col'>
+          <h3 className=''>{job.user.name}</h3>
+
+          <p>
+            <FaLocationDot className='inline-block   text-[#1ab69fa5]' />{' '}
+            {job.location}
+          </p>
+        </div>
+        <div>
+          <span
+            style={{ background: 'rgba(62, 200, 179, 0.222)' }}
+            className='inline-block px-1.5 rounded-md text-[#0d322c]'
+          >
+            {job.workMode}
+          </span>
+        </div>
       </div>
-      <h3 className='text-green-500'>{job.title}</h3>
-      <p>Location: {job.location}</p>
-      <p>
-        Salary: ${job.salaryFromRange} - ${job.salaryToRange}
-      </p>
-      <p>Job Type: {job.jobType}</p>
-      <p>Work Mode: {job.workMode}</p>
+      <div className='flex flex-col'>
+        <Link href={`/jobs/${job._id}`} className='text-xl font-bold'>
+          {job.title}
+        </Link>
+        <p className='py-2'>
+          <FaClock className='inline-block text-[#1ab69fa5]' /> Posted 2 days
+          ago
+        </p>
+      </div>
+      <div className='flex flex-row justify-between'></div>
+      <div className='flex felx-row justify-between py-2'>
+        <p
+          className='rounded-md px-2 text-[#02221d]'
+          style={{ background: 'rgba(62, 200, 179, 0.222)' }}
+        >
+          {' '}
+          {job.jobType}
+        </p>
+        <p>
+          <span className='text-[#005548]'>$</span>
+          {job.salaryFromRange}-{job.salaryToRange}/mo
+        </p>
+      </div>
     </div>
   );
 };

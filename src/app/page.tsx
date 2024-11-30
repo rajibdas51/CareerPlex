@@ -53,6 +53,7 @@ export default function Home() {
             >
               <JobCard
                 job={{
+                  _id: job._id,
                   title: job.title,
                   location: job.location,
                   salaryFromRange: job.salaryFromRange,
