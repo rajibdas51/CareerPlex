@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <nav className='nav'>
-      <div className='nav-container'>
+      <div className='container md:container lg:container-lg flex flex-rwo justify-between '>
         {/* Logo Section */}
         <div className='logo' onClick={() => router.push('/')}>
           <Image src={Logo} width={60} height={50} alt='' />

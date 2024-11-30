@@ -1,9 +1,5 @@
 import type { Metadata } from 'next';
-import 'antd/dist/reset.css'; // Ant Design styles
 import './globals.css';
-import '@/stylesheets/commonClasses.css';
-import '@/stylesheets/antdOverrides.css';
-import '@/stylesheets/layout.css';
 import dynamic from 'next/dynamic';
 
 import ReduxProvider from '@/components/ReduxProvider';

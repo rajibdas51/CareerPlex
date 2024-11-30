@@ -14,83 +14,6 @@ body {
   box-sizing: border-box;
 }
 
-input,
-textarea,
-select,
-.input {
-  height: 45px;
-  width: 100%;
-  border: 1px solid #1ab69e;
-  border-radius: 4px;
-  padding: 10px;
-}
-textarea {
-  min-height: 45px;
-}
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border: 2px solid #0ab89e;
-}
-select {
-  padding: 10px;
-}
-select option {
-  line-height: 1.5rem !important;
-  padding: 20px 10px !important;
-}
-
-select option:checked {
-  background-color: #1ab69e;
-  color: white;
-}
-
-select option:hover {
-  background-color: white !important;
-  color: #1ab69e;
-}
-
-button {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  height: 45px !important;
-  box-shadow: none !important;
-}
-
-:where(.css-dev-only-do-not-override-mzwlov).ant-radio-wrapper
-  .ant-radio-checked::after {
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  width: 100%;
-  height: 100%;
-  border: 1px solid #1ab69e !important;
-
-  border-radius: 50%;
-  visibility: hidden;
-  opacity: 0;
-  content: '';
-}
-.ant-radio-checked::after {
-  border: 1px solid #1ab69e !important;
-}
-
-.border-primary {
-}
-
-.pageTitle-wrapper {
-  width: fit-content;
-  border-bottom: 2px solid var(--primary);
-  margin-bottom: 1.5rem;
-}
-
-.ri-delete-bin-5-line {
-  font-size: 25px;
-  padding-left: 1rem;
-}
-
 /** Profile image upload button css */
 
 .upload-btn {
@@ -147,14 +70,8 @@ i {
   cursor: pointer;
   font-size: 25px;
 }
-table {
-  border: 1px solid #c7c7c7;
-  border-radius: 2px !important;
-}
 
 /*------- Header css ------------*/
-.nav {
-}
 
 @media (min-width: 768px) {
   #mobile-menu {

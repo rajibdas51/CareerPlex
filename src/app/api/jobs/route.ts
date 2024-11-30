@@ -1,4 +1,5 @@
 import Job from '@/models/jobModel';
+import User from '@/models/userModel';
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
@@ -26,6 +27,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  await connectDb();
   try {
     // Fetch query string parameters
     const searchParams = new URL(request.url).searchParams;
@@ -46,7 +48,10 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch jobs from the database and always populate the user field
-    const jobs = await Job.find(filterObj).populate('user', '-password -__v'); // Exclude sensitive fields like password
+    const jobs = await Job.find(filterObj).populate({
+      path: 'user',
+      model: User,
+    }); // Exclude sensitive fields like password
 
     return NextResponse.json({
       message: 'Jobs fetched successfully!',

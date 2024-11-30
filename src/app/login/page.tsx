@@ -1,53 +1,99 @@
 'use client';
-import React from 'react';
-import { Button, Form, Input, Radio, message } from 'antd';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { setLoading } from '@/redux/loadersSlice';
+
 const Login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const onFinish = async (values: any) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
     try {
       dispatch(setLoading(true));
-      const response = await axios.post('/api/users/login', values);
-      message.success(response.data.message);
+      const response = await axios.post('/api/users/login', formData);
+      setSuccess(response.data.message);
+      setError('');
       router.push('/');
     } catch (error: any) {
-      message.error(error.response.data.message || 'Something went wrong!');
+      setSuccess('');
+      setError(error.response?.data?.message || 'Something went wrong!');
     } finally {
       dispatch(setLoading(false));
     }
   };
 
   return (
-    <div className='flex justify-center h-screen items-center '>
-      <div className='card py-3 px-3 w-350'>
-        <div className='flex items-center justify-center'>
-          <h1 className='font-white '>CareerPlex Login</h1>
+    <div className='flex justify-center my-28 items-center '>
+      <div className='bg-white shadow-md h-auto rounded-md py-6 px-8 w-[350px]'>
+        <div className='text-center mb-4'>
+          <h1 className='text-2xl font-semibold text-gray-700'>
+            CareerPlex Login
+          </h1>
         </div>
-        <hr />
-        <Form
-          onFinish={onFinish}
-          layout='vertical'
-          className=' flex item-center flex-col'
-        >
-          <Form.Item label='Email' name='email'>
-            <input type='email' className='input' />
-          </Form.Item>
-          <Form.Item label='Password' name='password'>
-            <input type='password' className='input' />
-          </Form.Item>
-          <Button type='primary' className='bg-primary' htmlType='submit' block>
+        <hr className='mb-4' />
+        <form onSubmit={onSubmit} className='flex flex-col gap-4'>
+          <div className='flex flex-col'>
+            <label
+              htmlFor='email'
+              className='text-sm font-medium text-gray-600'
+            >
+              Email
+            </label>
+            <input
+              type='email'
+              name='email'
+              id='email'
+              value={formData.email}
+              onChange={handleChange}
+              className='mt-1 border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+              required
+            />
+          </div>
+          <div className='flex flex-col'>
+            <label
+              htmlFor='password'
+              className='text-sm font-medium text-gray-600'
+            >
+              Password
+            </label>
+            <input
+              type='password'
+              name='password'
+              id='password'
+              value={formData.password}
+              onChange={handleChange}
+              className='mt-1 border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+              required
+            />
+          </div>
+          {error && <div className='text-sm text-red-500'>{error}</div>}
+          {success && <div className='text-sm text-green-500'>{success}</div>}
+          <button
+            type='submit'
+            className='bg-[#1ab69e] text-white rounded-md p-2 mt-4 hover:bg-[#1ab69e] transition-colors'
+          >
             Login
-          </Button>
-          <Link className='pt-2 text-primary' href='/register'>
-            Don't have an Account? Register here
-          </Link>
-        </Form>
+          </button>
+          <div className='text-center mt-2'>
+            <Link
+              href='/register'
+              className='text-[#1ab69e] text-sm hover:underline'
+            >
+              Don't have an Account? Register here
+            </Link>
+          </div>
+        </form>
       </div>
     </div>
   );

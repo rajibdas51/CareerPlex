@@ -1,68 +1,149 @@
 'use client';
 import React, { useState } from 'react';
-import { Button, Form, Input, Radio, message } from 'antd';
 import Link from 'next/link';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setLoading } from '@/redux/loadersSlice';
+
 const Register = () => {
   const dispatch = useDispatch();
   const [userType, setUserType] = useState('');
-  const handleUserTypeChange = (e: any) => {
-    setUserType(e.target.value);
+  const [formData, setFormData] = useState({
+    userType: '',
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
-  const onFinish = async (values: any) => {
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
     try {
       dispatch(setLoading(true));
-      const response = await axios.post('/api/users/register', values);
-      message.success(response.data.message);
-    } catch (error: any) {
-      message.error(error.response.data.message || 'Something went wrong!');
+      const response = await axios.post('/api/users/register', formData);
+      setSuccess(response.data.message);
+      setError('');
+    } catch (error) {
+      setSuccess('');
+      setError(error.response?.data?.message || 'Something went wrong!');
     } finally {
       dispatch(setLoading(false));
     }
   };
+
   return (
-    <div className='flex justify-center h-screen items-center '>
-      <div className='card py-3 px-3 w-350'>
-        <div className='flex items-center justify-center'>
-          <h1 className='font-white '>
-            <span className='text-primary'>CareerPlex</span> Register
+    <div className='flex justify-center h-screen items-center bg-gray-50'>
+      <div className='bg-white shadow-md rounded-md py-6 px-8 w-[350px]'>
+        <div className='text-center mb-4'>
+          <h1 className='text-2xl font-semibold text-gray-700'>
+            <span className='text-[#1ab69e]'>CareerPlex</span> Register
           </h1>
         </div>
-        <hr />
-        <Form
-          onFinish={onFinish}
-          layout='vertical'
-          className=' flex item-center flex-col'
-        >
-          <Form.Item label='Register as' name='userType'>
-            <Radio.Group onChange={handleUserTypeChange} value={userType}>
-              <Radio value='employer' className=''>
+        <hr className='mb-4' />
+        <form onSubmit={onSubmit} className='flex flex-col gap-4'>
+          <div className='flex flex-col'>
+            <label
+              htmlFor='userType'
+              className='text-sm font-medium text-gray-600'
+            >
+              Register as
+            </label>
+            <div className='flex gap-4 mt-2'>
+              <label className='flex items-center gap-2 text-sm'>
+                <input
+                  type='radio'
+                  name='userType'
+                  value='employer'
+                  checked={formData.userType === 'employer'}
+                  onChange={handleChange}
+                  className='accent-[#1ab69e]'
+                />
                 Employer
-              </Radio>
-              <Radio value='jobSeeker'>Job Seeker</Radio>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item
-            label={userType == 'employer' ? 'Company Name' : 'User Name'}
-            name='name'
+              </label>
+              <label className='flex items-center gap-2 text-sm'>
+                <input
+                  type='radio'
+                  name='userType'
+                  value='jobSeeker'
+                  checked={formData.userType === 'jobSeeker'}
+                  onChange={handleChange}
+                  className='accent-[#1ab69e]'
+                />
+                Job Seeker
+              </label>
+            </div>
+          </div>
+          <div className='flex flex-col'>
+            <label htmlFor='name' className='text-sm font-medium text-gray-600'>
+              {formData.userType === 'employer' ? 'Company Name' : 'User Name'}
+            </label>
+            <input
+              type='text'
+              name='name'
+              id='name'
+              value={formData.name}
+              onChange={handleChange}
+              className='mt-1 border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1ab69e]'
+              required
+            />
+          </div>
+          <div className='flex flex-col'>
+            <label
+              htmlFor='email'
+              className='text-sm font-medium text-gray-600'
+            >
+              Email
+            </label>
+            <input
+              type='email'
+              name='email'
+              id='email'
+              value={formData.email}
+              onChange={handleChange}
+              className='mt-1 border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1ab69e]'
+              required
+            />
+          </div>
+          <div className='flex flex-col'>
+            <label
+              htmlFor='password'
+              className='text-sm font-medium text-gray-600'
+            >
+              Password
+            </label>
+            <input
+              type='password'
+              name='password'
+              id='password'
+              value={formData.password}
+              onChange={handleChange}
+              className='mt-1 border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1ab69e]'
+              required
+            />
+          </div>
+          {error && <div className='text-sm text-red-500'>{error}</div>}
+          {success && <div className='text-sm text-green-500'>{success}</div>}
+          <button
+            type='submit'
+            className='bg-[#1ab69e] text-white rounded-md p-2 mt-4 hover:bg-[#17a084] transition-colors'
           >
-            <input type='text' className='input' />
-          </Form.Item>
-          <Form.Item label='Email' name='email'>
-            <input type='email' className='input' />
-          </Form.Item>
-          <Form.Item label='Password' name='password'>
-            <input type='password' className='input' />
-          </Form.Item>
-          <Button type='primary' className='bg-primary' htmlType='submit' block>
             Register
-          </Button>
-          <Link className='pt-2 text-primary' href='/login'>
-            Already have an Account? Login here
-          </Link>
-        </Form>
+          </button>
+          <div className='text-center mt-2'>
+            <Link
+              href='/login'
+              className='text-[#1ab69e] text-sm hover:underline'
+            >
+              Already have an Account? Login here
+            </Link>
+          </div>
+        </form>
       </div>
     </div>
   );
