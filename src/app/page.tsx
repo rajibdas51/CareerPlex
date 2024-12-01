@@ -42,7 +42,7 @@ export default function Home() {
         flexDirection: 'column',
       }}
     >
-      <h1 className='text-black text-2xl my-10'>All jobs</h1>
+      <h1 className='text-black text-2xl my-10'>Featured jobs</h1>
       <div style={{ width: '100%' }} className='container lg:container-lg '>
         <div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
           {jobs.map((job) => (

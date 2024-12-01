@@ -6,7 +6,12 @@ import {
   FaLocationPinLock,
   FaMapLocation,
 } from 'react-icons/fa6';
-import { FaClock, FaLocationArrow } from 'react-icons/fa';
+import {
+  FaArrowAltCircleRight,
+  FaArrowRight,
+  FaClock,
+  FaLocationArrow,
+} from 'react-icons/fa';
 import { SpanStatus } from 'next/dist/trace';
 import Link from 'next/link';
 
@@ -42,7 +47,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
           <h3 className=''>{job.user.name}</h3>
 
           <p>
-            <FaLocationDot className='inline-block   text-[#1ab69fa5]' />{' '}
+            <FaLocationDot className='inline-block   text-[#00ae94]' />{' '}
             {job.location}
           </p>
         </div>
@@ -60,8 +65,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
           {job.title}
         </Link>
         <p className='py-2'>
-          <FaClock className='inline-block text-[#1ab69fa5]' /> Posted 2 days
-          ago
+          <FaClock className='inline-block text-[#00ae94]' /> Posted 2 days ago
         </p>
       </div>
       <div className='flex flex-row justify-between'></div>
@@ -77,6 +81,15 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
           <span className='text-[#005548]'>$</span>
           {job.salaryFromRange}-{job.salaryToRange}/mo
         </p>
+      </div>
+      <div className='flex items-center justify-center cursor-pointer py-3'>
+        <Link
+          href={`/jobs/${job._id}`}
+          className='text-[#00ae94] px-2 py-1 rounded-md font-bold'
+        >
+          Job details
+          <FaArrowRight className='inline-block ml-1 ' />
+        </Link>
       </div>
     </div>
   );

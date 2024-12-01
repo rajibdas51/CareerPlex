@@ -43,6 +43,10 @@ const JobSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    qualifications: {
+      type: String,
+      required: true,
+    },
     vacancies: {
       type: Number,
       required: true,
@@ -50,6 +54,29 @@ const JobSchema = new mongoose.Schema(
     deadline: {
       type: Date,
       required: false, // Optional deadline
+    },
+    jobCategory: {
+      type: String,
+      enum: [
+        'IT',
+        'Software Development',
+        'Web Development',
+        'Graphic Design',
+        'AI/ML Engineer',
+        'Finance',
+        'Healthcare',
+        'Education',
+        'Construction',
+        'Marketing',
+        'Others',
+      ],
+      required: true, // Adjust to `false` if not mandatory
+    },
+    gender: {
+      type: String,
+      enum: ['Male', 'Female', 'Other', 'Not Specified'],
+      default: 'Not Specified',
+      required: false,
     },
   },
   { timestamps: true }
