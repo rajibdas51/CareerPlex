@@ -1,11 +1,10 @@
-import { Col, Row } from 'antd';
 import React from 'react';
 import Divider from './Divider';
 
 function EmployerInfo({ employerInfo }: { employerInfo: any }) {
   return (
-    <Row>
-      <Col span={12}>
+    <div>
+      <div>
         <div className='flex flex-col gap-3'>
           <div className='flex justify-between'>
             <span>Company Name</span>
@@ -39,17 +38,17 @@ function EmployerInfo({ employerInfo }: { employerInfo: any }) {
             <span>{employerInfo.address}</span>
           </div>
         </div>
-      </Col>
+      </div>
 
-      <Col span={24} className='my-3'>
+      <div className='my-3'>
         <Divider />
         <h1 className='text-md'>
           <b>About</b>
         </h1>
 
         <span>{employerInfo.about}</span>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 }
 

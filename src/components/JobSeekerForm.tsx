@@ -1,235 +1,289 @@
-import { Button, Col, Form, Input, Row, Space } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 
-function JobSeekerForm() {
-  return (
-    <>
-      <Row gutter={[10, 0]}>
-        <Col span={8}>
-          <Form.Item
-            label='Name'
-            name='name'
-            rules={[{ required: true, message: 'Please input your name!' }]}
-          >
-            <input type='text' />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item
-            label='Email'
-            name='email'
-            rules={[{ required: true, message: 'Please input your name!' }]}
-          >
-            <input type='email' />
-          </Form.Item>
-        </Col>
-        <Col span={8}>
-          <Form.Item label='Phone' name='phone'>
-            <input type='number' />
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-          <Form.Item label='Career Objective' name='careerObjective'>
-            <textarea rows={4} />
-          </Form.Item>
-        </Col>
-      </Row>
-      {/* ---------Education------*/}
-      <div className=''>
-        <h1 className='text-md'>Education</h1>
-        <Form.List name='education'>
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <Row key={key} align='middle' gutter={16}>
-                  <Col span={8}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'qualification']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Missing Qualification',
-                        },
-                      ]}
-                      label='Qualification'
-                    >
-                      <input type='text' />
-                    </Form.Item>
-                  </Col>
-                  <Col span={8}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'institution']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Missing Institution',
-                        },
-                      ]}
-                      label='Institution'
-                    >
-                      <input type='text' />
-                    </Form.Item>
-                  </Col>
-                  <Col span={4}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'result']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Missing Result',
-                        },
-                      ]}
-                      label='Result'
-                    >
-                      <input type='text' />
-                    </Form.Item>
-                  </Col>
-
-                  <i
-                    className='ri-delete-bin-5-line'
-                    onClick={() => remove(name)}
-                  ></i>
-                </Row>
-              ))}
-              <Form.Item>
-                <Button type='dashed' onClick={() => add()} block>
-                  Add Education
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-      </div>
-
-      {/* ---------Skills------*/}
-      <div className='my-5'>
-        <h1 className='text-md'>Skills</h1>
-        <Form.List name='skills'>
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <Row key={key} align='middle' gutter={16}>
-                  <Col span={8}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'technology']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Missing Technology',
-                        },
-                      ]}
-                      label='Technology'
-                    >
-                      <input type='text' />
-                    </Form.Item>
-                  </Col>
-                  <Col span={8}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'rating']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Missing Rating',
-                        },
-                      ]}
-                      label='Rating'
-                    >
-                      <input type='text' />
-                    </Form.Item>
-                  </Col>
-
-                  <i
-                    className='ri-delete-bin-5-line'
-                    onClick={() => remove(name)}
-                  ></i>
-                </Row>
-              ))}
-              <Form.Item>
-                <Button type='dashed' onClick={() => add()} block>
-                  Add Skill
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-      </div>
-
-      {/* ---------Experience------*/}
-      <div className='my-5'>
-        <h1 className='text-md'>Experience</h1>
-        <Form.List name='experience'>
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <Row key={key} align='middle' gutter={16}>
-                  <Col span={8}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'company']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Missing Company',
-                        },
-                      ]}
-                      label='Company'
-                    >
-                      <input type='text' />
-                    </Form.Item>
-                  </Col>
-                  <Col span={8}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'role']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Missing Role',
-                        },
-                      ]}
-                      label='Role'
-                    >
-                      <input type='text' />
-                    </Form.Item>
-                  </Col>
-                  <Col span={4}>
-                    <Form.Item
-                      {...restField}
-                      name={[name, 'period']}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Missing Period',
-                        },
-                      ]}
-                      label='Period of Work'
-                    >
-                      <input type='text' />
-                    </Form.Item>
-                  </Col>
-
-                  <i
-                    className='ri-delete-bin-5-line'
-                    onClick={() => remove(name)}
-                  ></i>
-                </Row>
-              ))}
-              <Form.Item>
-                <Button type='dashed' onClick={() => add()} block>
-                  Add Experience
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-      </div>
-    </>
-  );
+// Define types for the form fields
+interface EducationField {
+  qualification: string;
+  institution: string;
+  result: string;
 }
+
+interface SkillField {
+  technology: string;
+  rating: string;
+}
+
+interface ExperienceField {
+  company: string;
+  role: string;
+  period: string;
+}
+
+const JobSeekerForm: React.FC = () => {
+  // State definitions with proper types
+  const [educationFields, setEducationFields] = useState<EducationField[]>([
+    { qualification: '', institution: '', result: '' },
+  ]);
+  const [skillsFields, setSkillsFields] = useState<SkillField[]>([
+    { technology: '', rating: '' },
+  ]);
+  const [experienceFields, setExperienceFields] = useState<ExperienceField[]>([
+    { company: '', role: '', period: '' },
+  ]);
+
+  // Function to add a new field to a section
+  const handleAddField = <T,>(
+    fields: T[],
+    setFields: React.Dispatch<React.SetStateAction<T[]>>,
+    newField: T
+  ) => {
+    setFields([...fields, newField]);
+  };
+
+  // Function to remove a field by index
+  const handleRemoveField = <T,>(
+    index: number,
+    fields: T[],
+    setFields: React.Dispatch<React.SetStateAction<T[]>>
+  ) => {
+    const updatedFields = fields.filter((_, idx) => idx !== index);
+    setFields(updatedFields);
+  };
+
+  return (
+    <div className='p-4 bg-white shadow-md rounded-md'>
+      {/* Personal Information */}
+      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+        <div>
+          <label className='block mb-1 font-medium text-gray-700'>Name</label>
+          <input
+            type='text'
+            className='w-full px-3 py-2 border rounded-md'
+            required
+          />
+        </div>
+        <div>
+          <label className='block mb-1 font-medium text-gray-700'>Email</label>
+          <input
+            type='email'
+            className='w-full px-3 py-2 border rounded-md'
+            required
+          />
+        </div>
+        <div>
+          <label className='block mb-1 font-medium text-gray-700'>Phone</label>
+          <input type='number' className='w-full px-3 py-2 border rounded-md' />
+        </div>
+        <div className='col-span-full'>
+          <label className='block mb-1 font-medium text-gray-700'>
+            Career Objective
+          </label>
+          <textarea
+            rows={4}
+            className='w-full px-3 py-2 border rounded-md'
+          ></textarea>
+        </div>
+      </div>
+
+      {/* Education Section */}
+      <div className='my-6'>
+        <h2 className='text-lg font-semibold mb-4'>Education</h2>
+        {educationFields.map((field, index) => (
+          <div
+            key={index}
+            className='grid grid-cols-1 md:grid-cols-3 gap-4 mb-4'
+          >
+            <input
+              type='text'
+              placeholder='Qualification'
+              className='w-full px-3 py-2 border rounded-md'
+              value={field.qualification}
+              onChange={(e) =>
+                setEducationFields(
+                  educationFields.map((f, idx) =>
+                    idx === index ? { ...f, qualification: e.target.value } : f
+                  )
+                )
+              }
+            />
+            <input
+              type='text'
+              placeholder='Institution'
+              className='w-full px-3 py-2 border rounded-md'
+              value={field.institution}
+              onChange={(e) =>
+                setEducationFields(
+                  educationFields.map((f, idx) =>
+                    idx === index ? { ...f, institution: e.target.value } : f
+                  )
+                )
+              }
+            />
+            <input
+              type='text'
+              placeholder='Result'
+              className='w-full px-3 py-2 border rounded-md'
+              value={field.result}
+              onChange={(e) =>
+                setEducationFields(
+                  educationFields.map((f, idx) =>
+                    idx === index ? { ...f, result: e.target.value } : f
+                  )
+                )
+              }
+            />
+            <button
+              type='button'
+              className='text-red-500'
+              onClick={() =>
+                handleRemoveField(index, educationFields, setEducationFields)
+              }
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+        <button
+          type='button'
+          className='px-4 py-2 bg-blue-500 text-white rounded-md'
+          onClick={() =>
+            handleAddField(educationFields, setEducationFields, {
+              qualification: '',
+              institution: '',
+              result: '',
+            })
+          }
+        >
+          Add Education
+        </button>
+      </div>
+
+      {/* Skills Section */}
+      <div className='my-6'>
+        <h2 className='text-lg font-semibold mb-4'>Skills</h2>
+        {skillsFields.map((field, index) => (
+          <div key={index} className='grid grid-cols-2 gap-4 mb-4'>
+            <input
+              type='text'
+              placeholder='Technology'
+              className='w-full px-3 py-2 border rounded-md'
+              value={field.technology}
+              onChange={(e) =>
+                setSkillsFields(
+                  skillsFields.map((f, idx) =>
+                    idx === index ? { ...f, technology: e.target.value } : f
+                  )
+                )
+              }
+            />
+            <input
+              type='text'
+              placeholder='Rating'
+              className='w-full px-3 py-2 border rounded-md'
+              value={field.rating}
+              onChange={(e) =>
+                setSkillsFields(
+                  skillsFields.map((f, idx) =>
+                    idx === index ? { ...f, rating: e.target.value } : f
+                  )
+                )
+              }
+            />
+            <button
+              type='button'
+              className='text-red-500'
+              onClick={() =>
+                handleRemoveField(index, skillsFields, setSkillsFields)
+              }
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+        <button
+          type='button'
+          className='px-4 py-2 bg-blue-500 text-white rounded-md'
+          onClick={() =>
+            handleAddField(skillsFields, setSkillsFields, {
+              technology: '',
+              rating: '',
+            })
+          }
+        >
+          Add Skill
+        </button>
+      </div>
+
+      {/* Experience Section */}
+      <div className='my-6'>
+        <h2 className='text-lg font-semibold mb-4'>Experience</h2>
+        {experienceFields.map((field, index) => (
+          <div key={index} className='grid grid-cols-3 gap-4 mb-4'>
+            <input
+              type='text'
+              placeholder='Company'
+              className='w-full px-3 py-2 border rounded-md'
+              value={field.company}
+              onChange={(e) =>
+                setExperienceFields(
+                  experienceFields.map((f, idx) =>
+                    idx === index ? { ...f, company: e.target.value } : f
+                  )
+                )
+              }
+            />
+            <input
+              type='text'
+              placeholder='Role'
+              className='w-full px-3 py-2 border rounded-md'
+              value={field.role}
+              onChange={(e) =>
+                setExperienceFields(
+                  experienceFields.map((f, idx) =>
+                    idx === index ? { ...f, role: e.target.value } : f
+                  )
+                )
+              }
+            />
+            <input
+              type='text'
+              placeholder='Period'
+              className='w-full px-3 py-2 border rounded-md'
+              value={field.period}
+              onChange={(e) =>
+                setExperienceFields(
+                  experienceFields.map((f, idx) =>
+                    idx === index ? { ...f, period: e.target.value } : f
+                  )
+                )
+              }
+            />
+            <button
+              type='button'
+              className='text-red-500'
+              onClick={() =>
+                handleRemoveField(index, experienceFields, setExperienceFields)
+              }
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+        <button
+          type='button'
+          className='px-4 py-2 bg-blue-500 text-white rounded-md'
+          onClick={() =>
+            handleAddField(experienceFields, setExperienceFields, {
+              company: '',
+              role: '',
+              period: '',
+            })
+          }
+        >
+          Add Experience
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default JobSeekerForm;
