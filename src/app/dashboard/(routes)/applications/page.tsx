@@ -1,68 +1,100 @@
 'use client';
-import PageTitle from '@/components/PageTitle';
-import { setLoading } from '@/redux/loadersSlice';
-import { Button, message, Table } from 'antd';
+
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import moment from 'moment';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-const Applications = () => {
-  const [applications, setApplications] = useState([]);
+import { useRouter } from 'next/navigation';
+import moment from 'moment';
+import { setLoading } from '@/redux/loadersSlice';
+import PageTitle from '@/components/PageTitle';
+
+interface Application {
+  _id: string;
+  job: {
+    title: string;
+    user: {
+      name: string;
+    };
+  };
+  status: string;
+  createdAt: string;
+}
+
+const Applications: React.FC = () => {
+  const [applications, setApplications] = useState<Application[]>([]);
   const { currentUser } = useSelector((state: any) => state.users);
   const dispatch = useDispatch();
   const router = useRouter();
+
   const fetchApplications = async () => {
     try {
       dispatch(setLoading(true));
       const res = await axios.get(`/api/applications?user=${currentUser._id}`);
       setApplications(res.data.data);
-      console.log(res.data);
     } catch (error: any) {
-      message.error(error.message || 'Something went wrong!');
+      console.error(error);
     } finally {
       dispatch(setLoading(false));
     }
   };
-  const columns = [
-    { title: 'Application ID', dataIndex: '_id' },
-    {
-      title: 'Job Title',
-      dataIndex: 'job',
-      render: (job: any) => job.title,
-    },
-    {
-      title: 'Company',
-      dataIndex: 'job',
-      render: (job: any) => job.user.name,
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-    },
-    {
-      title: 'Applied On',
-      dataIndex: 'createdAt',
-      render: (createdAt: any) => moment(createdAt).format('DD/MM/YY'),
-    },
-  ];
 
   useEffect(() => {
     fetchApplications();
   }, []);
 
   return (
-    <div>
-      <div className='flex justify-between py-3'>
-        <PageTitle title='Jobs' />
+    <div className='p-4'>
+      {/* Page Title */}
+      <div className='flex justify-between items-center mb-6'>
+        <PageTitle title='Applications' />
       </div>
 
-      <div className='my-3'>
-        <Table
-          dataSource={applications}
-          columns={columns}
-          rowKey={(record: any) => record._id}
-        />
+      {/* Table */}
+      <div className='overflow-x-auto'>
+        <table className='min-w-full bg-white border border-gray-200'>
+          <thead>
+            <tr className='bg-gray-100 border-b'>
+              <th className='text-left p-3 font-medium text-gray-700'>
+                Application ID
+              </th>
+              <th className='text-left p-3 font-medium text-gray-700'>
+                Job Title
+              </th>
+              <th className='text-left p-3 font-medium text-gray-700'>
+                Company
+              </th>
+              <th className='text-left p-3 font-medium text-gray-700'>
+                Status
+              </th>
+              <th className='text-left p-3 font-medium text-gray-700'>
+                Applied On
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {applications.length > 0 ? (
+              applications.map((application) => (
+                <tr key={application._id} className='border-b hover:bg-gray-50'>
+                  <td className='p-3 text-gray-700'>{application._id}</td>
+                  <td className='p-3 text-gray-700'>{application.job.title}</td>
+                  <td className='p-3 text-gray-700'>
+                    {application.job.user.name}
+                  </td>
+                  <td className='p-3 text-gray-700'>{application.status}</td>
+                  <td className='p-3 text-gray-700'>
+                    {moment(application.createdAt).format('DD/MM/YY')}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5} className='p-3 text-center text-gray-500'>
+                  No applications found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
