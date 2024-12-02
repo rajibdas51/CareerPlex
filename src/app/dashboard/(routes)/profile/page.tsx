@@ -1,47 +1,58 @@
 'use client';
+
 import EmployerForm from '@/components/EmployerForm';
 import JobSeekerForm from '@/components/JobSeekerForm';
 import Image from 'next/image';
 import PageTitle from '@/components/PageTitle';
-import { setLoading } from '@/redux/loadersSlice';
-import { setCurrentUser } from '@/redux/usersSlice';
-import { Button, Form, message } from 'antd';
 import axios from 'axios';
-import { set } from 'mongoose';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '@/redux/loadersSlice';
+import { setCurrentUser } from '@/redux/usersSlice';
 import { UploadButton } from '@/utils/uploadthing';
-function Profile() {
+
+const Profile: React.FC = () => {
   const { currentUser } = useSelector((state: any) => state.users);
   const [avatarImage, setAvatarImage] = useState<string>(
     currentUser.avatar || ''
   );
   const dispatch = useDispatch();
-  const onFinish = async (values: any) => {
+
+  const onFinish = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
     try {
       dispatch(setLoading(true));
-      values._id = currentUser._id;
-      values.userType = currentUser.userType;
-      if (avatarImage.length) {
-        values.avatar = avatarImage;
-        console.log(avatarImage);
-      }
+
+      const values: any = {
+        _id: currentUser._id,
+        userType: currentUser.userType,
+        avatar: avatarImage || '',
+      };
+
+      formData.forEach((value, key) => {
+        values[key] = value;
+      });
 
       const response = await axios.put('/api/users', values);
       dispatch(setCurrentUser(response.data.data));
-      message.success('Profile updated successfully!');
+      alert('Profile updated successfully!');
     } catch (error: any) {
-      message.error(error.response.data.message || 'Something went wrong!');
+      alert(error.response?.data?.message || 'Something went wrong!');
     } finally {
       dispatch(setLoading(false));
     }
   };
+
   return (
-    <div>
+    <div className='space-y-6'>
       <PageTitle title='Profile' />
-      <div className='flex justify-start items-center gap-5 my-5'>
+
+      {/* Avatar Section */}
+      <div className='flex justify-start items-center gap-5'>
         <Image
-          src={avatarImage ? avatarImage : ' company-default.svg'}
+          src={avatarImage || '/company-default.svg'}
           alt='avatar'
           width={100}
           height={100}
@@ -60,20 +71,30 @@ function Profile() {
           }}
         />
       </div>
-      <Form layout='vertical' onFinish={onFinish} initialValues={currentUser}>
+
+      {/* Form Section */}
+      <form
+        onSubmit={onFinish}
+        className='space-y-4'
+        defaultValue={currentUser}
+      >
         {currentUser.userType === 'employer' ? (
           <EmployerForm />
         ) : (
           <JobSeekerForm />
         )}
-        <div className='flex justify-start my-3'>
-          <Button type='primary' htmlType='submit' className='btn'>
+
+        <div className='flex justify-start'>
+          <button
+            type='submit'
+            className='px-6 py-2 bg-blue-500 text-white rounded-md'
+          >
             Save
-          </Button>
+          </button>
         </div>
-      </Form>
+      </form>
     </div>
   );
-}
+};
 
 export default Profile;

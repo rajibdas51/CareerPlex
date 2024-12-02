@@ -2,7 +2,7 @@ import React from 'react';
 
 function EmployerForm() {
   return (
-    <form className='space-y-6'>
+    <>
       {/* Company Name */}
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
         <div>
@@ -138,7 +138,7 @@ function EmployerForm() {
           ></textarea>
         </div>
       </div>
-    </form>
+    </>
   );
 }
 
