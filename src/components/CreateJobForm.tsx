@@ -1,130 +1,160 @@
 'use client';
-import { Col, DatePicker, Space, Form, Input, Row, Select } from 'antd';
-import TextArea from 'antd/es/input/TextArea';
-import moment from 'moment';
+
 import React, { useState } from 'react';
-import type { DatePickerProps } from 'antd';
 import dayjs from 'dayjs';
 
-function CreateJobForm({ deadline }: any) {
-  const [selectedDate, setSelectedDate] = useState<String>('');
-  console.log(deadline);
-  // const onChange = (date: any) => {
-  //   const deadlineString = date?.toISOString(); // Convert to ISO 8601 with Z
-  //   // ... send deadlineString to your backend API for update operation
-  // };
+interface CreateJobFormProps {
+  deadline?: string;
+}
+
+const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
+  const [selectedDate, setSelectedDate] = useState<string>(deadline || '');
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedDate(e.target.value);
+  };
 
   return (
-    <Row gutter={16}>
-      <Col span={24}>
-        <Form.Item
-          label='Job Title'
-          rules={[{ required: true, message: 'Please enter a job title!' }]}
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+      {/* Job Title */}
+      <div className='col-span-3'>
+        <label className='block text-sm font-medium mb-1'>Job Title</label>
+        <input
+          type='text'
           name='title'
-        >
-          <input type='text' />
-        </Form.Item>
-      </Col>
-      <Col span={24}>
-        <Form.Item
-          label='Job Description'
-          rules={[{ required: true, message: 'Please enter  job description' }]}
+          required
+          className='w-full border border-gray-300 rounded px-3 py-2'
+          placeholder='Enter job title'
+        />
+      </div>
+
+      {/* Job Description */}
+      <div className='col-span-3'>
+        <label className='block text-sm font-medium mb-1'>
+          Job Description
+        </label>
+        <textarea
           name='description'
-        >
-          <textarea />
-        </Form.Item>
-      </Col>
-      <Col span={8}>
-        <Form.Item
-          label='Job Type'
-          rules={[{ required: true, message: 'Please Select a Job Type!' }]}
+          required
+          className='w-full border border-gray-300 rounded px-3 py-2'
+          placeholder='Enter job description'
+        />
+      </div>
+
+      {/* Job Type */}
+      <div>
+        <label className='block text-sm font-medium mb-1'>Job Type</label>
+        <select
           name='jobType'
+          required
+          className='w-full border border-gray-300 rounded px-3 py-2'
         >
-          <Select className='input'>
-            <option value='full-time'>Full Time</option>
-            <option value='part-time'>Part Time</option>
-            <option value='contract'>Contractual</option>
-          </Select>
-        </Form.Item>
-      </Col>
-      <Col span={8}>
-        <Form.Item
-          label='Job Location'
-          rules={[{ required: true, message: 'Please enter a job location!' }]}
+          <option value='full-time'>Full Time</option>
+          <option value='part-time'>Part Time</option>
+          <option value='contract'>Contractual</option>
+        </select>
+      </div>
+
+      {/* Job Location */}
+      <div>
+        <label className='block text-sm font-medium mb-1'>Job Location</label>
+        <input
+          type='text'
           name='location'
-        >
-          <input type='text' />
-        </Form.Item>
-      </Col>
-      <Col span={8}>
-        <Form.Item
-          label='Experience'
-          rules={[{ required: true, message: 'Please enter Experience!' }]}
+          required
+          className='w-full border border-gray-300 rounded px-3 py-2'
+          placeholder='Enter job location'
+        />
+      </div>
+
+      {/* Experience */}
+      <div>
+        <label className='block text-sm font-medium mb-1'>Experience</label>
+        <input
+          type='text'
           name='experience'
-        >
-          <input type='text' />
-        </Form.Item>
-      </Col>
-      <Col span={8}>
-        <Form.Item
-          label='Work Mode'
-          rules={[{ required: true, message: 'Please Select Word Mode!' }]}
+          required
+          className='w-full border border-gray-300 rounded px-3 py-2'
+          placeholder='Enter experience required'
+        />
+      </div>
+
+      {/* Work Mode */}
+      <div>
+        <label className='block text-sm font-medium mb-1'>Work Mode</label>
+        <select
           name='workMode'
+          required
+          className='w-full border border-gray-300 rounded px-3 py-2'
         >
-          <Select className='input'>
-            <option value='remote'>Remote</option>
-            <option value='onSite'>on Site</option>
-          </Select>
-        </Form.Item>
-      </Col>
-      <Col span={8}>
-        <Form.Item label='Salary From Range' name='salaryFromRange'>
-          <input type='number' />
-        </Form.Item>
-      </Col>
-      <Col span={8}>
-        <Form.Item label='Salary To Range' name='salaryToRange'>
-          <input type='number' />
-        </Form.Item>
-      </Col>
-      <Col span={8}>
-        <Form.Item label=' Vacancies' name='vacancies'>
-          <input type='number' />
-        </Form.Item>
-      </Col>
+          <option value='remote'>Remote</option>
+          <option value='onSite'>On Site</option>
+        </select>
+      </div>
 
-      {deadline ? (
-        <Col span={8}>
-          <Form.Item label='DeadLine' name='Deadline'>
-            <DatePicker
-              className='input'
-              format='YYYY-MM-DD'
-              placeholder='Select Date'
-              type='date'
-              defaultValue={dayjs(`${deadline}`, 'YYYY-MM-DD')}
-            />
-          </Form.Item>
-        </Col>
-      ) : (
-        <Col span={8}>
-          <Form.Item label='DeadLine' name='deadline'>
-            <DatePicker
-              className='input'
-              format='YYYY-MM-DD'
-              placeholder='Select Date'
-              type='date'
-            />
-          </Form.Item>
-        </Col>
-      )}
+      {/* Salary From */}
+      <div>
+        <label className='block text-sm font-medium mb-1'>
+          Salary From Range
+        </label>
+        <input
+          type='number'
+          name='salaryFromRange'
+          className='w-full border border-gray-300 rounded px-3 py-2'
+          placeholder='Enter minimum salary'
+        />
+      </div>
 
-      <Col span={8}>
-        <Form.Item label='Skills required' name='skills'>
-          <input type='text' placeholder='Ex:React,js,Node,mysql' />
-        </Form.Item>
-      </Col>
-    </Row>
+      {/* Salary To */}
+      <div>
+        <label className='block text-sm font-medium mb-1'>
+          Salary To Range
+        </label>
+        <input
+          type='number'
+          name='salaryToRange'
+          className='w-full border border-gray-300 rounded px-3 py-2'
+          placeholder='Enter maximum salary'
+        />
+      </div>
+
+      {/* Vacancies */}
+      <div>
+        <label className='block text-sm font-medium mb-1'>Vacancies</label>
+        <input
+          type='number'
+          name='vacancies'
+          className='w-full border border-gray-300 rounded px-3 py-2'
+          placeholder='Enter number of vacancies'
+        />
+      </div>
+
+      {/* Deadline */}
+      <div>
+        <label className='block text-sm font-medium mb-1'>Deadline</label>
+        <input
+          type='date'
+          name='deadline'
+          value={selectedDate}
+          onChange={handleDateChange}
+          className='w-full border border-gray-300 rounded px-3 py-2'
+        />
+      </div>
+
+      {/* Skills */}
+      <div>
+        <label className='block text-sm font-medium mb-1'>
+          Skills Required
+        </label>
+        <input
+          type='text'
+          name='skills'
+          className='w-full border border-gray-300 rounded px-3 py-2'
+          placeholder='e.g., React, Node.js, MySQL'
+        />
+      </div>
+    </div>
   );
-}
+};
 
 export default CreateJobForm;

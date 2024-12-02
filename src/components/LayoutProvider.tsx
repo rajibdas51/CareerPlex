@@ -167,10 +167,10 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
                 })}
               </div>
 
-              <div className='absolute bottom-4 left-0 right-0'>
+              <div className='absolute bottom-4 left-0 right-0 m-auto items-center'>
                 <button
                   onClick={logOut}
-                  className='w-full flex items-center justify-center p-4 text-sm bg-red-600 hover:bg-red-500 text-white'
+                  className=' flex items-center justify-center p-4 text-sm bg-green-600 hover:bg-red-500 text-white'
                 >
                   <i className='ri-logout-circle-line mr-2'></i>
                   {isSidebarOpen && 'Logout'}
