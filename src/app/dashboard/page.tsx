@@ -1,24 +1,22 @@
 'use client';
-import { setLoading } from '@/redux/loadersSlice';
-import styles from './page.module.css';
+
 import axios from 'axios';
-//import { message } from 'antd';
-import { cookies } from 'next/headers';
 import { useEffect, useState } from 'react';
-import { Col, Divider, Row, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import Filters from '@/components/Filters';
-
-export default function Home() {
-  const [jobs, setJobs] = useState([]);
+import { setLoading } from '@/redux/loadersSlice';
+import { JobType } from '@/types/types';
+import JobCard from '@/components/JobCard';
+const Home: React.FC = () => {
+  const [jobs, setJobs] = useState<JobType[]>([]); // Use the Job type for state
   const [filters, setFilters] = useState({
     searchText: '',
     location: '',
   });
+
   const router = useRouter();
   const { currentUser } = useSelector((state: any) => state.users);
-
   const dispatch = useDispatch();
 
   const fetchJobs = async () => {
@@ -27,7 +25,7 @@ export default function Home() {
       const res = await axios.get(`/api/jobs`, { params: filters });
       setJobs(res.data.data);
     } catch (error: any) {
-      message.error(error?.response?.data?.message || error.message);
+      alert(error?.response?.data?.message || error.message);
     } finally {
       dispatch(setLoading(false));
     }
@@ -35,41 +33,36 @@ export default function Home() {
 
   useEffect(() => {
     fetchJobs();
-  }, []);
+  }, [filters]);
+
   return (
-    <div>
+    <div className='space-y-6'>
+      {/* Filters Component */}
       <Filters filters={filters} setFilters={setFilters} getData={fetchJobs} />
-      <Row gutter={[16, 16]} className='gap-3 ml-0'>
-        {jobs.map((job: any) => (
-          <Col
-            span={8}
-            key={job._id}
-            className='card flex flex-col py-3 gap-2 cursor-pointer '
-            onClick={() => router.push(`jobinfo/${job._id}`)}
-          >
-            <h2 className='job-title'>{job.title}</h2>
-            <Divider />
-            <div className='flex justify-between'>
-              <span>Company</span>
-              <span>{job.user.name}</span>
-            </div>
-            <div className='flex justify-between'>
-              <span>Location</span>
-              <span>{job.location}</span>
-            </div>
-            <div className='flex justify-between'>
-              <span>Salary</span>
-              <span>
-                {job.salaryFromRange} LPA - {job.salaryToRange} LPA
-              </span>
-            </div>
-            <div className='flex justify-between'>
-              <span>Work Mode</span>
-              <span>{job.workMode}</span>
-            </div>
-          </Col>
+
+      {/* Job Listings */}
+      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+        {' '}
+        {jobs.map((job) => (
+          <JobCard
+            job={{
+              _id: job._id,
+              title: job.title,
+              location: job.location,
+              salaryFromRange: job.salaryFromRange,
+              salaryToRange: job.salaryToRange,
+              jobType: job.jobType,
+              workMode: job.workMode,
+              user: {
+                name: job.user.name,
+                avatar: job.user.avatar,
+              },
+            }}
+          />
         ))}
-      </Row>
+      </div>
     </div>
   );
-}
+};
+
+export default Home;

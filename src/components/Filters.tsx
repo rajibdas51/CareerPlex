@@ -1,4 +1,3 @@
-import { Button } from 'antd';
 import React from 'react';
 
 const Filters = ({
@@ -28,16 +27,16 @@ const Filters = ({
           value={filters.locaion}
           onChange={(e) => setFilters({ ...filters, location: e.target.value })}
         >
-          <option value='Bangladesh'>Bangladesh</option>
+          <option value='bangladesh'>Bangladesh</option>
           <option value='usa'>USA</option>
           <option value='germany'>Germany</option>
           <option value='netherlands'>Netherlands</option>
           <option value='india'>India</option>
         </select>
       </div>
-      <Button type='primary' onClick={getData}>
+      <button className='' onClick={getData}>
         Filter
-      </Button>
+      </button>
     </div>
   );
 };
