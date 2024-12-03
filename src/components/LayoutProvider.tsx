@@ -8,7 +8,7 @@ import { setCurrentUser } from '@/redux/usersSlice';
 import { setLoading } from '@/redux/loadersSlice';
 import Loader from './Loader';
 import Image from 'next/image';
-import Logo from '@/app/assets/images/logo.png';
+import Logo from '@/app/assets/images/logo-full-green.png';
 import Header from './Header';
 interface MenuItem {
   name: string;
@@ -102,7 +102,17 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
       fetchCurrentUser();
     }
   }, [pathname]);
+  const publicPaths = [
+    '/',
+    '/login',
+    '/register',
+    '/jobs',
+    '/jobinfo/[jobid]',
+    '/userinfo/[userid]',
+  ];
 
+  // Check if the current path is one of the public paths
+  const isPublicPath = publicPaths.some((path) => pathname.startsWith(path));
   const logOut = async () => {
     try {
       dispatch(setLoading(true));
@@ -116,14 +126,12 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
       dispatch(setLoading(false));
     }
   };
+  const isDashboardPath = pathname.startsWith('/dashboard');
 
   return (
     <>
       {isLoading && <Loader />}
-      {pathname === '/login' ||
-      pathname === '/register' ||
-      pathname === '/' ||
-      pathname === '/jobs' ? (
+      {!isDashboardPath ? (
         <div className='flex flex-col'>
           {' '}
           <Header />
@@ -145,10 +153,10 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
                       src={Logo}
                       alt='CareerPlex'
                       style={{ marginRight: 8, borderRadius: '50%' }}
-                      width={50}
-                      height={50}
+                      width={70}
+                      height={70}
                     />
-                    <h1 className='text-lg font-bold mt-1'>CareerPlex</h1>
+                    <h1 className='text-lg font-bold mt-3'>CareerPlex</h1>
                   </div>
                 )}
                 <button

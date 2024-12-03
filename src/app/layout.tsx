@@ -5,6 +5,8 @@ import '@/stylesheets/layout.css';
 import '@/stylesheets/loader.css';
 import '@uploadthing/react/styles.css';
 import dynamic from 'next/dynamic';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import LayoutProvider from '@/components/LayoutProvider';
 import ReduxProvider from '@/components/ReduxProvider';
@@ -33,7 +35,11 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning={true}>
         <ReduxProvider>
-          <LayoutProvider>{children}</LayoutProvider>;
+          <LayoutProvider>
+            {children}
+            <ToastContainer />
+          </LayoutProvider>
+          ;
         </ReduxProvider>
       </body>
     </html>

@@ -121,8 +121,8 @@ function JobData() {
   return (
     <div className='bg-gray-50'>
       <div className='container md:container lg:container-lg items-center justify-center m-auto  p-4'>
-        <div className='flex flex-col md:flex-row  md:py-10 gap-4'>
-          <div className='md:flex-[7]'>
+        <div className='flex  md:flex-row  md:py-10 gap-4'>
+          <div className=' md:flex-[7]'>
             {/* */}
             <div className='flex justify-between items-center bg-white p-6 border border-gray-200 shadow-md rounded-md'>
               <div className='flex flex-row gap-5 '>
@@ -185,7 +185,9 @@ function JobData() {
               </button>
               <button
                 className='px-4 py-2 bg-[#00ae94] text-white rounded hover:bg-[#00ae94]'
-                onClick={() => router.push(`/userinfo/${jobData?.user?._id}`)}
+                onClick={() =>
+                  router.push(`/dashboard/userinfo/${jobData?.user?._id}`)
+                }
               >
                 View Company Info
               </button>

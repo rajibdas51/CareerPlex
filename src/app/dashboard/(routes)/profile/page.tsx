@@ -10,9 +10,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLoading } from '@/redux/loadersSlice';
 import { setCurrentUser } from '@/redux/usersSlice';
 import { UploadButton } from '@/utils/uploadthing';
-
+import { toast } from 'react-toastify';
+interface User {
+  _id: string;
+  name?: string;
+  avatar?: string;
+  userType: 'employer' | 'jobseeker';
+}
 const Profile: React.FC = () => {
-  const { currentUser } = useSelector((state: any) => state.users);
+  const { currentUser } = useSelector(
+    (state: { users: { currentUser: User } }) => state.users
+  );
   const [avatarImage, setAvatarImage] = useState<string>(
     currentUser.avatar || ''
   );
@@ -21,11 +29,10 @@ const Profile: React.FC = () => {
   const onFinish = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-
     try {
       dispatch(setLoading(true));
 
-      const values: any = {
+      const values: Record<string, any> = {
         _id: currentUser._id,
         userType: currentUser.userType,
         avatar: avatarImage || '',
@@ -37,7 +44,7 @@ const Profile: React.FC = () => {
 
       const response = await axios.put('/api/users', values);
       dispatch(setCurrentUser(response.data.data));
-      alert('Profile updated successfully!');
+      toast.success('Profile updated successfully!');
     } catch (error: any) {
       alert(error.response?.data?.message || 'Something went wrong!');
     } finally {
@@ -73,15 +80,11 @@ const Profile: React.FC = () => {
       </div>
 
       {/* Form Section */}
-      <form
-        onSubmit={onFinish}
-        className='space-y-4'
-        defaultValue={currentUser}
-      >
+      <form onSubmit={onFinish} className='space-y-4'>
         {currentUser.userType === 'employer' ? (
-          <EmployerForm />
+          <EmployerForm currentUser={currentUser} />
         ) : (
-          <JobSeekerForm />
+          <JobSeekerForm currentUser={currentUser} />
         )}
 
         <div className='flex justify-start'>

@@ -24,6 +24,7 @@ interface JobCardProps {
     salaryToRange: number;
     jobType: string;
     workMode: string;
+    jobUrl: string;
     user: {
       name: string;
       avatar: string;
@@ -84,7 +85,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
       </div>
       <div className='flex items-center justify-center cursor-pointer py-3'>
         <Link
-          href={`/jobs/${job._id}`}
+          href={job.jobUrl}
           className='text-[#00ae94] px-2 py-1 rounded-md font-bold'
         >
           Job details

@@ -57,6 +57,7 @@ const Home: React.FC = () => {
                 name: job.user.name,
                 avatar: job.user.avatar,
               },
+              jobUrl: `/dashboard/jobinfo/${job._id}`,
             }}
           />
         ))}

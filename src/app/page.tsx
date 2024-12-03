@@ -60,6 +60,8 @@ export default function Home() {
                   salaryToRange: job.salaryToRange,
                   jobType: job.jobType,
                   workMode: job.workMode,
+                  jobUrl: `/jobinfo/${job._id}`,
+
                   user: {
                     name: job.user.name,
                     avatar: job.user.avatar,

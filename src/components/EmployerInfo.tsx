@@ -40,7 +40,7 @@ function EmployerInfo({ employerInfo }: { employerInfo: any }) {
               </h2>
             </h1>
 
-            <p className='text-gray-700'>{employerInfo.about}</p>
+            <p className='text-gray-700 p-2 text-wrap'>{employerInfo.about}</p>
           </div>
         </div>
         <div className=' md:flex-[4] bg-white p-8'>

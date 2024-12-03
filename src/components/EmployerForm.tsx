@@ -1,6 +1,19 @@
 import React from 'react';
 
-function EmployerForm() {
+interface EmployerFormProps {
+  currentUser: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    establishmentYear?: number;
+    website?: string;
+    companySize?: number;
+    about?: string;
+    address?: string;
+  };
+}
+
+const EmployerForm: React.FC<EmployerFormProps> = ({ currentUser }) => {
   return (
     <>
       {/* Company Name */}
@@ -16,7 +29,8 @@ function EmployerForm() {
             type='text'
             id='name'
             name='name'
-            className='w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
+            defaultValue={currentUser.name || ''}
+            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             required
           />
         </div>
@@ -33,7 +47,8 @@ function EmployerForm() {
             type='email'
             id='email'
             name='email'
-            className='w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
+            defaultValue={currentUser.email || ''}
+            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             required
           />
         </div>
@@ -50,7 +65,8 @@ function EmployerForm() {
             type='text'
             id='phone'
             name='phone'
-            className='w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
+            defaultValue={currentUser.phone || ''}
+            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             required
           />
         </div>
@@ -69,7 +85,8 @@ function EmployerForm() {
             type='number'
             id='establishmentYear'
             name='establishmentYear'
-            className='w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
+            defaultValue={currentUser.establishmentYear || ''}
+            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             required
           />
         </div>
@@ -85,7 +102,8 @@ function EmployerForm() {
             type='text'
             id='website'
             name='website'
-            className='w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
+            defaultValue={currentUser.website || ''}
+            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
           />
         </div>
 
@@ -100,7 +118,8 @@ function EmployerForm() {
             type='number'
             id='companySize'
             name='companySize'
-            className='w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
+            defaultValue={currentUser.companySize || ''}
+            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             required
           />
         </div>
@@ -118,7 +137,8 @@ function EmployerForm() {
           <textarea
             id='about'
             name='about'
-            className='w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
+            defaultValue={currentUser.about || ''}
+            className='w-full  border p-2 px-3 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             rows={4}
           ></textarea>
         </div>
@@ -133,13 +153,14 @@ function EmployerForm() {
           <textarea
             id='address'
             name='address'
-            className='w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
+            defaultValue={currentUser.address || ''}
+            className='w-full border border-gray-300 p-2 px-3  rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             rows={4}
           ></textarea>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default EmployerForm;
