@@ -131,14 +131,14 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
         </div>
       ) : (
         currentUser && (
-          <div className='flex h-screen'>
+          <div className='flex   h-screen'>
             {/* Sidebar */}
             <div
-              className={`bg-gray-800 text-white ${
+              className={`bg-gray-800 text-white relative flex flex-col  items-center justify-center ${
                 isSidebarOpen ? 'w-64' : 'w-16'
               } transition-all duration-300`}
             >
-              <div className='p-4 flex items-center justify-between'>
+              <div className='p-4 flex gap-3 items-center justify-between'>
                 {isSidebarOpen && (
                   <div className='flex flex-row'>
                     <Image
@@ -148,7 +148,7 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
                       width={50}
                       height={50}
                     />
-                    <h1 className='text-lg font-bold'>CareerPlex</h1>
+                    <h1 className='text-lg font-bold mt-1'>CareerPlex</h1>
                   </div>
                 )}
                 <button
@@ -163,7 +163,7 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
                 </button>
               </div>
 
-              <div className='space-y-4 mt-6'>
+              <div className='space-y-4 mt-6 flex flex-col items-center justify-center m-auto'>
                 {menuItems.map((item, index) => {
                   const isActive = pathname === item.path;
                   return (
@@ -171,7 +171,9 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
                       key={index}
                       onClick={() => router.push(item.path)}
                       className={`flex items-center w-full p-4 text-sm font-medium transition-colors ${
-                        isActive ? 'bg-gray-700' : 'hover:bg-gray-600'
+                        isActive
+                          ? 'bg-gray-700'
+                          : 'hover:bg-gray-600 hover:rounded-md'
                       }`}
                     >
                       <i className={`${item.icon} mr-3`}></i>
@@ -181,10 +183,10 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
                 })}
               </div>
 
-              <div className='absolute bottom-4 left-0 right-0 m-auto items-center'>
+              <div className='absolute w-full bottom-4 left-0 right-0 flex flex-row justify-center m-auto items-center'>
                 <button
                   onClick={logOut}
-                  className=' flex items-center justify-center p-4 text-sm bg-green-600 hover:bg-red-500 text-white'
+                  className=' flex items-center justify-center p-4 text-sm bg-[#00ae94] hover:bg-red-500 text-white rounded-md'
                 >
                   <i className='ri-logout-circle-line mr-2'></i>
                   {isSidebarOpen && 'Logout'}

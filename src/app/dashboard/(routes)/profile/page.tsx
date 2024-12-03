@@ -87,7 +87,7 @@ const Profile: React.FC = () => {
         <div className='flex justify-start'>
           <button
             type='submit'
-            className='px-6 py-2 bg-blue-500 text-white rounded-md'
+            className='px-6 py-2 bg-[#00ae94] text-white rounded-md'
           >
             Save
           </button>

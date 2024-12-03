@@ -54,7 +54,7 @@ function NewJob() {
         <div className='flex justify-between items-center mt-6'>
           <button
             type='submit'
-            className='bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded'
+            className='bg-[#00ae94] hover:bg-primary text-white px-6 py-2 rounded'
           >
             Post Job
           </button>
