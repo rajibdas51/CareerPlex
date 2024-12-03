@@ -3,6 +3,7 @@ import { connectDb } from '@/config/dbConfig';
 import bcrypt from 'bcryptjs';
 import User from '@/models/userModel';
 import next from 'next';
+import { revalidatePath } from 'next/cache';
 connectDb();
 export async function POST(request: NextRequest) {
   try {
@@ -20,6 +21,8 @@ export async function POST(request: NextRequest) {
 
     // create new user
     await User.create(reqBody);
+    revalidatePath('/');
+
     return NextResponse.json(
       {
         message: 'User created Successfully!',

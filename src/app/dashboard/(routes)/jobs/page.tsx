@@ -103,7 +103,7 @@ function Jobs() {
                       setSelectedJob(job);
                       setShowApplications(true);
                     }}
-                    className='text-blue-500 hover:text-blue-700'
+                    className='text-[#00ae94] hover:text-[#248a7b]'
                     title='Applications'
                   >
                     <i className='ri-file-list-3-line'></i>

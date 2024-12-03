@@ -17,6 +17,7 @@ interface JobSeekerInfoProps {
 }
 
 const JobSeekerInfo: React.FC<JobSeekerInfoProps> = ({ jobSeekerInfo }) => {
+  console.log(jobSeekerInfo);
   return (
     <div className='p-4 bg-white shadow-md rounded-md'>
       {/* Personal Details */}
@@ -60,19 +61,20 @@ const JobSeekerInfo: React.FC<JobSeekerInfoProps> = ({ jobSeekerInfo }) => {
               </tr>
             </thead>
             <tbody>
-              {jobSeekerInfo.education.map((edu, idx) => (
-                <tr key={idx} className='even:bg-gray-50'>
-                  <td className='border border-gray-200 px-4 py-2'>
-                    {edu.qualification}
-                  </td>
-                  <td className='border border-gray-200 px-4 py-2'>
-                    {edu.institution}
-                  </td>
-                  <td className='border border-gray-200 px-4 py-2'>
-                    {edu.percentage}
-                  </td>
-                </tr>
-              ))}
+              {jobSeekerInfo.education &&
+                jobSeekerInfo?.education?.map((edu, idx) => (
+                  <tr key={idx} className='even:bg-gray-50'>
+                    <td className='border border-gray-200 px-4 py-2'>
+                      {edu.qualification}
+                    </td>
+                    <td className='border border-gray-200 px-4 py-2'>
+                      {edu.institution}
+                    </td>
+                    <td className='border border-gray-200 px-4 py-2'>
+                      {edu.percentage}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

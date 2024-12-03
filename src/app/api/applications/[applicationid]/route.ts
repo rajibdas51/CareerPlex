@@ -4,6 +4,7 @@ import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
 import { sendEmail } from '@/helpers/sendEmail';
 import moment from 'moment';
+import { revalidatePath } from 'next/cache';
 connectDb();
 
 export async function PUT(request: NextRequest, { params }: any) {
@@ -52,6 +53,7 @@ export async function PUT(request: NextRequest, { params }: any) {
       message: 'Job Status updated Successfully!',
       data: application,
     });
+    revalidatePath('/');
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }

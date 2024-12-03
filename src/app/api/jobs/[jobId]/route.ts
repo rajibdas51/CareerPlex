@@ -2,6 +2,7 @@ import Job from '@/models/jobModel';
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
+import { revalidatePath } from 'next/cache';
 connectDb();
 export async function GET(request: NextRequest, { params }: any) {
   try {
@@ -28,6 +29,7 @@ export async function PUT(request: NextRequest, { params }: any) {
       message: 'Job updated successfully!',
       data: updatedJob,
     });
+    revalidatePath('/');
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
@@ -41,6 +43,7 @@ export async function DELETE(request: NextRequest, { params }: any) {
       message: 'Job deleted successfully!',
       data: job,
     });
+    revalidatePath('/');
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }

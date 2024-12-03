@@ -3,6 +3,7 @@ import User from '@/models/userModel';
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
+import { revalidatePath } from 'next/cache';
 connectDb();
 export async function POST(request: NextRequest) {
   try {
@@ -20,6 +21,7 @@ export async function POST(request: NextRequest) {
       message: 'Job created Successfully!',
       data: job,
     });
+    revalidatePath('/');
   } catch (error: any) {
     console.log(error);
     return NextResponse.json({ message: error.message }, { status: 500 });
@@ -57,6 +59,7 @@ export async function GET(request: NextRequest) {
       message: 'Jobs fetched successfully!',
       data: jobs,
     });
+    revalidatePath('/');
   } catch (error: any) {
     console.error('Error fetching jobs:', error.message);
     return NextResponse.json({ message: error.message }, { status: 500 });

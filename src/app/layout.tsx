@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
 import './globals.css';
+
+import '@/stylesheets/layout.css';
+import '@/stylesheets/loader.css';
+import '@uploadthing/react/styles.css';
 import dynamic from 'next/dynamic';
 
+import LayoutProvider from '@/components/LayoutProvider';
 import ReduxProvider from '@/components/ReduxProvider';
-import Header from '@/components/Header';
 
 <link
   href='https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css'
@@ -28,8 +32,9 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning={true}>
-        <Header />
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          <LayoutProvider>{children}</LayoutProvider>;
+        </ReduxProvider>
       </body>
     </html>
   );

@@ -43,7 +43,7 @@ export default function Home() {
       }}
     >
       <h1 className='text-black text-2xl my-10'>Featured jobs</h1>
-      <div style={{ width: '100%' }} className='container lg:container-lg '>
+      <div style={{ width: '100%' }} className='container-xl lg:container '>
         <div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
           {jobs.map((job) => (
             <div

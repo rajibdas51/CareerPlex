@@ -17,19 +17,19 @@ const Register = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: any) => {
     e.preventDefault();
     try {
       dispatch(setLoading(true));
       const response = await axios.post('/api/users/register', formData);
       setSuccess(response.data.message);
       setError('');
-    } catch (error) {
+    } catch (error: any) {
       setSuccess('');
       setError(error.response?.data?.message || 'Something went wrong!');
     } finally {

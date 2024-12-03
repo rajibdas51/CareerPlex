@@ -158,14 +158,3 @@
 .logout-icon:hover {
   color: var(--primary);
 }
-
-input,
-textarea,
-select,
-.input {
-  height: 45px;
-  width: 100%;
-  border: 1px solid #1ab69e;
-  border-radius: 4px;
-  padding: 10px;
-}

@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
 import { sendEmail } from '@/helpers/sendEmail';
+import { revalidatePath } from 'next/cache';
 connectDb();
 export async function POST(request: NextRequest) {
   try {
@@ -67,6 +68,7 @@ export async function GET(request: NextRequest) {
       message: 'ApplicationDatas fetched successfully!',
       data: applications,
     });
+    revalidatePath('/');
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }

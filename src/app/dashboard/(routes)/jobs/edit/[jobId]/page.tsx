@@ -78,7 +78,7 @@ function EditJob() {
           <PageTitle title='Edit Job Post' />
           <button
             onClick={() => router.back()}
-            className='bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded'
+            className='bg-[#00ae94] hover:bg-[#00ae94] text-gray-50 px-4 py-2 rounded'
           >
             Back
           </button>
@@ -99,14 +99,14 @@ function EditJob() {
           <div className='flex justify-between items-center mt-6'>
             <button
               type='submit'
-              className='bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded'
+              className='bg-[#00ae94] hover:bg-[#00ae94] text-gray-50 px-4 py-2 rounded'
             >
               Update Job
             </button>
             <button
               type='button'
               onClick={() => router.back()}
-              className='bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded ml-4'
+              className='bg-orange-500 hover:bg-gray-300 text-gray-50 px-4 py-2 rounded ml-4'
             >
               Cancel
             </button>

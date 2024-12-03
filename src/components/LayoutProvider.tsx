@@ -9,6 +9,7 @@ import { setLoading } from '@/redux/loadersSlice';
 import Loader from './Loader';
 import Image from 'next/image';
 import Logo from '@/app/assets/images/logo.png';
+import Header from './Header';
 interface MenuItem {
   name: string;
   path: string;
@@ -21,6 +22,7 @@ interface Props {
 
 const LayoutProvider: React.FC<Props> = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
   const [menuItems, setMenuItems] = useState<MenuItem[]>([
     { name: 'Home', path: '/', icon: 'ri-home-4-fill' },
     {
@@ -41,7 +43,7 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
     { name: 'Saved', path: '/dashboard/saved', icon: 'ri-save-3-fill' },
   ]);
   const [employerMenu, setEmployerMenu] = useState<MenuItem[]>([
-    { name: 'Home', path: '/', icon: 'ri-home-4-fill' },
+    { name: 'Home', path: '/?new=1', icon: 'ri-home-4-fill' },
     {
       name: 'Profile',
       path: '/dashboard/profile',
@@ -91,7 +93,12 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (pathname !== '/login' && pathname !== '/register' && !currentUser) {
+    if (
+      pathname !== '/login' &&
+      pathname !== '/register' &&
+      pathname !== '/' &&
+      !currentUser
+    ) {
       fetchCurrentUser();
     }
   }, [pathname]);
@@ -113,8 +120,15 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
   return (
     <>
       {isLoading && <Loader />}
-      {pathname === '/login' || pathname === '/register' ? (
-        <div>{children}</div>
+      {pathname === '/login' ||
+      pathname === '/register' ||
+      pathname === '/' ||
+      pathname === '/jobs' ? (
+        <div className='flex flex-col'>
+          {' '}
+          <Header />
+          <div>{children}</div>
+        </div>
       ) : (
         currentUser && (
           <div className='flex h-screen'>

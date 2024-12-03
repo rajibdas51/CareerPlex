@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 export async function POST() {
@@ -7,6 +8,8 @@ export async function POST() {
       { status: 200 }
     );
     response.cookies.set('token', '', { maxAge: 0 });
+    revalidatePath('/');
+
     return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
