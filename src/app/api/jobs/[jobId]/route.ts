@@ -29,7 +29,7 @@ export async function PUT(request: NextRequest, { params }: any) {
       message: 'Job updated successfully!',
       data: updatedJob,
     });
-    revalidatePath('/');
+    revalidatePath('/jobs');
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }

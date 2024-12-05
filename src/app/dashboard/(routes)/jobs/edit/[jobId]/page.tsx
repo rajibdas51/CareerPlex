@@ -9,45 +9,27 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { JobType } from '@/types/types';
 
 dayjs.extend(customParseFormat);
 
 const dateFormat = 'YYYY-MM-DD';
 
-interface Job {
-  title: string;
-  location: string;
-  jobType: string;
-  workMode: string;
-  experience: string;
-  deadline: string;
-  [key: string]: any; // Additional fields
-}
-
 function EditJob() {
-  const [job, setJob] = useState<Job | null>(null);
+  const [job, setJob] = useState<JobType | null>(null);
   const router = useRouter();
-  const { jobId } = useParams();
+  const { jobId } = useParams() as { jobId: string }; // Ensure type safety
   const dispatch = useDispatch();
 
-  const onFinish = async (values: Job) => {
+  const onFinish = async (values: Partial<JobType>) => {
     try {
-      values._id = jobId;
       dispatch(setLoading(true));
-
-      const FormData = Object.fromEntries(
-        Object.keys(values).map((key) =>
-          key === 'Deadline'
-            ? [key.toLowerCase(), values[key]]
-            : [key, values[key]]
-        )
-      );
-
-      const res = await axios.put(`/api/jobs/${jobId}`, FormData);
-      alert(res.data.message); // Replace message.success
+      const updatedJob = { ...values, _id: jobId };
+      const res = await axios.put(`/api/jobs/${jobId}`, updatedJob);
+      alert(res.data.message); // Use a notification system if available
       router.push('/jobs');
     } catch (error: any) {
-      alert(error.message); // Replace message.error
+      alert(error.response?.data?.message || 'Failed to update job');
     } finally {
       dispatch(setLoading(false));
     }
@@ -57,23 +39,23 @@ function EditJob() {
     try {
       dispatch(setLoading(true));
       const res = await axios.get(`/api/jobs/${jobId}`);
-      res.data.data.deadline = dayjs(res.data.data.deadline).format(dateFormat);
-      setJob(res.data.data);
+      const fetchedJob = res.data.data;
+      fetchedJob.deadline = dayjs(fetchedJob.deadline).format(dateFormat);
+      setJob(fetchedJob);
     } catch (error: any) {
-      alert(error.message); // Replace message.error
+      alert(error.response?.data?.message || 'Failed to fetch job');
     } finally {
       dispatch(setLoading(false));
     }
   };
 
   useEffect(() => {
-    fetchJob();
-  }, []);
+    if (jobId) fetchJob();
+  }, [jobId]);
 
   return (
     job && (
       <div className='p-4'>
-        {/* Page Title and Back Button */}
         <div className='flex justify-between items-center mb-4'>
           <PageTitle title='Edit Job Post' />
           <button
@@ -83,19 +65,17 @@ function EditJob() {
             Back
           </button>
         </div>
-
-        {/* Form */}
         <form
           onSubmit={(e) => {
             e.preventDefault();
             const formData = new FormData(e.target as HTMLFormElement);
-            const values = Object.fromEntries(formData.entries()) as Job;
+            const values = Object.fromEntries(
+              formData.entries()
+            ) as unknown as Partial<JobType>;
             onFinish(values);
           }}
         >
-          <CreateJobForm deadline={job.deadline} />
-
-          {/* Form Actions */}
+          <CreateJobForm job={job} />
           <div className='flex justify-between items-center mt-6'>
             <button
               type='submit'

@@ -1,29 +1,71 @@
 'use client';
 
 import React, { useState } from 'react';
+import { JobType } from '@/types/types';
 import dayjs from 'dayjs';
-
-interface CreateJobFormProps {
-  deadline?: string;
+// Define the Job type
+interface User {
+  _id: string;
+  userType: string;
+  name: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+  skills: string[];
+  experience: string[];
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+  __v: number;
+  about: string;
+  address: string;
+  companySize: string;
+  establishmentYear: string;
+  phone: string;
+  website: string;
+  education: string[];
+  avatar: string; // URL string
 }
 
-const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
-  const [selectedDate, setSelectedDate] = useState<string>(deadline || '');
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedDate(e.target.value);
+
+interface CreateJobFormProps {
+  job: Partial<JobType>; // Allow partial job data for flexibility
+  onFieldChange?: (field: string, value: any) => void; // Optional callback for field updates
+}
+
+const CreateJobForm: React.FC<CreateJobFormProps> = ({
+  job,
+  onFieldChange,
+}) => {
+  const [formValues, setFormValues] = useState<Partial<Job>>(job);
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+    if (onFieldChange) {
+      onFieldChange(name, value);
+    }
   };
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
       {/* Job Title */}
-      <div className='col-span-3 '>
-        <label className='block text-sm font-medium mb-1'>Job Title</label>
+      <div className='col-span-3'>
+        <label htmlFor='title' className='block text-sm font-medium mb-1'>
+          Job Title
+        </label>
         <input
           type='text'
+          id='title'
           name='title'
+          value={formValues.title || ''}
+          onChange={handleChange}
           required
-          className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
+          className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-[#00ae94]'
           placeholder='Enter job title'
         />
       </div>
@@ -35,6 +77,8 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           name='jobCategory'
           required
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-[#00ae94]'
+          value={formValues.jobCategory || ''}
+          onChange={handleChange}
         >
           <option value='IT'>IT</option>
           <option value='Software Development'>Software Development</option>
@@ -64,6 +108,8 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           required
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
           placeholder='Enter Minimum qualifications'
+          value={formValues.qualifications || ''}
+          onChange={handleChange}
         />
       </div>
       {/* Job Description */}
@@ -76,6 +122,9 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           required
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
           placeholder='Enter job description'
+          defaultValue={job.description || ''}
+          value={formValues.description || ''}
+          onChange={handleChange}
         />
       </div>
 
@@ -86,6 +135,8 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           name='jobType'
           required
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
+          value={formValues.jobType || ''}
+          onChange={handleChange}
         >
           <option value='full-time'>Full Time</option>
           <option value='part-time'>Part Time</option>
@@ -102,6 +153,8 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           required
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
           placeholder='Enter job location'
+          value={formValues.location || ''}
+          onChange={handleChange}
         />
       </div>
 
@@ -114,6 +167,8 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           required
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
           placeholder='Enter experience required'
+          value={formValues.experience || ''}
+          onChange={handleChange}
         />
       </div>
 
@@ -124,6 +179,8 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           name='workMode'
           required
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
+          value={formValues.workMode || ''}
+          onChange={handleChange}
         >
           <option value='remote'>Remote</option>
           <option value='onSite'>On Site</option>
@@ -140,6 +197,8 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           name='salaryFromRange'
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
           placeholder='Enter minimum salary'
+          value={formValues.salaryFromRange || ''}
+          onChange={handleChange}
         />
       </div>
 
@@ -153,6 +212,8 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           name='salaryToRange'
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
           placeholder='Enter maximum salary'
+          value={job.salaryToRange || ''}
+          onChange={handleChange}
         />
       </div>
 
@@ -164,6 +225,8 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           name='vacancies'
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
           placeholder='Enter number of vacancies'
+          value={formValues.vacancies || ''}
+          onChange={handleChange}
         />
       </div>
 
@@ -173,9 +236,10 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
         <input
           type='date'
           name='deadline'
-          value={selectedDate}
-          onChange={handleDateChange}
+          value={formValues.deadline || ''}
+          onChange={handleChange}
           className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none  focus:border-[#00ae94]'
+          defaultValue={job.deadline || ''}
         />
       </div>
 
@@ -189,6 +253,8 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({ deadline }) => {
           name='skills'
           className='w-full border fou border-gray-300 rounded px-3 py-2  focus:outline-none  focus:border-[#00ae94]'
           placeholder='e.g., React, Node.js, MySQL'
+          value={formValues.skills || ''}
+          onChange={handleChange}
         />
       </div>
     </div>

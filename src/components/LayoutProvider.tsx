@@ -72,6 +72,7 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
   const { currentUser } = useSelector((state: any) => state.users);
   const { isLoading } = useSelector((state: any) => state.loaders);
   const pathname = usePathname();
+  const isDashboardPath = pathname.startsWith('/dashboard');
 
   const fetchCurrentUser = async () => {
     try {
@@ -93,26 +94,12 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (
-      pathname !== '/login' &&
-      pathname !== '/register' &&
-      pathname !== '/' &&
-      !currentUser
-    ) {
+    if (isDashboardPath && !currentUser) {
       fetchCurrentUser();
     }
   }, [pathname]);
-  const publicPaths = [
-    '/',
-    '/login',
-    '/register',
-    '/jobs',
-    '/jobinfo/[jobid]',
-    '/userinfo/[userid]',
-  ];
 
   // Check if the current path is one of the public paths
-  const isPublicPath = publicPaths.some((path) => pathname.startsWith(path));
   const logOut = async () => {
     try {
       dispatch(setLoading(true));
@@ -126,7 +113,6 @@ const LayoutProvider: React.FC<Props> = ({ children }) => {
       dispatch(setLoading(false));
     }
   };
-  const isDashboardPath = pathname.startsWith('/dashboard');
 
   return (
     <>
