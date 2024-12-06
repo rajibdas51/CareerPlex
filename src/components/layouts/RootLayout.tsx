@@ -1,8 +1,9 @@
 'use client';
 
 import { Provider } from 'react-redux';
-import store from '@/redux/store';
+import { store, persistor } from '@/redux/store';
 import { ToastContainer } from 'react-toastify';
+import { PersistGate } from 'redux-persist/integration/react';
 
 export default function RootLayout({
   children,
@@ -11,8 +12,11 @@ export default function RootLayout({
 }) {
   return (
     <Provider store={store}>
-      {children}
-      <ToastContainer position='top-right' />
+      <PersistGate loading={null} persistor={persistor}>
+        {children}
+
+        <ToastContainer position='top-right' />
+      </PersistGate>
     </Provider>
   );
 }
