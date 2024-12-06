@@ -30,7 +30,7 @@ const EmployerForm: React.FC<EmployerFormProps> = ({ currentUser }) => {
             id='name'
             name='name'
             defaultValue={currentUser.name || ''}
-            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
+            className='w-full  border p-2 px-3   border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             required
           />
         </div>
@@ -66,7 +66,7 @@ const EmployerForm: React.FC<EmployerFormProps> = ({ currentUser }) => {
             id='phone'
             name='phone'
             defaultValue={currentUser.phone || ''}
-            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
+            className='w-full  border p-2 px-3  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             required
           />
         </div>
@@ -86,7 +86,7 @@ const EmployerForm: React.FC<EmployerFormProps> = ({ currentUser }) => {
             id='establishmentYear'
             name='establishmentYear'
             defaultValue={currentUser.establishmentYear || ''}
-            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
+            className='w-full  border p-2 px-3   border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             required
           />
         </div>
@@ -103,7 +103,7 @@ const EmployerForm: React.FC<EmployerFormProps> = ({ currentUser }) => {
             id='website'
             name='website'
             defaultValue={currentUser.website || ''}
-            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
+            className='w-full  border p-2 px-3   border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
           />
         </div>
 
@@ -119,7 +119,7 @@ const EmployerForm: React.FC<EmployerFormProps> = ({ currentUser }) => {
             id='companySize'
             name='companySize'
             defaultValue={currentUser.companySize || ''}
-            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
+            className='w-full  border p-2 px-3   border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
             required
           />
         </div>

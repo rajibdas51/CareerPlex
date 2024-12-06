@@ -11,18 +11,15 @@ import { setLoading } from '@/redux/loadersSlice';
 import { setCurrentUser } from '@/redux/usersSlice';
 import { UploadButton } from '@/utils/uploadthing';
 import { toast } from 'react-toastify';
-interface User {
-  _id: string;
-  name?: string;
-  avatar?: string;
-  userType: 'employer' | 'jobseeker';
-}
+import { UserType } from '@/types/types';
+
 const Profile: React.FC = () => {
   const { currentUser } = useSelector(
-    (state: { users: { currentUser: User } }) => state.users
+    (state: { users: { currentUser: UserType } }) => state.users
   );
+  console.log(currentUser);
   const [avatarImage, setAvatarImage] = useState<string>(
-    currentUser.avatar || ''
+    currentUser?.avatar || ''
   );
   const dispatch = useDispatch();
 
@@ -34,7 +31,7 @@ const Profile: React.FC = () => {
 
       const values: Record<string, any> = {
         _id: currentUser._id,
-        userType: currentUser.userType,
+        userType: currentUser?.userType,
         avatar: avatarImage || '',
       };
 
@@ -81,7 +78,7 @@ const Profile: React.FC = () => {
 
       {/* Form Section */}
       <form onSubmit={onFinish} className='space-y-4'>
-        {currentUser.userType === 'employer' ? (
+        {currentUser?.userType === 'employer' ? (
           <EmployerForm currentUser={currentUser} />
         ) : (
           <JobSeekerForm currentUser={currentUser} />

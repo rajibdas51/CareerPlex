@@ -1,5 +1,20 @@
+import { UserType } from '@/types/types';
 import React, { useState } from 'react';
-
+interface JobSeekerFormProps {
+  currentUser: {
+    name: string;
+    email: string;
+    phone: string;
+    carrierObjective: string;
+    education: {
+      qualification: string;
+      institution: string;
+      percentage: string;
+    }[];
+    skills: { technology: string; rating: string }[];
+    experience: { company: string; role: string; period: string }[];
+  };
+}
 // Define types for the form fields
 interface EducationField {
   qualification: string;
@@ -18,7 +33,7 @@ interface ExperienceField {
   period: string;
 }
 
-const JobSeekerForm: React.FC = () => {
+const JobSeekerForm: React.FC<UserType> = ({ currentUser }) => {
   // State definitions with proper types
   const [educationFields, setEducationFields] = useState<EducationField[]>([
     { qualification: '', institution: '', result: '' },
@@ -59,6 +74,7 @@ const JobSeekerForm: React.FC = () => {
             type='text'
             className='w-full px-3 py-2 border rounded-md'
             required
+            defaultValue={currentUser.name || ''}
           />
         </div>
         <div>
@@ -67,11 +83,22 @@ const JobSeekerForm: React.FC = () => {
             type='email'
             className='w-full px-3 py-2 border rounded-md'
             required
+            defaultValue={currentUser.email || ''}
           />
         </div>
         <div>
-          <label className='block mb-1 font-medium text-gray-700'>Phone</label>
-          <input type='number' className='w-full px-3 py-2 border rounded-md' />
+          <label
+            htmlFor='phone'
+            className='block mb-1 font-medium text-gray-700'
+          >
+            Phone
+          </label>
+          <input
+            type='number'
+            name='phone'
+            className='w-full px-3 py-2 border rounded-md'
+            defaultValue={currentUser.phone || ''}
+          />
         </div>
         <div className='col-span-full'>
           <label className='block mb-1 font-medium text-gray-700'>
@@ -80,6 +107,7 @@ const JobSeekerForm: React.FC = () => {
           <textarea
             rows={4}
             className='w-full px-3 py-2 border rounded-md'
+            defaultValue={currentUser.carrierObjective || ''}
           ></textarea>
         </div>
       </div>
@@ -87,7 +115,7 @@ const JobSeekerForm: React.FC = () => {
       {/* Education Section */}
       <div className='my-6'>
         <h2 className='text-lg font-semibold mb-4'>Education</h2>
-        {educationFields.map((field, index) => (
+        {currentUser?.education.map((field, index) => (
           <div
             key={index}
             className='grid grid-cols-1 md:grid-cols-3 gap-4 mb-4'
@@ -97,13 +125,6 @@ const JobSeekerForm: React.FC = () => {
               placeholder='Qualification'
               className='w-full px-3 py-2 border rounded-md'
               value={field.qualification}
-              onChange={(e) =>
-                setEducationFields(
-                  educationFields.map((f, idx) =>
-                    idx === index ? { ...f, qualification: e.target.value } : f
-                  )
-                )
-              }
             />
             <input
               type='text'
