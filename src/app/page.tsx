@@ -32,7 +32,6 @@ export default function Home() {
     fetchJobs();
   }, []);
 
-  console.log(jobs);
   return (
     <div
       style={{

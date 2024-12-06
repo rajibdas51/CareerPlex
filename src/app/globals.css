@@ -22,12 +22,6 @@ body {
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -46,7 +40,7 @@ body {
   margin-top: 20px;
 }
 .upload-btn > *[data-ut-element='button'] {
-  background-color: #1ab69e !important;
+  background-color: #00ae94 !important;
   color: white !important;
   border-radius: 4px;
   padding: 8px 15px;
@@ -62,7 +56,7 @@ body {
   cursor: pointer;
 }
 .upload-btn > *[data-ut-element='button'][data-state='uploading'] {
-  background-color: #1ab69e !important;
+  background-color: #00ae94 !important;
   color: white !important;
   border-radius: 4px;
   padding: 10px 20px;
@@ -70,7 +64,7 @@ body {
   cursor: pointer;
 }
 .upload-btn > *[data-ut-element='button'][data-state='uploading']::after {
-  background-color: #1ab69e !important;
+  background-color: #00ae94 !important;
   color: white !important;
   border-radius: 4px;
   padding: 10px 20px;
@@ -78,48 +72,22 @@ body {
   cursor: pointer;
 }
 
-.rounded-full {
-  border-radius: 50%;
+/* navbar css*/
+.desktop-menu {
+  display: flex;
 }
 
-.job > div > span {
-  font-size: 16px;
-  line-height: 1.5rem;
-}
-
-.job-description {
-  font-size: 16px;
-  line-height: 1.5rem;
-}
-i {
-  cursor: pointer;
-  font-size: 25px;
-}
-
-/*------- Header css ------------*/
-
-@media (min-width: 768px) {
-  #mobile-menu {
+@media screen and (max-width: 760px) {
+  .desktop-menu {
     display: none;
   }
 }
 
-.mobile-menu-container {
-  display: none !important;
+.mobile-menu {
+  display: none;
 }
-@media (min-width: 768px) {
-  .mobile-menu-container {
-    display: none;
-    position: absolute;
-    display: flex;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    alignitems: center;
+@media screen and(max-width:768px) {
+  .mobile-menu {
+    display: block !important;
   }
-}
-
-.logo-img {
-  height: 40px;
-  width: auto;
 }

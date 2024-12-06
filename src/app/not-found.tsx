@@ -1,29 +1,31 @@
 import Link from 'next/link';
 import React from 'react';
-import { FaExclamationTriangle } from 'react-icons/fa';
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaExclamationTriangle,
+} from 'react-icons/fa';
 
 const NotFoundPage = () => {
   return (
     <section>
-      <div style={{ minHeight: '100vh', margin: 'auto' }}>
+      <div className='flex items-center h-[90vh] m-auto justify-center'>
         <div className='notfound-container'>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <FaExclamationTriangle className='notfount-icon' />
+          <div className='flex justify-center'>
+            <FaExclamationTriangle className='md:text-8xl text-orange-500 -mt-10 mb-5' />
           </div>
-          <div
-            style={{
-              alignItems: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              textAlign: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <h1 className='notfound-heading '>Page not Found!</h1>
-            <p className=' not-found-text'>
+          <div className='flex items-center flex-col text-center justify-center'>
+            <h1 className='text-3xl md:text-5xl font-bold my-3'>
+              Page not Found!
+            </h1>
+            <p className='text-2xl not-found-text'>
               The page you are looking for is not found!
             </p>
-            <Link href='/' className='not-found-btn'>
+            <Link
+              href='/'
+              className='bg-[#00ae94] text-white px-3 py-2 rounded-md mt-8 '
+            >
+              <FaArrowLeft className='inline-block text-white' />
               Go Home
             </Link>
           </div>

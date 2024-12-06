@@ -50,10 +50,12 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch jobs from the database and always populate the user field
-    const jobs = await Job.find(filterObj).populate({
-      path: 'user',
-      model: User,
-    }); // Exclude sensitive fields like password
+    const jobs = await Job.find(filterObj)
+      .populate({
+        path: 'user',
+        model: User,
+      })
+      .select('-password'); // Exclude sensitive fields like password
 
     return NextResponse.json({
       message: 'Jobs fetched successfully!',
