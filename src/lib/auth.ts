@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { setCurrentUser } from '@/redux/usersSlice';
-
+import { useDispatch } from 'react-redux';
+import { setLoading } from '@/redux/loadersSlice';
+import { useRouter } from 'next/navigation';
 export const fetchCurrentUser = async (dispatch: any) => {
   try {
     const response = await axios.get('/api/users/currentuser');
@@ -16,15 +18,5 @@ export const fetchCurrentUser = async (dispatch: any) => {
     console.error('Failed to fetch current user', error);
     dispatch(setCurrentUser(null));
     return null;
-  }
-};
-
-export const logout = async (dispatch: any) => {
-  try {
-    await axios.post('/api/users/logout');
-    dispatch(setCurrentUser(null));
-    // Redirect to login
-  } catch (error) {
-    console.error('Logout failed', error);
   }
 };

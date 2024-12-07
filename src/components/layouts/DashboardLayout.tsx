@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter, usePathname } from 'next/navigation';
 import Sidebar from '@/components/Sidebar';
-import { fetchCurrentUser, logout } from '@/lib/auth';
+import { fetchCurrentUser } from '@/lib/auth';
 import { setLoading } from '@/redux/loadersSlice';
 import axios from 'axios';
 import { setCurrentUser } from '@/redux/usersSlice';
+import { toast } from 'react-toastify';
 interface MenuItem {
   name: string;
   path: string;
@@ -77,9 +78,9 @@ export default function DashboardLayout({
       await axios.post('/api/users/logout');
       dispatch(setCurrentUser(null));
       router.push('/login');
-      alert('Logged out successfully!');
+      toast.success('Logged out successfully!');
     } catch {
-      alert('Logout failed!');
+      toast.error('Logout failed!');
     } finally {
       dispatch(setLoading(false));
     }

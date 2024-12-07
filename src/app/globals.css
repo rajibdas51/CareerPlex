@@ -71,23 +71,3 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
-
-/* navbar css*/
-.desktop-menu {
-  display: flex;
-}
-
-@media screen and (max-width: 760px) {
-  .desktop-menu {
-    display: none;
-  }
-}
-
-.mobile-menu {
-  display: none;
-}
-@media screen and(max-width:768px) {
-  .mobile-menu {
-    display: block !important;
-  }
-}

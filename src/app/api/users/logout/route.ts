@@ -7,9 +7,9 @@ export async function POST() {
       { message: 'Logout Successfull!' },
       { status: 200 }
     );
+
     response.cookies.set('token', '', { maxAge: 0 });
     revalidatePath('/');
-
     return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

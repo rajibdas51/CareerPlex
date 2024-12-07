@@ -1,14 +1,15 @@
 module.exports = {
+  mode: 'jit',
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    /* */
+
+    // Just-In-Time mode for faster builds and full class support
+    './src/**/*.{js,ts,jsx,tsx,mdx}', // Broaden the scope to all src files
   ],
   theme: {
     extend: {},
   },
-  variants: {
-    extend: {},
-  },
+
   plugins: [],
+  important: true,
 };

@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { setLoading } from '@/redux/loadersSlice';
+import { toast } from 'react-toastify';
+import { setCurrentUser } from '@/redux/usersSlice';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -12,7 +14,6 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -22,7 +23,10 @@ const Login = () => {
     try {
       dispatch(setLoading(true));
       const response = await axios.post('/api/users/login', formData);
+      dispatch(setCurrentUser(response.data.user));
+
       setSuccess(response.data.message);
+      toast.success(success);
       setError('');
       router.push('/');
     } catch (error: any) {
