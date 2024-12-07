@@ -1,5 +1,6 @@
 import React from 'react';
 import HeroBg from '@/app/assets/images/hero-bg.jpg';
+import HeroPerson from '@/app/assets/images/hero-man.png';
 import Image from 'next/image';
 const Hero = () => {
   return (
@@ -15,15 +16,24 @@ const Hero = () => {
         {/*Hero bg overlay*/}
       </div>
       {/* Content */}
-      <div className='max-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center md:h-[800px] relative '>
+      <div className='container-xl lg:container max-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-row items-center justify-center md:h-[800px] relative '>
         <div className='text-center'>
           <h1 className='text-4xl font-extrabold text-white sm:text-5xl md:text-6xl'>
             Find Your Dream Job
           </h1>
-          <p className='my-4 text-xl md:text-2xl text-white'>
+          <p className='my-4 text-xl md:text-xl text-white'>
             Find Jobs, Employment & Career Opportunities. Some of the companies
             we've helped recruit excellent applicants over the years.{' '}
           </p>
+        </div>
+        <div>
+          <Image
+            src={HeroPerson}
+            alt='Hero Bg'
+            width={0}
+            height={0}
+            className='object-cover bg-no-repeat  md:h-[800px]'
+          />
         </div>
       </div>
     </section>
