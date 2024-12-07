@@ -12,11 +12,16 @@ import { setLoading } from '@/redux/loadersSlice';
 import { logOut, setCurrentUser } from '@/redux/usersSlice';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { UserType } from '@/types/types';
+import { fetchCurrentUser } from '@/lib/auth';
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+
   const pathname = usePathname();
   const router = useRouter();
+  const { currentUser } = useSelector((state: any) => state.users);
+  const [user, setUser] = useState(currentUser);
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -38,20 +43,17 @@ const Header = () => {
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-  const { currentUser } = useSelector((state: any) => state.users);
-  const [user, setuser] = useState(null);
-  console.log(currentUser);
+  console.log(user);
   const path = usePathname();
   const isDashboard = path.startsWith('/dashboard');
   const dispatch = useDispatch();
+
   const signOut = async () => {
     try {
       dispatch(setLoading(true));
       await axios.post('/api/users/logout');
       dispatch(setCurrentUser(null));
-      //dispatch(logOut());
-      setuser(null);
-      // clear persisted storage
+      await fetchCurrentUser(dispatch);
       router.push('/login');
       toast.success('Logged out successfully!');
     } catch {
@@ -61,13 +63,17 @@ const Header = () => {
     }
   };
 
+  /*
+  
+  */
   useEffect(() => {
-    if (currentUser) {
-      setuser(currentUser);
-    } else {
-      setuser(null);
+    const user = fetchCurrentUser(dispatch);
+    if (user) {
+      setUser(user);
+      console.log('this is from db:', user);
     }
-  }, [user, signOut]);
+  }, [pathname]);
+
   return (
     !isDashboard && (
       <nav className='flex items-center w-full sticky top-0 z-50 bg-white shadow-md'>
@@ -108,8 +114,8 @@ const Header = () => {
             </div>
 
             {/* <!-- Right Side Menu (Logged In) --> */}
-            {user && (
-              <div className='absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0'>
+            {currentUser && (
+              <div className='hidden md:flex absolute inset-y-0 right-0  items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0'>
                 <a href='/' className='relative group'>
                   <button
                     type='button'
@@ -237,7 +243,7 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
-            {!user && (
+            {!currentUser && (
               <Link
                 className='flex items-center gap-2 bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-500 transition'
                 href='/login'

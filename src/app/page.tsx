@@ -11,6 +11,7 @@ import { JobType } from '@/types/types'; // Import the Job type
 import { DiJavascript1 } from 'react-icons/di';
 import Header from '@/components/Header';
 import PublicLayout from '@/components/layouts/PublicLayout';
+import Hero from '@/components/Hero';
 
 export default function Home({ children }: { children: React.ReactNode }) {
   const [jobs, setJobs] = useState<JobType[]>([]); // Use the Job type for state
@@ -37,7 +38,8 @@ export default function Home({ children }: { children: React.ReactNode }) {
   return (
     <PublicLayout>
       <div className='w-full flex items-center flex-col '>
-        <div style={{ width: '100%' }} className='container-xl lg:container '>
+        <Hero />
+        <div className='container-xl lg:container '>
           <h1 className='text-black text-2xl my-10'>Featured jobs</h1>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
             {jobs.map((job) => (

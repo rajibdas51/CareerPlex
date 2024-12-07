@@ -30,13 +30,11 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning={true}>
-        <ReduxProvider>
-          <RootLayoutProvider>
-            <Header />
-            {children}
-            <ToastContainer />
-          </RootLayoutProvider>
-        </ReduxProvider>
+        <RootLayoutProvider>
+          <Header />
+          {children}
+          <ToastContainer />
+        </RootLayoutProvider>
       </body>
     </html>
   );

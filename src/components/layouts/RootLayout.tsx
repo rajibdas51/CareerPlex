@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from '@/redux/store';
 import { ToastContainer } from 'react-toastify';
 import AppInitializer from '../AppInitializer';
+import ReduxProvider from '../ReduxProvider';
 
 export default function RootLayoutProvider({
   children,
@@ -11,10 +12,10 @@ export default function RootLayoutProvider({
   children: React.ReactNode;
 }) {
   return (
-    <Provider store={store}>
-      <AppInitializer>{children}</AppInitializer>
+    <ReduxProvider>
+      {children}
 
       <ToastContainer position='top-right' />
-    </Provider>
+    </ReduxProvider>
   );
 }

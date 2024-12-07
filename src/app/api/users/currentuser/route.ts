@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     // if no userId is found, return a 401(Unauthorized) response
     if (!userId) {
       return NextResponse.json(
-        { message: 'User is not LoggedIn!' },
+        { message: 'Unauthorized user!', data: null },
         { status: 401 }
       );
     }

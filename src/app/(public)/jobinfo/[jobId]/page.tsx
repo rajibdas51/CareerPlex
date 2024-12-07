@@ -121,8 +121,8 @@ function JobData() {
   return (
     <div className='bg-gray-50'>
       <div className='container md:container lg:container-lg items-center justify-center m-auto  p-4'>
-        <div className='flex  md:flex-row  md:py-10 gap-4'>
-          <div className=' md:flex-[7]'>
+        <div className='flex-[10] md:flex  md:flex-row  md:py-10 gap-4'>
+          <div className='flex-[10] md:flex-[7]'>
             {/* */}
             <div className='flex justify-between items-center bg-white p-6 border border-gray-200 shadow-md rounded-md'>
               <div className='flex flex-row gap-5 '>
@@ -207,7 +207,7 @@ function JobData() {
             </div>
           </div>
 
-          <div className='md:flex-[3] flex-col gap-2 bg-white p-4 rounded-md shadow-md'>
+          <div className='flex-[10] md:flex-[3] flex-col gap-2 bg-white p-4 rounded-md shadow-md'>
             <h2 className='text-2xl text-gray-700 font-bold py-3 border-b-2 mb-4'>
               Job Information
             </h2>
