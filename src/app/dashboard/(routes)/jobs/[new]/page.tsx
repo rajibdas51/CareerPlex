@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 function NewJob() {
   const router = useRouter();
@@ -17,10 +18,10 @@ function NewJob() {
       dispatch(setLoading(true));
 
       const res = await axios.post('/api/jobs', values);
-      alert(res.data.message); // Replace Ant Design message.success
+      toast.success(res.data.message); // Replace Ant Design message.success
       router.push('/jobs');
     } catch (error: any) {
-      alert(error.message); // Replace Ant Design message.error
+      toast.error(error.message); // Replace Ant Design message.error
     } finally {
       dispatch(setLoading(false));
     }
@@ -48,7 +49,7 @@ function NewJob() {
           onFinish(values);
         }}
       >
-        <CreateJobForm />
+        <CreateJobForm job={{}} />
 
         {/* Form Actions */}
         <div className='flex justify-between items-center mt-6'>

@@ -71,3 +71,9 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
+
+@media screen (min-width: 768px) {
+  .search-container {
+    border-radius: 0px 10px 0px 10px;
+  }
+}

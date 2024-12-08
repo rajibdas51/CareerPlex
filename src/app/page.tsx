@@ -68,7 +68,6 @@ export default function Home({ children }: { children: React.ReactNode }) {
               </div>
             ))}
           </div>
-          {children}
         </div>
       </div>
     </PublicLayout>
