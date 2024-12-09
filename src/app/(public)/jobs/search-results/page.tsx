@@ -14,7 +14,7 @@ interface FilterType {
   location: string;
   jobCategory: string;
 }
-const JobsPage = ({
+const JobSearchPage = ({
   searchParams: { location, jobCategory },
 }: {
   searchParams: {
@@ -53,7 +53,7 @@ const JobsPage = ({
 
   return (
     <section>
-      <div className='container-xl lg:container mx-auto py-4'>
+      <div className='container-xl md:container-lg mx-auto py-4'>
         {/* Filters Component */}
         <Filters
           filters={filters}
@@ -62,7 +62,7 @@ const JobsPage = ({
           url='/'
         />
         {/* Job Listings */}
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-4 md:py-8'>
           {' '}
           {jobs.map((job) => (
             <JobCard
@@ -88,4 +88,4 @@ const JobsPage = ({
   );
 };
 
-export default JobsPage;
+export default JobSearchPage;

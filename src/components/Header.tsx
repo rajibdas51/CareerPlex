@@ -21,7 +21,7 @@ const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { currentUser } = useSelector((state: any) => state.users);
-  const [user, setUser] = useState(currentUser);
+  const [user, setUser] = useState(currentUser || null);
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -43,7 +43,6 @@ const Header = () => {
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-  console.log(user);
   const path = usePathname();
   const isDashboard = path.startsWith('/dashboard');
   const dispatch = useDispatch();
@@ -51,6 +50,7 @@ const Header = () => {
   const signOut = async () => {
     try {
       dispatch(setLoading(true));
+
       await axios.post('/api/users/logout');
       dispatch(setCurrentUser(null));
       await fetchCurrentUser(dispatch);
@@ -70,9 +70,8 @@ const Header = () => {
     const user = fetchCurrentUser(dispatch);
     if (user) {
       setUser(user);
-      console.log('this is from db:', user);
     }
-  }, [pathname]);
+  }, [pathname, currentUser]);
 
   return (
     !isDashboard && (

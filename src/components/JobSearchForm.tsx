@@ -16,9 +16,10 @@ const JobSearchForm = () => {
       router.push('/jobs');
     } else {
       const query = `?location=${location}&jobCategory=${jobCategory}`;
-      router.push(`/jobs/search-results${query}`);
+      router.push(`/jobs/${query}`);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -35,6 +36,7 @@ const JobSearchForm = () => {
             id='location'
             placeholder='Enter Location (city,Country)'
             className='w-full rounded-full border md:border-none m-0 px-4 py-4 bg-white text-gray-800 focus:outline-none '
+            onChange={(e) => setLocation(e.target.value)}
           />
           <FaLocationDot className='text-[#00ae94] ' />
         </div>

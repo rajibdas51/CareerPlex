@@ -13,6 +13,7 @@ const Home: React.FC = () => {
   const [filters, setFilters] = useState({
     searchText: '',
     location: '',
+    jobCategory: '',
   });
 
   const router = useRouter();

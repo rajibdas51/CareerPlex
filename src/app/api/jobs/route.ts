@@ -36,6 +36,7 @@ export async function GET(request: NextRequest) {
     const user = searchParams.get('user');
     const searchText = searchParams.get('searchText') || '';
     const location = searchParams.get('location') || '';
+    const jobCategory = searchParams.get('jobCategory') || '';
 
     // Build the filter object based on query parameters
     const filterObj: any = {};
@@ -45,11 +46,15 @@ export async function GET(request: NextRequest) {
     if (searchText) {
       filterObj['title'] = { $regex: String(searchText), $options: 'i' }; // Filter by job title
     }
+    if (jobCategory) {
+      filterObj['jobCategory'] = { $regex: String(jobCategory), $options: 'i' }; // filter by job Category
+    }
     if (location) {
       filterObj['location'] = { $regex: String(location), $options: 'i' }; // Filter by location
     }
 
     // Fetch jobs from the database and always populate the user field
+
     const jobs = await Job.find(filterObj)
       .populate({
         path: 'user',

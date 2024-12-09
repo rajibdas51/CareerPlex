@@ -13,6 +13,7 @@ import Header from '@/components/Header';
 import PublicLayout from '@/components/layouts/PublicLayout';
 import Hero from '@/components/Hero';
 import JobList from '@/components/JobList';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <div className='w-full flex items-center flex-col '>
         <Hero />
         <JobList />
+        <Footer />
       </div>
     </PublicLayout>
   );

@@ -5,6 +5,11 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import JobCard from './JobCard';
+interface FilterType {
+  searchText: string;
+  location: string;
+  jobCategory: string;
+}
 
 const JobList = () => {
   const [jobs, setJobs] = useState<JobType[]>([]); // Use the Job type for state
@@ -30,14 +35,8 @@ const JobList = () => {
   return (
     <div
       className='container-xl lg:container 
-    mx-auto justify-center items-center'
+    mx-auto justify-center items-center mb-10'
     >
-      <div className='w-full flex items-center justify-center'>
-        <h1 className='text-gray-800 text-2xl md:text-4xl font-bold my-10 mx-auto items-center'>
-          Featured jobs
-        </h1>
-      </div>
-
       <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
         {jobs.map((job) => (
           <div
