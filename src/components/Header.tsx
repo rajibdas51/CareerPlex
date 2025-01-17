@@ -30,7 +30,7 @@ const Header = () => {
     { name: 'Contact Us', href: '/contact' },
   ];
   const profileMenu = [
-    { name: 'Profile', href: '/dashboard' },
+    { name: 'Profile', href: '/dashboard/profile' },
     { name: 'saved', href: '/dashboard/saved' },
   ];
   const mobileMenu = [
@@ -71,7 +71,7 @@ const Header = () => {
     if (user) {
       setUser(user);
     }
-  }, [pathname, currentUser]);
+  }, [pathname]);
 
   return (
     !isDashboard && (
