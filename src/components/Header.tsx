@@ -31,6 +31,7 @@ const Header = () => {
   ];
   const profileMenu = [
     { name: 'Profile', href: '/dashboard/profile' },
+    { name: 'Dashboard', href: '/dashboard/' },
     { name: 'saved', href: '/dashboard/saved' },
   ];
   const mobileMenu = [
