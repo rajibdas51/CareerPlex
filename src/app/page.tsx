@@ -22,7 +22,10 @@ export default function Home() {
       <div className='w-full flex items-center flex-col '>
         <Hero />
         <PopularJobCategoires />
-        <div>
+        <div className='container-xl lg:container max-7xl mx-auto'>
+          <h1 className='text-2xl md:text-3xl text-center py-6 mb-10 font-bold'>
+            Popular Jobs
+          </h1>
           <JobList />
         </div>
 

@@ -33,11 +33,11 @@ const PopularJobCategoires = () => {
   ];
 
   return (
-    <div className='my-4 mb-20'>
+    <div className='my-4 mb-20 container-xl lg:container max-7xl mx-auto'>
       <h1 className='text-2xl lg:text-3xl font-bold text-center py-8 pb-12'>
         Popular Job Categories
       </h1>
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-10 '>
+      <div className='grid grid-cols-1 md:grid-cols-4 gap-x-10 gap-y-10 '>
         {jobsCategory.map((category) => (
           <div
             className='border rounded-md flex flex-row gap-6 items-center justify-around py-6 px-6 cursor-pointer hover:bg-teal-500 group'
