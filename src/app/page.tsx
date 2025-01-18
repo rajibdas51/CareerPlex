@@ -14,13 +14,18 @@ import PublicLayout from '@/components/layouts/PublicLayout';
 import Hero from '@/components/Hero';
 import JobList from '@/components/JobList';
 import Footer from '@/components/Footer';
+import PopularJobCategoires from '@/components/PopularJobCategoires';
 
 export default function Home() {
   return (
     <PublicLayout>
       <div className='w-full flex items-center flex-col '>
         <Hero />
-        <JobList />
+        <PopularJobCategoires />
+        <div>
+          <JobList />
+        </div>
+
         <Footer />
       </div>
     </PublicLayout>
