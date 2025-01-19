@@ -15,6 +15,7 @@ import Hero from '@/components/Hero';
 import JobList from '@/components/JobList';
 import Footer from '@/components/Footer';
 import PopularJobCategoires from '@/components/PopularJobCategoires';
+import HowItWorks from '@/components/HowItWorks';
 
 export default function Home() {
   return (
@@ -31,7 +32,7 @@ export default function Home() {
           </p>
           <JobList />
         </div>
-
+        <HowItWorks />
         <Footer />
       </div>
     </PublicLayout>

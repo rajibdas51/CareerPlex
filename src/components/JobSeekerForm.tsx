@@ -74,7 +74,7 @@ const JobSeekerForm: React.FC<UserType> = ({ currentUser }) => {
             type='text'
             className='w-full px-3 py-2 border rounded-md'
             required
-            defaultValue={currentUser.name || ''}
+            defaultValue={currentUser?.name || ''}
           />
         </div>
         <div>
@@ -83,7 +83,7 @@ const JobSeekerForm: React.FC<UserType> = ({ currentUser }) => {
             type='email'
             className='w-full px-3 py-2 border rounded-md'
             required
-            defaultValue={currentUser.email || ''}
+            defaultValue={currentUser?.email || ''}
           />
         </div>
         <div>
@@ -97,7 +97,7 @@ const JobSeekerForm: React.FC<UserType> = ({ currentUser }) => {
             type='number'
             name='phone'
             className='w-full px-3 py-2 border rounded-md'
-            defaultValue={currentUser.phone || ''}
+            defaultValue={currentUser?.phone || ''}
           />
         </div>
         <div className='col-span-full'>
@@ -107,7 +107,7 @@ const JobSeekerForm: React.FC<UserType> = ({ currentUser }) => {
           <textarea
             rows={4}
             className='w-full px-3 py-2 border rounded-md'
-            defaultValue={currentUser.carrierObjective || ''}
+            defaultValue={currentUser?.carrierObjective || ''}
           ></textarea>
         </div>
       </div>
@@ -115,7 +115,7 @@ const JobSeekerForm: React.FC<UserType> = ({ currentUser }) => {
       {/* Education Section */}
       <div className='my-6'>
         <h2 className='text-lg font-semibold mb-4'>Education</h2>
-        {currentUser?.education.map((field, index) => (
+        {currentUser?.education.map((field: any, index: any) => (
           <div
             key={index}
             className='grid grid-cols-1 md:grid-cols-3 gap-4 mb-4'
