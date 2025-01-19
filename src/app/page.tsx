@@ -23,9 +23,12 @@ export default function Home() {
         <Hero />
         <PopularJobCategoires />
         <div className='container-xl lg:container max-7xl mx-auto'>
-          <h1 className='text-2xl md:text-3xl text-center py-6 mb-10 font-bold'>
-            Popular Jobs
+          <h1 className='text-2xl md:text-3xl text-center py-6 mb-0 font-bold'>
+            Featured Jobs
           </h1>
+          <p className=' text-center mb-12 text-gray-700'>
+            Know your worth and find the job that qualify your life
+          </p>
           <JobList />
         </div>
 
