@@ -36,24 +36,22 @@ const HowItWorks = () => {
           best talent. Join thousands of professionals building their careers
           with us.
         </p>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-8 my-4'>
           {steps.map((step, index) => (
             <div
               key={index}
-              className='bg-white rounded-lg shadow-md p-6 text-center group hover:bg-teal-500 transition duration-300'
+              className='bg-white hover:rounded-lg hover:shadow-md p-6 text-center group  transition duration-300'
             >
-              <div className='text-5xl text-teal-500 group-hover:text-white mb-6 flex items-center justify-center text-center'>
+              <div className='text-3xl text-teal-500  mb-6 flex items-center justify-center text-center bg-teal-100 w-20 h-20 rounded-md  mx-auto'>
                 {step.icon}
               </div>
-              <h3 className='text-xl font-semibold text-gray-800 group-hover:text-white'>
+              <h3 className='text-xl font-semibold text-gray-800 '>
                 {step.title}
               </h3>
-              <p className='text-gray-600 group-hover:text-gray-100 my-4'>
-                {step.description}
-              </p>
+              <p className='text-gray-600  my-4'>{step.description}</p>
               <a
                 href={step.link}
-                className='text-teal-500 group-hover:text-white font-medium inline-flex items-center'
+                className='text-teal-500  font-medium inline-flex items-center'
               >
                 Read More <span className='ml-2'>→</span>
               </a>
