@@ -1,17 +1,5 @@
 import React from 'react';
-
-interface EmployerFormProps {
-  currentUser: {
-    name?: string;
-    email?: string;
-    phone?: string;
-    establishmentYear?: number;
-    website?: string;
-    companySize?: number;
-    about?: string;
-    address?: string;
-  };
-}
+import { EmployerFormProps } from '@/types/types';
 
 const EmployerForm: React.FC<EmployerFormProps> = ({ currentUser }) => {
   return (
@@ -48,7 +36,7 @@ const EmployerForm: React.FC<EmployerFormProps> = ({ currentUser }) => {
             id='email'
             name='email'
             defaultValue={currentUser.email || ''}
-            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 rounded-md shadow-sm outline-none focus:border-[#00ae94]'
+            className='w-full  border p-2 px-3 rounded-md shadow-sm  border-gray-300 outline-none focus:border-[#00ae94]'
             required
           />
         </div>

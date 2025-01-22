@@ -1,39 +1,13 @@
 import { UserType } from '@/types/types';
 import React, { useState } from 'react';
-interface JobSeekerFormProps {
-  currentUser: {
-    name: string;
-    email: string;
-    phone: string;
-    carrierObjective: string;
-    education: {
-      qualification: string;
-      institution: string;
-      percentage: string;
-    }[];
-    skills: { technology: string; rating: string }[];
-    experience: { company: string; role: string; period: string }[];
-  };
-}
-// Define types for the form fields
-interface EducationField {
-  qualification: string;
-  institution: string;
-  result: string;
-}
+import {
+  JobSeekerFormProps,
+  EducationField,
+  SkillField,
+  ExperienceField,
+} from '@/types/types';
 
-interface SkillField {
-  technology: string;
-  rating: string;
-}
-
-interface ExperienceField {
-  company: string;
-  role: string;
-  period: string;
-}
-
-const JobSeekerForm: React.FC<UserType> = ({ currentUser }) => {
+const JobSeekerForm: React.FC<JobSeekerFormProps> = ({ currentUser }) => {
   // State definitions with proper types
   const [educationFields, setEducationFields] = useState<EducationField[]>([
     { qualification: '', institution: '', result: '' },
@@ -107,7 +81,7 @@ const JobSeekerForm: React.FC<UserType> = ({ currentUser }) => {
           <textarea
             rows={4}
             className='w-full px-3 py-2 border rounded-md'
-            defaultValue={currentUser?.carrierObjective || ''}
+            defaultValue={currentUser?.careerObjective || ''}
           ></textarea>
         </div>
       </div>
@@ -115,7 +89,7 @@ const JobSeekerForm: React.FC<UserType> = ({ currentUser }) => {
       {/* Education Section */}
       <div className='my-6'>
         <h2 className='text-lg font-semibold mb-4'>Education</h2>
-        {currentUser?.education.map((field: any, index: any) => (
+        {currentUser?.education?.map((field: any, index: any) => (
           <div
             key={index}
             className='grid grid-cols-1 md:grid-cols-3 gap-4 mb-4'

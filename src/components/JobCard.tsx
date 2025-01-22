@@ -39,7 +39,11 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
         <Image
           src={job.user?.avatar}
           alt={job.user?.name}
-          style={{ marginRight: 8, borderRadius: '50%' }}
+          style={{
+            marginRight: 8,
+            borderRadius: '50%',
+            border: '1px solid gray;',
+          }}
           width={50}
           height={50}
         />
@@ -71,15 +75,12 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
       </div>
       <div className='flex flex-row justify-between'></div>
       <div className='flex felx-row justify-between py-2'>
-        <p
-          className='rounded-md px-2 text-[#02221d]'
-          style={{ background: 'rgba(62, 200, 179, 0.222)' }}
-        >
+        <p className='rounded-md px-2 text-orange-500 bg-orange-50'>
           {' '}
           {job.jobType}
         </p>
-        <p>
-          <span className='text-[#005548]'>$</span>
+        <p className='text-indigo-500 bg-indigo-50 px-2 rounded-md'>
+          <span>$</span>
           {job.salaryFromRange}-{job.salaryToRange}/mo
         </p>
       </div>
