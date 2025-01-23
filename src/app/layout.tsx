@@ -10,6 +10,7 @@ import LayoutProvider from '@/components/LayoutProvider';
 import RootLayoutProvider from '@/components/layouts/RootLayout';
 import ReduxProvider from '@/components/ReduxProvider';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'CareerPlex',
@@ -34,6 +35,7 @@ export default function RootLayout({
           <Header />
           {children}
           <ToastContainer />
+          <Footer />
         </RootLayoutProvider>
       </body>
     </html>
