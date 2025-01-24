@@ -27,7 +27,7 @@ const ContactPage = () => {
 
   return (
     <div className='flex justify-center py-12 items-center'>
-      <div className='w-full max-w-6xl  text-black p-8 rounded-md md:my-4'>
+      <div className='w-full max-w-6xl  text-black p-8 rounded-md md:mt-4'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
           <div>
             <Image

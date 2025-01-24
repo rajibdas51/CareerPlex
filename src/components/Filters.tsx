@@ -5,12 +5,10 @@ const Filters = ({
   filters,
   setFilters,
   getData,
-  url,
 }: {
   filters: any;
   setFilters: any;
   getData: any;
-  url: any;
 }) => {
   return (
     <div className='flex  gap-3 my-3 items-center'>
