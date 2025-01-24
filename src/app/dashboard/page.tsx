@@ -35,6 +35,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     fetchJobs();
   }, [filters]);
+  console.log(currentUser);
 
   return (
     <div className='space-y-6'>

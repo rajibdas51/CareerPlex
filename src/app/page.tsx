@@ -33,7 +33,6 @@ export default function Home() {
           <JobList />
         </div>
         <HowItWorks />
-        <Footer />
       </div>
     </PublicLayout>
   );
