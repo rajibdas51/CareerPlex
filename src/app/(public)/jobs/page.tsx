@@ -59,7 +59,6 @@ const JobsPage = ({
           filters={filters}
           setFilters={setFilters}
           getData={fetchJobs}
-          url='/'
         />
         {/* Job Listings */}
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>

@@ -15,14 +15,29 @@ import { FaLocationArrow, FaSearchLocation } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
 import { FiPhone } from 'react-icons/fi';
 import { MdOutlineEmail } from 'react-icons/md';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 const ContactPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ name, email, message });
+    try {
+      const response = await axios.post('/api/contact', {
+        name,
+        email,
+        message,
+      });
+      setName('');
+      setEmail('');
+      setMessage('');
+      toast.success('Message sent successfully! we will get back to you soon.');
+    } catch (error) {
+      console.error('Submission error', error);
+      toast.error('Failed to send message. Please try again!');
+    }
   };
 
   return (
