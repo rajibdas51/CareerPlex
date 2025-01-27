@@ -16,6 +16,7 @@ import JobList from '@/components/JobList';
 import Footer from '@/components/Footer';
 import PopularJobCategoires from '@/components/PopularJobCategoires';
 import HowItWorks from '@/components/HowItWorks';
+import CareerOpportunities from '@/components/CareerOpportunities';
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
           </p>
           <JobList />
         </div>
+        <CareerOpportunities />
         <HowItWorks />
       </div>
     </PublicLayout>
