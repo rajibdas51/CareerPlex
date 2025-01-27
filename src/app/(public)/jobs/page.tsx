@@ -26,7 +26,7 @@ const JobsPage = ({
   const [filters, setFilters] = useState<FilterType>({
     searchText: '',
     location: location || '',
-    jobCategory: jobCategory || '',
+    jobCategory: jobCategory || 'ALL',
   });
   const { currentUser } = useSelector((state: any) => state.users);
   const router = useRouter();
