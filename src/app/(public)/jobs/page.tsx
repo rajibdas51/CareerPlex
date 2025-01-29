@@ -26,7 +26,7 @@ const JobsPage = ({
   const [filters, setFilters] = useState<FilterType>({
     searchText: '',
     location: location || '',
-    jobCategory: jobCategory || 'ALL',
+    jobCategory: jobCategory || '',
   });
   const { currentUser } = useSelector((state: any) => state.users);
   const router = useRouter();
@@ -55,6 +55,7 @@ const JobsPage = ({
     <section>
       <div className='container-xl lg:container mx-auto py-4'>
         {/* Filters Component */}
+
         <Filters
           filters={filters}
           setFilters={setFilters}

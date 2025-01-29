@@ -39,12 +39,12 @@ const Filters = ({
           name='jobCategory'
           id='jobCategory'
           className=' w-full px-4 py-4 border md:border-none rounded-full bg-white text-gray-800 focus:outline-none  '
-          value={filters.jobCategory}
+          value={filters.jobCategory || ''}
           onChange={(e) =>
             setFilters({ ...filters, jobCategory: e.target.value })
           }
         >
-          <option value='All'>All</option>
+          <option value=''>All</option>
           <option value='Software Development'>Software Development</option>
           <option value='Web Development'>Web Development</option>
           <option value='IT'>IT</option>

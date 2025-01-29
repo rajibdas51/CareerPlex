@@ -42,7 +42,7 @@ const HowItWorks = () => {
               key={index}
               className='bg-white hover:rounded-lg hover:shadow-md p-6 text-center group  transition duration-300'
             >
-              <div className='text-3xl text-teal-500  mb-6 flex items-center justify-center text-center bg-teal-100 w-20 h-20 rounded-md  mx-auto'>
+              <div className='text-3xl text-teal-500  mb-6 flex items-center justify-center text-center bg-teal-100 w-16 h-16 rounded-md  mx-auto'>
                 {step.icon}
               </div>
               <h3 className='text-xl font-semibold text-gray-800 '>
