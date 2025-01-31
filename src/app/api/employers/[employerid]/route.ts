@@ -4,10 +4,9 @@ import User from '@/models/userModel';
 
 connectDb();
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, { params }: any) {
   try {
-    const { employerId } = request.params;
-    const employer = await User.findById(employerId).select('-password');
+    const employer = await User.findById(params.employerid).select('-password');
 
     if (!employer) {
       return NextResponse.json(
@@ -16,7 +15,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    return NextResponse.json(employer);
+    return NextResponse.json({ data: employer });
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
