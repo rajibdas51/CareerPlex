@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       }
     );
 
-    console.log('Generated Token:', token); // Debug token generation
+    //console.log('Generated Token:', token); // Debug token generation
 
     const response = NextResponse.json(
       {

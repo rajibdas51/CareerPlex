@@ -69,7 +69,7 @@ const ContactPage = () => {
                   name='name'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className='bg-[#F0F5F7] border-gray-600 text-white rounded-md py-2 px-3 w-full focus:outline-none focus:ring-1 focus:ring-[#00ae94]'
+                  className='bg-[#F0F5F7] border-gray-600 text-gray-800 rounded-md py-2 px-3 w-full focus:outline-none focus:ring-1 focus:ring-[#00ae94]'
                   required
                 />
               </div>

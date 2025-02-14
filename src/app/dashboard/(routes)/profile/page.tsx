@@ -17,7 +17,7 @@ const Profile: React.FC = () => {
   const { currentUser } = useSelector(
     (state: { users: { currentUser: UserType } }) => state.users
   );
-  console.log(currentUser);
+  console.log(currentUser?.avatar);
   const [avatarImage, setAvatarImage] = useState<string>(
     currentUser?.avatar || ''
   );
@@ -50,49 +50,53 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div className='space-y-6'>
-      <PageTitle title='Profile' />
+    <div>
+      {currentUser && (
+        <div className='space-y-6'>
+          <PageTitle title='Profile' />
 
-      {/* Avatar Section */}
-      <div className='flex justify-start items-center gap-5'>
-        <Image
-          src={avatarImage || '/company-default.svg'}
-          alt='avatar'
-          width={100}
-          height={100}
-          className='rounded-full'
-        />
-        <UploadButton
-          endpoint='imageUploader'
-          className='upload-btn'
-          onClientUploadComplete={(res) => {
-            // Do something with the response
-            setAvatarImage(res[0].url);
-          }}
-          onUploadError={(error: Error) => {
-            // Do something with the error.
-            alert(`ERROR! ${error.message}`);
-          }}
-        />
-      </div>
+          {/* Avatar Section */}
+          <div className='flex justify-start items-center gap-5'>
+            <Image
+              src={currentUser.avatar || avatarImage || '/company-default.svg'}
+              alt='avatar'
+              width={100}
+              height={100}
+              className='rounded-full'
+            />
+            <UploadButton
+              endpoint='imageUploader'
+              className='upload-btn'
+              onClientUploadComplete={(res) => {
+                // Do something with the response
+                setAvatarImage(res[0].url);
+              }}
+              onUploadError={(error: Error) => {
+                // Do something with the error.
+                alert(`ERROR! ${error.message}`);
+              }}
+            />
+          </div>
 
-      {/* Form Section */}
-      <form onSubmit={onFinish} className='space-y-4'>
-        {currentUser?.userType === 'employer' ? (
-          <EmployerForm currentUser={currentUser} />
-        ) : (
-          <JobSeekerForm currentUser={currentUser} />
-        )}
+          {/* Form Section */}
+          <form onSubmit={onFinish} className='space-y-4'>
+            {currentUser?.userType === 'employer' ? (
+              <EmployerForm currentUser={currentUser} />
+            ) : (
+              <JobSeekerForm currentUser={currentUser} />
+            )}
 
-        <div className='flex justify-start'>
-          <button
-            type='submit'
-            className='px-6 py-2 bg-[#00ae94] text-white rounded-md'
-          >
-            Save
-          </button>
+            <div className='flex justify-start'>
+              <button
+                type='submit'
+                className='px-6 py-2 bg-[#00ae94] text-white rounded-md'
+              >
+                Save
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      )}
     </div>
   );
 };

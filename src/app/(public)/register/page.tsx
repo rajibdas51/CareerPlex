@@ -4,6 +4,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setLoading } from '@/redux/loadersSlice';
+import { useRouter } from 'next/navigation';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Register = () => {
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
+  const router = useRouter();
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -29,6 +30,7 @@ const Register = () => {
       const response = await axios.post('/api/users/register', formData);
       setSuccess(response.data.message);
       setError('');
+      router.push('/login');
     } catch (error: any) {
       setSuccess('');
       setError(error.response?.data?.message || 'Something went wrong!');
