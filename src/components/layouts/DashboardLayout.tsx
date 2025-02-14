@@ -103,7 +103,9 @@ export default function DashboardLayout({
       <Sidebar
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
-        menuItems={menuItems}
+        menuItems={
+          currentUser?.userType == 'jobSeeker' ? menuItems : employerMenu
+        }
         logOut={logOut}
       />
       <main className='flex-1 overflow-y-auto p-6 bg-gray-100'>{children}</main>

@@ -58,16 +58,36 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({
           onChange={handleChange}
         >
           <option value='IT'>IT</option>
-          <option value='Software Development'>Software Development</option>
-          <option value='Web Development'>Web Development</option>
-          <option value='Graphic Design'>Graphic Design</option>
-          <option value='AI/ML Engineer'>AI/ML Engineer</option>
-          <option value='Finance and Accounting'>Finance & Accounting</option>
-          <option value='Healthcare'>Healthcare</option>
-          <option value='Education'>Education</option>
-          <option value='Construction'>Construction</option>
-          <option value='Marketing'>Marketing</option>
-          <option value='Others'>Others</option>
+          <option className='hover:bg-primary' value='Software Development'>
+            Software Development
+          </option>
+          <option className='hover:bg-primary' value='Web Development'>
+            Web Development
+          </option>
+          <option className='hover:bg-primary' value='Graphic Design'>
+            Graphic Design
+          </option>
+          <option className='hover:bg-primary' value='AI/ML Engineer'>
+            AI/ML Engineer
+          </option>
+          <option className='hover:bg-primary' value='Finance and Accounting'>
+            Finance & Accounting
+          </option>
+          <option className='hover:bg-primary' value='Healthcare'>
+            Healthcare
+          </option>
+          <option className='hover:bg-primary' value='Education'>
+            Education
+          </option>
+          <option className='hover:bg-primary' value='Construction'>
+            Construction
+          </option>
+          <option className='hover:bg-primary' value='Marketing'>
+            Marketing
+          </option>
+          <option className='hover:bg-primary' value='Others'>
+            Others
+          </option>
         </select>
       </div>
 

@@ -72,8 +72,45 @@ body {
   cursor: pointer;
 }
 
-@media screen (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .search-container {
     border-radius: 0px 10px 0px 10px;
   }
+}
+
+select option:hover,
+select option:focus,
+select option:active,
+select option:checked {
+  background: #00ae94 !important;
+  background-color: #00ae94 !important;
+  color: white !important;
+}
+
+/* Or if you want to match your site's color exactly: */
+select option:hover {
+  background-color: #00ae94 !important;
+  color: white !important;
+}
+
+select option:hover,
+select option:focus,
+select option:active {
+  background: #00ae94 linear-gradient(0deg, #00ae94 0%, #00ae94 100%) !important;
+  background-color: #00ae94 !important;
+}
+
+select:-internal-list-box option:checked,
+select:-internal-list-box option:hover {
+  background-color: #00ae94 !important;
+  color: white !important;
+  -webkit-appearance: none;
+}
+
+select option:checked,
+select option:hover {
+  box-shadow: 0 0 10px 100px #00ae94 inset !important;
+}
+select.decorated option:hover {
+  box-shadow: 0 0 10px 100px #00ae94 inset;
 }
