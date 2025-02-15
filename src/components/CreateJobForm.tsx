@@ -67,6 +67,9 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({
           <option className='hover:bg-primary' value='Graphic Design'>
             Graphic Design
           </option>
+          <option className='hover:bg-primary' value='Video Editing'>
+            Video Editing
+          </option>
           <option className='hover:bg-primary' value='AI/ML Engineer'>
             AI/ML Engineer
           </option>

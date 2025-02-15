@@ -62,6 +62,7 @@ const JobSchema = new mongoose.Schema(
         'Software Development',
         'Web Development',
         'Graphic Design',
+        'Video Editing',
         'AI/ML Engineer',
         'Finance',
         'Healthcare',
