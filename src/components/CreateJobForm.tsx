@@ -53,7 +53,7 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({
         <select
           name='jobCategory'
           required
-          className='w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-[#00ae94]'
+          className='select-wrapper w-full border border-gray-300 focus:ring-teal-500 rounded px-3 py-2 focus:outline-none focus:border-[#00ae94]'
           value={formValues?.jobCategory || ''}
           onChange={handleChange}
         >

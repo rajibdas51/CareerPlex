@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Applications from '@/components/Applications';
+import { toast } from 'react-toastify';
 
 interface Job {
   _id: string;
@@ -43,7 +44,7 @@ function Jobs() {
     try {
       dispatch(setLoading(true));
       const res = await axios.delete(`/api/jobs/${id}`);
-      alert(res.data.message);
+      toast.success(res.data.message);
       fetchJobs();
     } catch (error: any) {
       alert(error?.response?.data?.message || error.message);

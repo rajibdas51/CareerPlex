@@ -19,7 +19,7 @@ function NewJob() {
 
       const res = await axios.post('/api/jobs', values);
       toast.success(res.data.message); // Replace Ant Design message.success
-      router.push('/jobs');
+      router.push('/dashboard/jobs');
     } catch (error: any) {
       toast.error(error.message); // Replace Ant Design message.error
     } finally {
