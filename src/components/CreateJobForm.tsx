@@ -29,7 +29,7 @@ const CreateJobForm: React.FC<CreateJobFormProps> = ({
   };
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+    <div className='createjob grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
       {/* Job Title */}
       <div className='col-span-3'>
         <label htmlFor='title' className='block text-sm font-medium mb-1'>

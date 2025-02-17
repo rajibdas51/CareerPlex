@@ -1,4 +1,7 @@
+import { UserType } from './../types/types';
+
 import { createSlice } from '@reduxjs/toolkit';
+
 const usersSlice = createSlice({
   name: 'users',
   initialState: {
@@ -7,6 +10,7 @@ const usersSlice = createSlice({
   reducers: {
     setCurrentUser: (state, action) => {
       state.currentUser = action.payload;
+      //ensure arrays are properly set
     },
     logOut: (state) => {
       state.currentUser = null;

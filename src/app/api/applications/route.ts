@@ -12,11 +12,11 @@ export async function POST(request: NextRequest) {
     const application: any = await Application.create(reqBody);
 
     const applicationData: any = await Application.findById(application._id)
-      .populate('user')
+      .populate('user') // This is the jobseeker
       .populate({
         path: 'job',
         populate: {
-          path: 'user',
+          path: 'user', // this is the employer
         },
       });
 
@@ -46,6 +46,7 @@ export async function GET(request: NextRequest) {
   try {
     validateJWT(request);
     // fetch query string parameters from the request
+
     const searchParams = new URL(request.url);
     const user = searchParams.searchParams.get('user');
     const job = searchParams.searchParams.get('job');
@@ -65,7 +66,7 @@ export async function GET(request: NextRequest) {
         },
       });
     return NextResponse.json({
-      message: 'ApplicationDatas fetched successfully!',
+      message: 'ApplicationData fetched successfully!',
       data: applications,
     });
     revalidatePath('/');

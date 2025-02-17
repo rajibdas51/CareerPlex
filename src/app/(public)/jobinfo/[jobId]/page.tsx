@@ -66,7 +66,7 @@ function JobData() {
   {
     /* convert date*/
   }
-  console.log(jobData?.workMode);
+
   if (jobData?.createdAt) {
     const createdAtDate =
       typeof jobData.createdAt === 'string'

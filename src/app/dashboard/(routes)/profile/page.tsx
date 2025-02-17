@@ -5,22 +5,24 @@ import JobSeekerForm from '@/components/JobSeekerForm';
 import Image from 'next/image';
 import PageTitle from '@/components/PageTitle';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading } from '@/redux/loadersSlice';
 import { setCurrentUser } from '@/redux/usersSlice';
 import { UploadButton } from '@/utils/uploadthing';
 import { toast } from 'react-toastify';
 import { UserType } from '@/types/types';
+import { fetchCurrentUser } from '@/lib/auth';
 
 const Profile: React.FC = () => {
   const { currentUser } = useSelector(
     (state: { users: { currentUser: UserType } }) => state.users
   );
-  console.log(currentUser?.avatar);
+
   const [avatarImage, setAvatarImage] = useState<string>(
     currentUser?.avatar || ''
   );
+
   const dispatch = useDispatch();
 
   const onFinish = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,7 +41,7 @@ const Profile: React.FC = () => {
         values[key] = value;
       });
 
-      const response = await axios.put('/api/users', values);
+      const response = await axios.put('/api/users', formData);
       dispatch(setCurrentUser(response.data.data));
       toast.success('Profile updated successfully!');
     } catch (error: any) {
@@ -48,6 +50,10 @@ const Profile: React.FC = () => {
       dispatch(setLoading(false));
     }
   };
+
+  useEffect(() => {
+    fetchCurrentUser(dispatch);
+  }, []);
 
   return (
     <div>
@@ -58,7 +64,7 @@ const Profile: React.FC = () => {
           {/* Avatar Section */}
           <div className='flex justify-start items-center gap-5'>
             <Image
-              src={currentUser.avatar || avatarImage || '/company-default.svg'}
+              src={currentUser?.avatar || avatarImage || '/company-default.svg'}
               alt='avatar'
               width={100}
               height={100}

@@ -8,6 +8,7 @@ import {
 } from '@/types/types';
 
 const JobSeekerForm: React.FC<JobSeekerFormProps> = ({ currentUser }) => {
+  //console.log(currentUser);
   // State definitions with proper types
   const [educationFields, setEducationFields] = useState<EducationField[]>([
     { qualification: '', institution: '', result: '' },
@@ -155,7 +156,7 @@ const JobSeekerForm: React.FC<JobSeekerFormProps> = ({ currentUser }) => {
       {/* Skills Section */}
       <div className='my-6'>
         <h2 className='text-lg font-semibold mb-4'>Skills</h2>
-        {skillsFields.map((field, index) => (
+        {currentUser?.skills?.map((field, index) => (
           <div key={index} className='grid grid-cols-2 gap-4 mb-4'>
             <input
               type='text'
@@ -211,7 +212,7 @@ const JobSeekerForm: React.FC<JobSeekerFormProps> = ({ currentUser }) => {
       {/* Experience Section */}
       <div className='my-6'>
         <h2 className='text-lg font-semibold mb-4'>Experience</h2>
-        {experienceFields.map((field, index) => (
+        {currentUser.experience?.map((field, index) => (
           <div key={index} className='grid grid-cols-3 gap-4 mb-4'>
             <input
               type='text'

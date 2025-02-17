@@ -1,18 +1,10 @@
-// types.ts
-
 // Base User interface for minimal user information
 export interface User {
   _id: string;
   userType: string;
   name: string;
   email: string;
-  about: string;
-  address: string;
-  companySize: string;
-  establishmentYear: string;
-  phone: string;
-  website: string;
-  avatar: string;
+  avatar?: string;
 }
 
 // Complete UserType interface with all user properties
@@ -29,7 +21,7 @@ export interface UserType {
   phone?: string;
   avatar?: string;
 
-  // Optional fields that might be used by either type
+  // Optional fields for Employers
   about?: string;
   address?: string;
   companySize?: string;
@@ -38,10 +30,11 @@ export interface UserType {
 
   // JobSeeker specific fields
   careerObjective?: string;
-  education?: Array<EducationField>;
-  skills?: Array<SkillField>;
-  experience?: Array<ExperienceField>;
+  education?: EducationField[];
+  skills?: SkillField[];
+  experience?: ExperienceField[];
 }
+
 // Job Type interface
 export interface JobType {
   _id: string;

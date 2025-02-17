@@ -69,7 +69,6 @@ export default function DashboardLayout({
       path: '/dashboard/settings',
       icon: 'ri-settings-5-line',
     },
-    { name: 'Saved', path: '/dashboard/saved', icon: 'ri-save-3-fill' },
   ]);
 
   const logOut = async () => {

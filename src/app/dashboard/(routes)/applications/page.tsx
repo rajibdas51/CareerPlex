@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import moment from 'moment';
 import { setLoading } from '@/redux/loadersSlice';
 import PageTitle from '@/components/PageTitle';
+import { fetchCurrentUser } from '@/lib/auth';
 
 interface Application {
   _id: string;
@@ -25,12 +26,16 @@ const Applications: React.FC = () => {
   const { currentUser } = useSelector((state: any) => state.users);
   const dispatch = useDispatch();
   const router = useRouter();
-
+  console.log(currentUser);
   const fetchApplications = async () => {
     try {
       dispatch(setLoading(true));
-      const res = await axios.get(`/api/applications?user=${currentUser._id}`);
-      setApplications(res.data.data);
+      if (currentUser) {
+        const res = await axios.get(
+          `/api/applications?user=${currentUser?._id}`
+        );
+        setApplications(res.data.data);
+      }
     } catch (error: any) {
       console.error(error);
     } finally {
@@ -39,6 +44,7 @@ const Applications: React.FC = () => {
   };
 
   useEffect(() => {
+    fetchCurrentUser(dispatch);
     fetchApplications();
   }, []);
 
@@ -75,14 +81,16 @@ const Applications: React.FC = () => {
             {applications.length > 0 ? (
               applications.map((application) => (
                 <tr key={application._id} className='border-b hover:bg-gray-50'>
-                  <td className='p-3 text-gray-700'>{application._id}</td>
-                  <td className='p-3 text-gray-700'>{application.job.title}</td>
+                  <td className='p-3 text-gray-700'>{application?._id}</td>
                   <td className='p-3 text-gray-700'>
-                    {application.job.user.name}
+                    {application?.job?.title}
                   </td>
-                  <td className='p-3 text-gray-700'>{application.status}</td>
                   <td className='p-3 text-gray-700'>
-                    {moment(application.createdAt).format('DD/MM/YY')}
+                    {application?.job?.user?.name}
+                  </td>
+                  <td className='p-3 text-gray-700'>{application?.status}</td>
+                  <td className='p-3 text-gray-700'>
+                    {moment(application?.createdAt).format('DD/MM/YY')}
                   </td>
                 </tr>
               ))

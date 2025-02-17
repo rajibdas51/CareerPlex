@@ -18,7 +18,9 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const user = await User.findById(userId).select('-password');
+    const user = await User.findById(userId).select('-password').lean();
+
+    console.log(user);
     if (!user) {
       return NextResponse.json(
         { message: 'User not Found', data: null },

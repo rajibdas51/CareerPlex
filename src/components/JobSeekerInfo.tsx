@@ -96,13 +96,13 @@ const JobSeekerInfo: React.FC<JobSeekerInfoProps> = ({ jobSeekerInfo }) => {
               </tr>
             </thead>
             <tbody>
-              {jobSeekerInfo.skills.map((skill, idx) => (
-                <tr key={idx} className='even:bg-gray-50'>
+              {jobSeekerInfo?.skills?.map((skill, index) => (
+                <tr key={index} className='even:bg-gray-50'>
                   <td className='border border-gray-200 px-4 py-2'>
-                    {skill.technology}
+                    {skill?.technology}
                   </td>
                   <td className='border border-gray-200 px-4 py-2'>
-                    {skill.rating}
+                    {skill?.rating}
                   </td>
                 </tr>
               ))}
@@ -130,7 +130,7 @@ const JobSeekerInfo: React.FC<JobSeekerInfoProps> = ({ jobSeekerInfo }) => {
               </tr>
             </thead>
             <tbody>
-              {jobSeekerInfo.experience.map((exp, idx) => (
+              {jobSeekerInfo?.experience?.map((exp, idx) => (
                 <tr key={idx} className='even:bg-gray-50'>
                   <td className='border border-gray-200 px-4 py-2'>
                     {exp.company}
