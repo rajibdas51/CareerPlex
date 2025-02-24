@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema(
     avatar: { type: String },
     isAdmin: { type: Boolean, required: true, default: false },
     phone: { type: String },
+    savedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'jobs' }],
     skills: [
       {
         technology: { type: String, required: true },

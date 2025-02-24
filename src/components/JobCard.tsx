@@ -11,9 +11,11 @@ import {
   FaArrowRight,
   FaClock,
   FaLocationArrow,
+  FaSave,
 } from 'react-icons/fa';
 import { SpanStatus } from 'next/dist/trace';
 import Link from 'next/link';
+import { BsBookmarkHeartFill } from 'react-icons/bs';
 
 interface JobCardProps {
   job: {
@@ -34,40 +36,56 @@ interface JobCardProps {
 
 const JobCard: React.FC<JobCardProps> = ({ job }) => {
   return (
-    <div className='bg-white shadow-md border border-gray-250 hover:border-teal-500 rounded-md p-3'>
-      <div className='flex flex-col'>
-        <Link href={`/jobs/${job._id}`} className='text-xl font-bold'>
-          {job.title}
-        </Link>
-        <p className='py-2'>
-          <FaClock className='inline-block text-[#00ae94]' /> Posted 2 days ago
-        </p>
+    <div className='bg-white shadow-md border  cursor-pointer border-gray-250 hover:border-teal-500 rounded-md p-3'>
+      <div className='flex flex-row justify-between'>
+        <div>
+          <Link href={`/jobs/${job._id}`} className='text-xl font-bold'>
+            {job.title}
+          </Link>
+          <div className='flex flex-row items-center'>
+            <Image
+              src={job.user?.avatar}
+              alt={job.user?.name}
+              style={{
+                marginRight: 8,
+                borderRadius: '50%',
+                border: '1px solid gray;',
+              }}
+              width={50}
+              height={50}
+            />{' '}
+            <h3 className='font-bold'>{job.user.name}</h3>
+          </div>
+        </div>
+
+        <div>
+          {' '}
+          <div className='flex flex-row justify-between gap-4'>
+            <div>
+              {' '}
+              <span
+                style={{ background: 'rgba(62, 200, 179, 0.222)' }}
+                className='inline-block px-1.5 rounded-md text-[#0d322c]'
+              >
+                {job.workMode}
+              </span>
+            </div>
+
+            <div>
+              <BsBookmarkHeartFill className='text-2xl text-[#00ae94] hover:text-[#0c9681] ' />
+            </div>
+          </div>
+        </div>
       </div>
       <div className='flex flex-row justify-between py-3'>
-        <Image
-          src={job.user?.avatar}
-          alt={job.user?.name}
-          style={{
-            marginRight: 8,
-            borderRadius: '50%',
-            border: '1px solid gray;',
-          }}
-          width={50}
-          height={50}
-        />
-
         <div className='flex flex-col'>
-          <h3 className=''>{job.user.name}</h3>
-
           <p>
-            <FaLocationDot className='inline-block   text-[#00ae94]' />{' '}
+            <FaLocationDot className='inline-block    text-[#ffaf1a]' />{' '}
             {job.location}
           </p>
         </div>
-        <div></div>
       </div>
 
-      <div className='flex flex-row justify-between'></div>
       <div className='flex felx-row justify-between py-2'>
         <p className='rounded-md px-2 text-orange-500 bg-orange-50'>
           {' '}
@@ -77,19 +95,17 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
           <span>$</span>
           {job.salaryFromRange}-{job.salaryToRange}/mo
         </p>
-        <div>
-          <span
-            style={{ background: 'rgba(62, 200, 179, 0.222)' }}
-            className='inline-block px-1.5 rounded-md text-[#0d322c]'
-          >
-            {job.workMode}
-          </span>
-        </div>
       </div>
-      <div className='flex items-center justify-center cursor-pointer py-3'>
+      <div className='flex items-center justify-between cursor-pointer py-3'>
+        <div>
+          <p className='py-2'>
+            <FaClock className='inline-block text-[#00ae94]' /> Posted 2 days
+            ago
+          </p>
+        </div>
         <Link
           href={job.jobUrl}
-          className='text-[#00ae94] px-2 py-1 rounded-md font-bold'
+          className='text-[#00ae94] px-2 py-1 rounded-md font-bold border border-teal-500'
         >
           Job details
           <FaArrowRight className='inline-block ml-1 ' />
