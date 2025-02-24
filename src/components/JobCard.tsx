@@ -34,7 +34,15 @@ interface JobCardProps {
 
 const JobCard: React.FC<JobCardProps> = ({ job }) => {
   return (
-    <div className='bg-white shadow-md border border-gray-250 rounded-md p-3'>
+    <div className='bg-white shadow-md border border-gray-250 hover:border-teal-500 rounded-md p-3'>
+      <div className='flex flex-col'>
+        <Link href={`/jobs/${job._id}`} className='text-xl font-bold'>
+          {job.title}
+        </Link>
+        <p className='py-2'>
+          <FaClock className='inline-block text-[#00ae94]' /> Posted 2 days ago
+        </p>
+      </div>
       <div className='flex flex-row justify-between py-3'>
         <Image
           src={job.user?.avatar}
@@ -56,23 +64,9 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
             {job.location}
           </p>
         </div>
-        <div>
-          <span
-            style={{ background: 'rgba(62, 200, 179, 0.222)' }}
-            className='inline-block px-1.5 rounded-md text-[#0d322c]'
-          >
-            {job.workMode}
-          </span>
-        </div>
+        <div></div>
       </div>
-      <div className='flex flex-col'>
-        <Link href={`/jobs/${job._id}`} className='text-xl font-bold'>
-          {job.title}
-        </Link>
-        <p className='py-2'>
-          <FaClock className='inline-block text-[#00ae94]' /> Posted 2 days ago
-        </p>
-      </div>
+
       <div className='flex flex-row justify-between'></div>
       <div className='flex felx-row justify-between py-2'>
         <p className='rounded-md px-2 text-orange-500 bg-orange-50'>
@@ -83,6 +77,14 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
           <span>$</span>
           {job.salaryFromRange}-{job.salaryToRange}/mo
         </p>
+        <div>
+          <span
+            style={{ background: 'rgba(62, 200, 179, 0.222)' }}
+            className='inline-block px-1.5 rounded-md text-[#0d322c]'
+          >
+            {job.workMode}
+          </span>
+        </div>
       </div>
       <div className='flex items-center justify-center cursor-pointer py-3'>
         <Link

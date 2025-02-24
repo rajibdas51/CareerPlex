@@ -23,7 +23,7 @@ export async function GET(request: NextRequest, { params }: any) {
   }
 }
 
-export async function PUT(request: NextRequest) {
+export async function PUT(request: NextRequest, { params }: any) {
   try {
     // validate JWT and get user ID
     const userId = await validateJWT(request);
@@ -34,6 +34,7 @@ export async function PUT(request: NextRequest) {
     // parse the request
     const body = await request.json();
 
+    console.log('received body:', body);
     // update the user
     const updatedUser = await User.findByIdAndUpdate(userId, body, {
       new: true,
