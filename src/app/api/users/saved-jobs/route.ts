@@ -4,6 +4,30 @@ import User from '@/models/userModel';
 import { NextRequest, NextResponse } from 'next/server';
 connectDb();
 
+export async function GET(request: NextRequest) {
+  try {
+    const userId = await validateJWT(request);
+    if (!userId) {
+      return NextResponse.json(
+        { message: 'Unauthorized User!' },
+        { status: 401 }
+      );
+    }
+    const user = await User.findById(userId).populate('savedJobs');
+    if (!user) {
+      return NextResponse.json(
+        { message: ' User not Found!' },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json({ savedJobs: user.savedJobs });
+  } catch (error: any) {
+    return NextResponse.json({
+      message: error.message || 'Failed to fetch saved jobs!',
+    });
+  }
+}
+
 export async function PUT(request: NextRequest) {
   try {
     const userId = await validateJWT(request);
