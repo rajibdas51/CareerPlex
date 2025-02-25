@@ -1,6 +1,7 @@
 import { connectDb } from '@/config/dbConfig';
 import { validateJWT } from '@/helpers/validateJWT';
 import User from '@/models/userModel';
+import Job from '@/models/jobModel';
 import { NextRequest, NextResponse } from 'next/server';
 connectDb();
 
@@ -13,18 +14,30 @@ export async function GET(request: NextRequest) {
         { status: 401 }
       );
     }
-    const user = await User.findById(userId).populate('savedJobs');
+
+    const user = await User.findById(userId).populate({
+      path: 'savedJobs',
+      model: 'jobs',
+      populate: { path: 'user', model: 'users', select: 'name avatar' }, // Populate employer info
+    });
     if (!user) {
       return NextResponse.json(
         { message: ' User not Found!' },
         { status: 404 }
       );
     }
-    return NextResponse.json({ savedJobs: user.savedJobs });
-  } catch (error: any) {
     return NextResponse.json({
-      message: error.message || 'Failed to fetch saved jobs!',
+      message: 'Saved jobs fetched successfully!',
+      savedJobs: user.savedJobs,
     });
+  } catch (error: any) {
+    console.error('Error fetching saved jobs:', error.message);
+    return NextResponse.json(
+      {
+        message: error.message,
+      },
+      { status: 500 }
+    );
   }
 }
 

@@ -32,7 +32,7 @@ interface JobCardProps {
     salaryToRange: number;
     jobType: string;
     workMode: string;
-    jobUrl?: string;
+    jobUrl: string;
     user: {
       name: string;
       avatar: string;
@@ -42,7 +42,7 @@ interface JobCardProps {
   fetchSavedJobs?: () => void;
 }
 
-const JobCard: React.FC<JobCardProps> = ({
+const SavedJobCard: React.FC<JobCardProps> = ({
   job,
   savedJobs = [],
   fetchSavedJobs,
@@ -143,7 +143,7 @@ const JobCard: React.FC<JobCardProps> = ({
           </p>
         </div>
         <Link
-          href={job?.jobUrl || `/jobinfo/${job._id}`}
+          href={job.jobUrl}
           className='text-[#00ae94] px-2 py-1 rounded-md font-bold border border-teal-500'
         >
           Job details
@@ -154,4 +154,4 @@ const JobCard: React.FC<JobCardProps> = ({
   );
 };
 
-export default JobCard;
+export default SavedJobCard;

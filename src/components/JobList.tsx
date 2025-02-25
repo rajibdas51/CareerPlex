@@ -33,10 +33,10 @@ const JobList = () => {
   // fetch saved jobs
   const fetchSavedJobs = async () => {
     try {
-      const res = await axios.get('/api/users/saved-jobs');
+      const res = await axios.get('/api/saved-jobs');
       setSavedJobs(res.data.savedJobs);
     } catch (error: any) {
-      console.error(error.data.message || 'Failed to fetch saved jobs!');
+      console.error(error?.data?.message || 'Failed to fetch saved jobs!');
     }
   };
   useEffect(() => {
