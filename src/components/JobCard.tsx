@@ -54,17 +54,20 @@ const JobCard: React.FC<JobCardProps> = ({
 
   const handleSaveJob = async (e: React.MouseEvent) => {
     e.stopPropagation(); // prevent parent click event
-
+    setIsSaved((prev) => !prev);
     try {
-      const { data } = await axios.put('/api/users/saved-jobs', {
+      const { data } = await axios.put('/api/saved-jobs', {
         jobId: job._id,
       });
 
       fetchSavedJobs?.();
       toast.success(data.message);
     } catch (error: any) {
+      setIsSaved((prev) => !prev);
       console.error('Error saving job:', error);
-      toast.error(error.response?.data?.message);
+      toast.error(
+        error.response?.data?.message || ' failed to update save job status'
+      );
     }
   };
   return (

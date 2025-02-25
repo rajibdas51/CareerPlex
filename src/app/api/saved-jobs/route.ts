@@ -66,10 +66,15 @@ export async function PUT(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
+    // check if job is already saved
+    const isSaved = user.savedJobs?.some(
+      (id: string) => id.toString() === jobId
+    );
 
-    const isSaved = user.savedJobs?.includes(jobId);
     if (isSaved) {
-      user.savedJobs = user.savedJobs.filter((id: String) => id !== jobId);
+      user.savedJobs = user.savedJobs.filter(
+        (id: string) => id.toString() !== jobId
+      );
     } else {
       user.savedJobs = [...(user.savedJobs || []), jobId];
     }
