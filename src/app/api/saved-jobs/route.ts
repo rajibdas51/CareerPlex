@@ -4,7 +4,7 @@ import User from '@/models/userModel';
 import Job from '@/models/jobModel';
 import { NextRequest, NextResponse } from 'next/server';
 connectDb();
-
+export const runtime = 'nodejs';
 export async function GET(request: NextRequest) {
   try {
     const userId = await validateJWT(request);

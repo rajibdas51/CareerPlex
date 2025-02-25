@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+
 interface FilterType {
   searchText: string;
   location: string;
@@ -76,7 +77,9 @@ const JobsPage = ({
                 workMode: job.workMode,
                 user: {
                   name: job.user.name,
-                  avatar: job.user.avatar,
+                  avatar:
+                    job.user.avatar ||
+                    '../../../../public/images/default-profile.png',
                 },
                 jobUrl: `/jobinfo/${job._id}`,
               }}

@@ -38,8 +38,9 @@ const PopularJobCategoires = () => {
         Popular Job Categories
       </h1>
       <div className='grid grid-cols-1 md:grid-cols-4 gap-x-10 gap-y-10 '>
-        {jobsCategory.map((category) => (
+        {jobsCategory.map((category, index) => (
           <div
+            key={index}
             className='border rounded-md flex flex-row gap-6 items-center justify-around py-6 px-6 cursor-pointer hover:bg-teal-500 group'
             onClick={() =>
               router.push(
