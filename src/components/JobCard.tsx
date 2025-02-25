@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
   FaLocationDot,
@@ -15,7 +15,13 @@ import {
 } from 'react-icons/fa';
 import { SpanStatus } from 'next/dist/trace';
 import Link from 'next/link';
-import { BsBookmarkHeartFill } from 'react-icons/bs';
+import {
+  BsBookmarkHeartFill,
+  BsBookmarkHeart,
+  BsBookmark,
+} from 'react-icons/bs';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface JobCardProps {
   job: {
@@ -32,9 +38,35 @@ interface JobCardProps {
       avatar: string;
     };
   };
+  savedJobs?: string[];
+  fetchSavedJobs?: () => void;
 }
 
-const JobCard: React.FC<JobCardProps> = ({ job }) => {
+const JobCard: React.FC<JobCardProps> = ({
+  job,
+  savedJobs = [],
+  fetchSavedJobs,
+}) => {
+  const [isSaved, setIsSaved] = useState(savedJobs.includes(job._id));
+  useEffect(() => {
+    setIsSaved(savedJobs.includes(job._id));
+  }, [savedJobs]);
+
+  const handleSaveJob = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // prevent parent click event
+
+    try {
+      const { data } = await axios.put('/api/users/saved-jobs', {
+        jobId: job._id,
+      });
+
+      fetchSavedJobs?.();
+      toast.success(data.message);
+    } catch (error: any) {
+      console.error('Error saving job:', error);
+      toast.error(error.response?.data?.message);
+    }
+  };
   return (
     <div className='bg-white shadow-md border  cursor-pointer border-gray-250 hover:border-teal-500 rounded-md p-3'>
       <div className='flex flex-row justify-between'>
@@ -70,10 +102,17 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
                 {job.workMode}
               </span>
             </div>
-
-            <div>
-              <BsBookmarkHeartFill className='text-2xl text-[#00ae94] hover:text-[#0c9681] ' />
-            </div>
+            {/*Save job icon */}
+            <button
+              onClick={handleSaveJob}
+              className='text-2xl text-[#00ae94] hover:text-[#0c9681]'
+            >
+              {isSaved ? (
+                <BsBookmarkHeartFill className='text-2xl text-[#00ae94] hover:text-[#0c9681] ' />
+              ) : (
+                <BsBookmark className='text-2xl text-[#00ae94] hover:text-[#0c9681] ' />
+              )}{' '}
+            </button>
           </div>
         </div>
       </div>

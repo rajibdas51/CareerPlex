@@ -13,10 +13,11 @@ interface FilterType {
 
 const JobList = () => {
   const [jobs, setJobs] = useState<JobType[]>([]); // Use the Job type for state
+  const [savedJobs, setSavedJobs] = useState<string[]>([]);
 
   const router = useRouter();
   const dispatch = useDispatch();
-
+  // fetch jobs
   const fetchJobs = async () => {
     try {
       dispatch(setLoading(true));
@@ -29,8 +30,18 @@ const JobList = () => {
     }
   };
 
+  // fetch saved jobs
+  const fetchSavedJobs = async () => {
+    try {
+      const res = await axios.get('/api/users/saved-jobs');
+      setSavedJobs(res.data.savedJobs);
+    } catch (error: any) {
+      console.error(error.data.message || 'Failed to fetch saved jobs!');
+    }
+  };
   useEffect(() => {
     fetchJobs();
+    fetchSavedJobs();
   }, []);
   return (
     <div
@@ -57,9 +68,11 @@ const JobList = () => {
 
                 user: {
                   name: job.user.name,
-                  avatar: job.user.avatar,
+                  avatar: job?.user?.avatar || '',
                 },
               }}
+              savedJobs={savedJobs}
+              fetchSavedJobs={fetchSavedJobs}
             />
           </div>
         ))}

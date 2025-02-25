@@ -7,7 +7,17 @@ connectDb();
 export async function PUT(request: NextRequest) {
   try {
     const userId = await validateJWT(request);
+
+    if (!userId) {
+      return NextResponse.json(
+        {
+          message: 'Unauthorized user. Please login to save jobs.',
+        },
+        { status: 401 }
+      );
+    }
     const { jobId } = await request.json();
+
     if (!jobId) {
       return NextResponse.json(
         { message: 'Job ID is required!' },
@@ -15,24 +25,27 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const user = await User.findById({ userId });
+    const user = await User.findById(userId);
+    if (!user) {
+      return NextResponse.json({ message: 'User not found' }, { status: 404 });
+    }
 
-    const isSaved = user.savedJobs.includes(jobId);
+    const isSaved = user.savedJobs?.includes(jobId);
     if (isSaved) {
-      user.savedJobs = user.savedJobs.filter(
-        (id: String) => id.toString() !== jobId
-      );
+      user.savedJobs = user.savedJobs.filter((id: String) => id !== jobId);
     } else {
-      user.savedJobs.push(jobId);
+      user.savedJobs = [...(user.savedJobs || []), jobId];
     }
 
     await user.save();
 
-    NextResponse.json({
+    // The issue is right here - you forgot to return the response
+    return NextResponse.json({
       message: isSaved ? 'Job removed from Saved!' : 'Job saved Successfully!',
       savedJobs: user.savedJobs,
     });
   } catch (error: any) {
+    console.error('Server error:', error);
     return NextResponse.json(
       {
         message: error.message || 'Something went Wrong!',

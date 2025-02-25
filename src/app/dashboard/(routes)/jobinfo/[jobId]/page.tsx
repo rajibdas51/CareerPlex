@@ -51,7 +51,7 @@ function JobData() {
   const router = useRouter();
   let formattedDate = 'N/A'; // Default value if `createdAt` is undefined
 
-  console.log(currentUser);
+  //console.log(currentUser);
   const fetchJob = async () => {
     try {
       dispatch(setLoading(true));
@@ -66,7 +66,7 @@ function JobData() {
   {
     /* convert date*/
   }
-  console.log(jobData?.workMode);
+
   if (jobData?.createdAt) {
     const createdAtDate =
       typeof jobData.createdAt === 'string'
